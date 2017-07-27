@@ -1,0 +1,23 @@
+{
+  "name": "e-syndic",
+  "version": "1.0.0",
+  "description": "An application for condos to manage their residents, vehicles, recreation areas and so on",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vverzellesi/e-syndic.git"
+  },
+  "author": "Victor Bitelman Verzellesi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vverzellesi/e-syndic/issues"
+  },
+  "homepage": "https://github.com/vverzellesi/e-syndic#readme",
+  "dependencies": {
+    "ejs": "^2.5.6",
+    "express": "^4.15.3"
+  }
+}
