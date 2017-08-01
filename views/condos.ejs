@@ -1,0 +1,11 @@
+<% include partials/header %>
+
+<h1>List of Condos</h1>
+
+<a href="/condos/new">Add a New Condo</a>
+
+<% condos.forEach(function(condo) { %>
+<li> <%= condo.name %> - <strong><%= condo.towers %></strong> </li>
+<% }) %>
+
+<% include partials/footer %>
