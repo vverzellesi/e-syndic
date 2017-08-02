@@ -1,14 +1,27 @@
 <% include partials/header %>
 
-<h1>New Condo</h1>
-<form action="/condos" method="post">
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center;">Create a New Condo</h1>
+        <div style="width: 30%; margin: 20px auto;">
+            <form action="/condos" method="post">
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Name" name="name">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Address" name="address">
+                </div>    
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Numer of Towers" name="towers">
+                </div>    
+                <div class="form-group">
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">
+                </div>
+            </form>
+            <a href="/condos">Go Back</a>
+        </div>
+    </div>
+</div>
 
-<input type="text" name="name" placeholder="Name">
-<input type="text" name="towers" placeholder="Number of Towers">
-<input type="submit" value="Submit">
-
-</form>
-
-<a href="/condos">Go Back</a>
 
 <% include partials/footer %>

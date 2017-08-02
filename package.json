@@ -18,7 +18,9 @@
   "homepage": "https://github.com/vverzellesi/e-syndic#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "dotenv": "^4.0.0",
     "ejs": "^2.5.6",
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "mongoose": "^4.11.5"
   }
 }
