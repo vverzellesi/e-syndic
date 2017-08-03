@@ -82,9 +82,9 @@ app.get('/towers', function(req, res) {
 });
 
 app.post('/towers', function(req, res) {
-    var name = req.params.name;
-    var floors = req.params.floors;
-    var apartmentsPerFloor = req.params.apartmentsPerFloor;
+    var name = req.body.name;
+    var floors = req.body.floors;
+    var apartmentsPerFloor = req.body.apartmentsPerFloor;
     var newTower = {
         name: name,
         floors: floors,
@@ -95,6 +95,7 @@ app.post('/towers', function(req, res) {
         if (err) {
             console.log(err);
         } else {
+            console.log(name, floors, apartmentsPerFloor);
             res.send(createdTower);
         }
     })
