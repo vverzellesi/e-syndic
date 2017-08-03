@@ -95,7 +95,6 @@ app.post('/towers', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            console.log(name, floors, apartmentsPerFloor);
             res.send(createdTower);
         }
     })
