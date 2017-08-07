@@ -76,10 +76,14 @@ app.get('/towers', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.send(allTowers);
+            res.render('towers', { towers: allTowers });
         }
     })
 });
+
+app.get('/towers/new', function(req, res) {
+    res.render('new-tower');
+})
 
 app.post('/towers', function(req, res) {
     var name = req.body.name;
@@ -95,7 +99,7 @@ app.post('/towers', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.send(createdTower);
+            res.redirect('/towers');
         }
     })
 });

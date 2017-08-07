@@ -1,0 +1,15 @@
+<% include partials/header %>
+
+<h1>List of Towers</h1>
+
+<a href="/towers/new">Add a New Tower</a>
+
+<% towers.forEach(function(tower) { %>
+  <li><strong>Tower: <%= tower.name %></strong>
+    <li>Floors: <%= tower.floors %></li>
+    <li>Apartments Per Floor: <%= tower.apartmentsPerFloor %></li>
+    <br>
+  </li>
+<% }) %>
+
+<% include partials/footer %>
