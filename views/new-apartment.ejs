@@ -1,0 +1,27 @@
+<% include partials/header %>
+
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center;">Create a New Apartment</h1>
+        <div style="width: 30%; margin: 20px auto;">
+            <form action="/apartments" method="post">
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Number" name="number">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Floor" name="floor">
+                </div>    
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Dwellers" name="dwellers">
+                </div>    
+                <div class="form-group">
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">
+                </div>
+            </form>
+            <a href="/condos">Go Back</a>
+        </div>
+    </div>
+</div>
+
+
+<% include partials/footer %>
