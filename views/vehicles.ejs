@@ -1,0 +1,11 @@
+<% include partials/header %>
+
+<h1>List of Vehicles</h1>
+
+<a href="/vehicles/new">Add a New Vehicle</a>
+
+<% vehicles.forEach(function(vehicle) { %>
+<li> <a href="/vehicles/<%= vehicle._id %>">+ </a> Brand: <%= vehicle.brand %> - Model: <%= vehicle.model%></strong> </li>
+<% }) %>
+
+<% include partials/footer %>

@@ -219,7 +219,41 @@ app.get('/dwellers/:id', function(req, res) {
             res.render('show-dweller', { dweller: foundDweller });
         }
     });
-})
+});
+
+app.get('/vehicles', function(req, res) {
+    Vehicle.find({}, function(err, allvehicles) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('vehicles', { vehicles: allvehicles });
+        }
+    });
+});
+
+app.get('/vehicles/new', function(req, res) {
+    res.render('new-vehicle');
+});
+
+app.post('/vehicles', function(req, res) {
+    Vehicle.create(req.body.vehicle, function(err, newVehicle) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/vehicles');
+        }
+    });
+});
+
+app.get('/vehicles/:id', function(req, res) {
+    Vehicle.findById(req.params.id, function(err, foundVehicle) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('show-vehicle', { vehicle: foundVehicle });
+        }
+    });
+});
 
 app.get('*', function(req, res) {
     res.send('This page does not exist!');
