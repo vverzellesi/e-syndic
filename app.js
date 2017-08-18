@@ -2,7 +2,8 @@ var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
-    dotenv = require('dotenv').config();
+    dotenv = require('dotenv').config(),
+    methodOverride = require('method-override');
 
 mongoose.connect(process.env.DB_URL, { useMongoClient: true });
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,9 +28,30 @@ var apartmentSchema = new mongoose.Schema({
     dwellers: String
 });
 
+var vehicleSchema = new mongoose.Schema({
+    brand: String,
+    model: String,
+    plate: String,
+    color: String,
+    apartmentOwner: String
+});
+
+var dwellerSchema = new mongoose.Schema({
+    name: String,
+    tower: String,
+    apartmentNumber: Number,
+    cpf: Number,
+    rg: String,
+    birthday: String,
+    phone: String,
+    email: String
+});
+
 var Condo = mongoose.model('Condo', condoSchema);
 var Tower = mongoose.model('Tower', towerSchema);
 var Apartment = mongoose.model('Apartment', apartmentSchema);
+var Vehicle = mongoose.model('Vehicle', vehicleSchema);
+var Dweller = mongoose.model('Dweller', dwellerSchema);
 
 app.get('/', function(req, res) {
     res.render('landing');
@@ -161,6 +183,40 @@ app.get('/apartments/:id', function(req, res) {
             console.log(err);
         } else {
             res.render('show-apartment', { apartment: foundApartment });
+        }
+    });
+})
+
+app.get('/dwellers', function(req, res) {
+    Dweller.find({}, function(err, allDwellers) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('dwellers', { dwellers: allDwellers });
+        }
+    });
+});
+
+app.post('/dwellers', function(req, res) {
+    Dweller.create(req.body.dweller, function(err, newDweller) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/dwellers');
+        }
+    });
+});
+
+app.get('/dwellers/new', function(req, res) {
+    res.render('new-dweller');
+});
+
+app.get('/dwellers/:id', function(req, res) {
+    Dweller.findById(req.params.id, function(err, foundDweller) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('show-dweller', { dweller: foundDweller });
         }
     });
 })
