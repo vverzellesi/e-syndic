@@ -1,11 +1,16 @@
 <% include partials/header %>
 
-<h1>List of Condos</h1>
+<div class="container">
 
-<a href="/condos/new">Add a New Condo</a>
 
-<% condos.forEach(function(condo) { %>
-<li> <a href="/condos/<%= condo._id %>">+ </a> <%= condo.name %> (<%= condo.address%>) - <strong><%= condo.towers %></strong> </li>
-<% }) %>
+  <h1>List of Condos</h1>
+
+  <a href="/condos/new" class="btn btn-sm btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Add a New Condo</a>
+
+  <% condos.forEach(function(condo) { %>
+  <li> <a href="/condos/<%= condo._id %>"><i class="fa fa-info" aria-hidden="true"></i> </a> <%= condo.name %> (<%= condo.address%>) - <strong><%= condo.towers %></strong> </li>
+  <% }) %>
+
+</div>
 
 <% include partials/footer %>

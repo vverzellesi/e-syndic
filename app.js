@@ -9,6 +9,7 @@ mongoose.connect(process.env.DB_URL, { useMongoClient: true });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
+app.use(methodOverride('_method'));
 
 var condoSchema = new mongoose.Schema({
     name: String,
@@ -99,6 +100,26 @@ app.get('/condos/:id', function(req, res) {
         }
     })
 });
+
+app.get('/condos/:id/edit', function(req, res) {
+    Condo.findById(req.params.id, function(err, foundCondo) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('edit-condo', { condo: foundCondo });
+        }
+    });
+});
+
+app.put('/condos/:id', function(req, res) {
+    Condo.findByIdAndUpdate(req.params.id, req.body.condo, function(err, updatedCondo) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/condos/' + req.params.id);
+        }
+    });
+})
 
 app.get('/towers', function(req, res) {
     Tower.find({}, function(err, allTowers) {
@@ -254,6 +275,11 @@ app.get('/vehicles/:id', function(req, res) {
         }
     });
 });
+
+
+app.get('/dashboard', function(req, res) {
+    res.render('dashboard');
+})
 
 app.get('*', function(req, res) {
     res.send('This page does not exist!');
