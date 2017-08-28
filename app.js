@@ -3,56 +3,18 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     dotenv = require('dotenv').config(),
-    methodOverride = require('method-override');
+    methodOverride = require('method-override'),
+    Condo = require('./models/condo'),
+    Tower = require('./models/tower'),
+    Apartment = require('./models/apartment'),
+    Vehicle = require('./models/vehicle'),
+    Dweller = require('./models/dweller');
 
 mongoose.connect(process.env.DB_URL, { useMongoClient: true });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
-
-var condoSchema = new mongoose.Schema({
-    name: String,
-    address: String,
-    towers: Number
-});
-
-var towerSchema = new mongoose.Schema({
-    name: String,
-    floors: Number,
-    apartmentsPerFloor: Number
-});
-
-var apartmentSchema = new mongoose.Schema({
-    number: Number,
-    floor: Number,
-    dwellers: String
-});
-
-var vehicleSchema = new mongoose.Schema({
-    brand: String,
-    model: String,
-    plate: String,
-    color: String,
-    apartmentOwner: String
-});
-
-var dwellerSchema = new mongoose.Schema({
-    name: String,
-    tower: String,
-    apartmentNumber: Number,
-    cpf: Number,
-    rg: String,
-    birthday: String,
-    phone: String,
-    email: String
-});
-
-var Condo = mongoose.model('Condo', condoSchema);
-var Tower = mongoose.model('Tower', towerSchema);
-var Apartment = mongoose.model('Apartment', apartmentSchema);
-var Vehicle = mongoose.model('Vehicle', vehicleSchema);
-var Dweller = mongoose.model('Dweller', dwellerSchema);
 
 app.get('/', function(req, res) {
     res.render('landing');
