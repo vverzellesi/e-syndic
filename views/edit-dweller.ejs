@@ -1,0 +1,41 @@
+<% include partials/header %>
+
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center;">Edit Tower <%= dweller.name %></h1>
+        <div style="width: 30%; margin: 20px auto;">
+            <form action="/dwellers/<%= dweller._id %>?_method=PUT" method="post">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="dweller[name]" value="<%= dweller.name %>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="dweller[tower]" value="<%= dweller.tower %>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="dweller[apartmentNumber]" value="<%= dweller.apartmentNumber %>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="dweller[cpf]" value="<%= dweller.cpf %>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="dweller[rg]" value="<%= dweller.rg %>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="dweller[birthday]" value="<%= dweller.birthday %>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="dweller[phone]" value="<%= dweller.phone %>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="dweller[email]" value="<%= dweller.email %>">
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">
+                </div>
+            </form>
+            <a href="/dwellers">Go Back</a>
+        </div>
+    </div>
+</div>
+
+<% include partials/footer %>

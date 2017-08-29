@@ -1,0 +1,32 @@
+<% include partials/header %>
+
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center;">Edit Vehicle <%= vehicle.brand %></h1>
+        <div style="width: 30%; margin: 20px auto;">
+            <form action="/vehicles/<%= vehicle._id %>?_method=PUT" method="post">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="vehicle[brand]" value="<%= vehicle.brand %>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="vehicle[model]" value="<%= vehicle.model %>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="vehicle[plate]" value="<%= vehicle.plate %>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="vehicle[color]" value="<%= vehicle.color %>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="vehicle[apartmentOwner]" value="<%= vehicle.apartmentOwner %>">
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">
+                </div>
+            </form>
+            <a href="/vehicles">Go Back</a>
+        </div>
+    </div>
+</div>
+
+<% include partials/footer %>
