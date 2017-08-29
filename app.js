@@ -81,7 +81,7 @@ app.put('/condos/:id', function(req, res) {
             res.redirect('/condos/' + req.params.id);
         }
     });
-})
+});
 
 app.get('/towers', function(req, res) {
     Tower.find({}, function(err, allTowers) {
@@ -122,6 +122,26 @@ app.get('/towers/:id', function(req, res) {
             console.log(err);
         } else {
             res.render('show-tower', { tower: foundTower })
+        }
+    });
+});
+
+app.get('/towers/:id/edit', function(req, res) {
+    Tower.findById(req.params.id, function(err, foundTower) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('edit-tower', { tower: foundTower });
+        }
+    });
+});
+
+app.put('/towers/:id', function(req, res) {
+    Tower.findByIdAndUpdate(req.params.id, req.body.tower, function(err, updatedTower) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/towers/' + req.params.id);
         }
     });
 });
@@ -168,7 +188,28 @@ app.get('/apartments/:id', function(req, res) {
             res.render('show-apartment', { apartment: foundApartment });
         }
     });
-})
+});
+
+app.get('/apartments/:id/edit', function(req, res) {
+    Apartment.findById(req.params.id, function(err, foundApartment) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('edit-apartment', { apartment: foundApartment });
+        }
+    });
+});
+
+app.put('/apartments/:id', function(req, res) {
+    Apartment.findByIdAndUpdate(req.params.id, req.body.apartment, function(err, updatedApartment) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/apartments/' + req.params.id);
+        }
+    });
+});
+
 
 app.get('/dwellers', function(req, res) {
     Dweller.find({}, function(err, allDwellers) {
@@ -200,6 +241,26 @@ app.get('/dwellers/:id', function(req, res) {
             console.log(err);
         } else {
             res.render('show-dweller', { dweller: foundDweller });
+        }
+    });
+});
+
+app.get('/dwellers/:id/edit', function(req, res) {
+    Dweller.findById(req.params.id, function(err, foundDweller) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('edit-dweller', { dweller: foundDweller });
+        }
+    });
+});
+
+app.put('/dwellers/:id', function(req, res) {
+    Dweller.findByIdAndUpdate(req.params.id, req.body.dweller, function(err, updatedDweller) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/dwellers/' + req.params.id);
         }
     });
 });
@@ -238,6 +299,25 @@ app.get('/vehicles/:id', function(req, res) {
     });
 });
 
+app.get('/vehicles/:id/edit', function(req, res) {
+    Vehicle.findById(req.params.id, function(err, foundVehicle) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('edit-vehicle', { vehicle: foundVehicle });
+        }
+    });
+});
+
+app.put('/vehicles/:id', function(req, res) {
+    Vehicle.findByIdAndUpdate(req.params.id, req.body.vehicle, function(err, updatedVehicle) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/vehicles/' + req.params.id);
+        }
+    });
+});
 
 app.get('/dashboard', function(req, res) {
     res.render('dashboard');
