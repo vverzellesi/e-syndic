@@ -4,7 +4,13 @@
 
 <h3><%= condo.address %></h3>
 
-<h4>Number of Towers: <%= condo.towers %></h4>
+<h4Towers</h4>
+<% condo.towers.forEach(function(tower) { %>
+  <p>
+    <%= tower.name %> - <%= tower.floors %> - <%= tower.apartmentsPerFloor %>
+  </p>
+<% }) %>
+
 
 <a href="/condos/<%= condo._id %>/edit">Edit Condo</a> <br>
 <a href="/towers">List of Towers</a> <br>

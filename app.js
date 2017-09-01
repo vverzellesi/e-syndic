@@ -8,13 +8,16 @@ var express = require('express'),
     Tower = require('./models/tower'),
     Apartment = require('./models/apartment'),
     Vehicle = require('./models/vehicle'),
-    Dweller = require('./models/dweller');
+    Dweller = require('./models/dweller'),
+    seedDB = require('./seeds');
 
 mongoose.connect(process.env.DB_URL, { useMongoClient: true });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
+
+seedDB();
 
 app.get('/', function(req, res) {
     res.render('landing');
@@ -54,13 +57,14 @@ app.get('/condos/new', function(req, res) {
 });
 
 app.get('/condos/:id', function(req, res) {
-    Condo.findById(req.params.id, function(err, foundCondo) {
+    Condo.findById(req.params.id).populate('towers').exec(function(err, foundCondo) {
         if (err) {
             console.log(err);
         } else {
+            console.log(foundCondo);
             res.render('show-condo', { condo: foundCondo });
         }
-    })
+    });
 });
 
 app.get('/condos/:id/edit', function(req, res) {
