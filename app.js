@@ -97,21 +97,18 @@ app.get('/towers', function(req, res) {
     })
 });
 
-app.get('/towers/new', function(req, res) {
-    res.render('towers/new');
-})
+app.get('/condos/:id/towers/new', function(req, res) {
+    Condo.findById(req.params.id, function(err, condo) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('towers/new', { condo: condo });
+        }
+    });
+});
 
 app.post('/towers', function(req, res) {
-    var name = req.body.name;
-    var floors = req.body.floors;
-    var apartmentsPerFloor = req.body.apartmentsPerFloor;
-    var newTower = {
-        name: name,
-        floors: floors,
-        apartmentsPerFloor: apartmentsPerFloor
-    };
-
-    Tower.create(newTower, function(err, createdTower) {
+    Tower.create(req.body.tower, function(err, createdTower) {
         if (err) {
             console.log(err);
         } else {
@@ -125,7 +122,7 @@ app.get('/towers/:id', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('towers/show', { tower: foundTower })
+            res.render('towers/show', { tower: foundTower });
         }
     });
 });
@@ -151,7 +148,6 @@ app.put('/towers/:id', function(req, res) {
 });
 
 app.get('/apartments', function(req, res) {
-
     Apartment.find({}, function(err, apartments) {
         if (err) {
             console.log(err);
@@ -180,8 +176,14 @@ app.post('/apartments', function(req, res) {
     })
 });
 
-app.get('/apartments/new', function(req, res) {
-    res.render('apartments/new');
+app.get('/towers/:id/apartments/new', function(req, res) {
+    Tower.findById(req.params.id, function(err, tower) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('apartments/new', { tower: tower });
+        }
+    });
 });
 
 app.get('/apartments/:id', function(req, res) {
