@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 
 var Condo = require('./models/condo'),
-    Tower = require('./models/tower');
+    Tower = require('./models/tower'),
+    Apartment = require('./models/apartment');
 
 var data = [{
         name: 'Victor Condo',
@@ -33,18 +34,51 @@ function seedDB() {
                     } else {
                         console.log('added condo');
 
-                        // adding towers
-                        Tower.create({
-                            name: 'A',
-                            floors: 16,
-                            apartmentsPerFloor: 6
-                        }, function(err, tower) {
+                        // remove towers
+                        Tower.remove({}, function(err) {
                             if (err) {
                                 console.log(err);
                             } else {
-                                condo.towers.push(tower);
-                                condo.save();
-                                console.log('created new tower');
+                                console.log('removed towers');
+
+                                // add towers
+                                Tower.create({
+                                    name: 'A',
+                                    floors: 16,
+                                    apartmentsPerFloor: 6
+                                }, function(err, tower) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        condo.towers.push(tower);
+                                        condo.save();
+                                        console.log('created new tower');
+
+                                        // remove apartments
+                                        Apartment.remove({}, function(err) {
+                                            if (err) {
+                                                console.log(err);
+                                            } else {
+                                                console.log('removed apartments');
+
+                                                // add apartments
+                                                Apartment.create({
+                                                    number: 22,
+                                                    floor: 2,
+                                                    dwellers: 'Victor'
+                                                }, function(err, apartment) {
+                                                    if (err) {
+                                                        console.log(err);
+                                                    } else {
+                                                        tower.apartments.push(apartment);
+                                                        tower.save();
+                                                        console.log('created new apartment')
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
                             }
                         });
                     }

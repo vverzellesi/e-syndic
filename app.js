@@ -28,7 +28,7 @@ app.get('/condos', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('condos', { condos: allCondos });
+            res.render('condos/index', { condos: allCondos });
         }
     })
 });
@@ -53,7 +53,7 @@ app.post('/condos', function(req, res) {
 });
 
 app.get('/condos/new', function(req, res) {
-    res.render('new-condo');
+    res.render('condos/new');
 });
 
 app.get('/condos/:id', function(req, res) {
@@ -62,7 +62,7 @@ app.get('/condos/:id', function(req, res) {
             console.log(err);
         } else {
             console.log(foundCondo);
-            res.render('show-condo', { condo: foundCondo });
+            res.render('condos/show', { condo: foundCondo });
         }
     });
 });
@@ -72,7 +72,7 @@ app.get('/condos/:id/edit', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('edit-condo', { condo: foundCondo });
+            res.render('condos/edit', { condo: foundCondo });
         }
     });
 });
@@ -92,13 +92,13 @@ app.get('/towers', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('towers', { towers: allTowers });
+            res.render('towers/index', { towers: allTowers });
         }
     })
 });
 
 app.get('/towers/new', function(req, res) {
-    res.render('new-tower');
+    res.render('towers/new');
 })
 
 app.post('/towers', function(req, res) {
@@ -125,7 +125,7 @@ app.get('/towers/:id', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('show-tower', { tower: foundTower })
+            res.render('towers/show', { tower: foundTower })
         }
     });
 });
@@ -135,7 +135,7 @@ app.get('/towers/:id/edit', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('edit-tower', { tower: foundTower });
+            res.render('towers/edit', { tower: foundTower });
         }
     });
 });
@@ -156,7 +156,7 @@ app.get('/apartments', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('apartments', { apartments: apartments });
+            res.render('apartments/index', { apartments: apartments });
         }
     });
 });
@@ -181,7 +181,7 @@ app.post('/apartments', function(req, res) {
 });
 
 app.get('/apartments/new', function(req, res) {
-    res.render('new-apartment');
+    res.render('apartments/new');
 });
 
 app.get('/apartments/:id', function(req, res) {
@@ -189,7 +189,7 @@ app.get('/apartments/:id', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('show-apartment', { apartment: foundApartment });
+            res.render('apartments/show', { apartment: foundApartment });
         }
     });
 });
@@ -199,7 +199,7 @@ app.get('/apartments/:id/edit', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('edit-apartment', { apartment: foundApartment });
+            res.render('apartments/edit', { apartment: foundApartment });
         }
     });
 });
@@ -220,7 +220,7 @@ app.get('/dwellers', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('dwellers', { dwellers: allDwellers });
+            res.render('dwellers/index', { dwellers: allDwellers });
         }
     });
 });
@@ -236,7 +236,7 @@ app.post('/dwellers', function(req, res) {
 });
 
 app.get('/dwellers/new', function(req, res) {
-    res.render('new-dweller');
+    res.render('dwellers/new');
 });
 
 app.get('/dwellers/:id', function(req, res) {
@@ -244,7 +244,7 @@ app.get('/dwellers/:id', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('show-dweller', { dweller: foundDweller });
+            res.render('dwellers/show', { dweller: foundDweller });
         }
     });
 });
@@ -254,7 +254,7 @@ app.get('/dwellers/:id/edit', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('edit-dweller', { dweller: foundDweller });
+            res.render('dwellers/edit', { dweller: foundDweller });
         }
     });
 });
@@ -274,13 +274,13 @@ app.get('/vehicles', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('vehicles', { vehicles: allvehicles });
+            res.render('vehicles/vehicles', { vehicles: allvehicles });
         }
     });
 });
 
 app.get('/vehicles/new', function(req, res) {
-    res.render('new-vehicle');
+    res.render('vehicles/new');
 });
 
 app.post('/vehicles', function(req, res) {
@@ -298,7 +298,7 @@ app.get('/vehicles/:id', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('show-vehicle', { vehicle: foundVehicle });
+            res.render('vehicles/show', { vehicle: foundVehicle });
         }
     });
 });
@@ -308,7 +308,7 @@ app.get('/vehicles/:id/edit', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('edit-vehicle', { vehicle: foundVehicle });
+            res.render('vehicles/edit', { vehicle: foundVehicle });
         }
     });
 });
