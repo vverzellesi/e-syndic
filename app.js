@@ -17,7 +17,7 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
 
-seedDB();
+// seedDB();
 
 app.get('/', function(req, res) {
     res.render('landing');
@@ -34,22 +34,13 @@ app.get('/condos', function(req, res) {
 });
 
 app.post('/condos', function(req, res) {
-    var name = req.body.name;
-    var address = req.body.address;
-    var towers = req.body.towers;
-    var newCondo = {
-        name: name,
-        address: address,
-        towers: towers
-    };
-
-    Condo.create(newCondo, function(err, createdCondo) {
+    Condo.create(req.body.condo, function(err, createdCondo) {
         if (err) {
             console.log(err);
         } else {
             res.redirect('/condos');
         }
-    })
+    });
 });
 
 app.get('/condos/new', function(req, res) {
@@ -107,14 +98,22 @@ app.get('/condos/:id/towers/new', function(req, res) {
     });
 });
 
-app.post('/towers', function(req, res) {
-    Tower.create(req.body.tower, function(err, createdTower) {
+app.post('/condos/:id/towers', function(req, res) {
+    Condo.findById(req.params.id, function(err, condo) {
         if (err) {
             console.log(err);
         } else {
-            res.redirect('/towers');
+            Tower.create(req.body.tower, function(err, tower) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    condo.towers.push(tower);
+                    condo.save();
+                    res.redirect('/condos/' + condo._id);
+                }
+            });
         }
-    })
+    });
 });
 
 app.get('/towers/:id', function(req, res) {

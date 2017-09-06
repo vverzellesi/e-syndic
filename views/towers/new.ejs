@@ -4,7 +4,7 @@
     <div class="row">
         <h1 style="text-align: center;">Add New Tower to <%= condo.name %></h1>
         <div style="width: 30%; margin: 20px auto;">
-            <form action="/towers" method="post">
+            <form action="/condos/<%= condo._id %>/towers" method="post">
                 <div class="form-group">
                     <input class="form-control" type="text" placeholder="Name" name="tower[name]">
                 </div>
