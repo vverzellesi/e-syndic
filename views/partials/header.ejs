@@ -28,8 +28,13 @@
                     <li><a href="#">Contact</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Sign Up <i class="fa fa-user-plus"></i></a></li>
-                    <li><a href="#">Login <i class="fa fa-user"></i></a></li>
+                    <% if(!currentUser) { %>
+                        <li><a href="/register">Sign Up <i class="fa fa-user-plus"></i></a></li>
+                        <li><a href="/login">Login <i class="fa fa-user"></i></a></li>
+                    <% } else { %>
+                        <li><a href="#">Hello, <%= currentUser.username %></a></li>
+                        <li><a href="/logout">Logout <i class="fa fa-sign-out"></i></a></li>
+                    <% } %>
                 </ul>
             </div>
         </div>

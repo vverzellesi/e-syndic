@@ -4,6 +4,9 @@ var express = require('express'),
     mongoose = require('mongoose'),
     dotenv = require('dotenv').config(),
     methodOverride = require('method-override'),
+    passport = require('passport'),
+    LocalStrategy = require('passport-local'),
+    User = require('./models/user'),
     Condo = require('./models/condo'),
     Tower = require('./models/tower'),
     Apartment = require('./models/apartment'),
@@ -13,11 +16,29 @@ var express = require('express'),
 
 mongoose.connect(process.env.DB_URL, { useMongoClient: true });
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
 
 // seedDB();
+
+// PASSPORT CONFIG
+app.use(require('express-session')({
+    secret: 'E-syndic Application!',
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use(function(req, res, next) {
+    res.locals.currentUser = req.user;
+    next();
+});
 
 app.get('/', function(req, res) {
     res.render('landing');
@@ -33,7 +54,7 @@ app.get('/condos', function(req, res) {
     })
 });
 
-app.post('/condos', function(req, res) {
+app.post('/condos', isLoggedIn, function(req, res) {
     Condo.create(req.body.condo, function(err, createdCondo) {
         if (err) {
             console.log(err);
@@ -43,7 +64,7 @@ app.post('/condos', function(req, res) {
     });
 });
 
-app.get('/condos/new', function(req, res) {
+app.get('/condos/new', isLoggedIn, function(req, res) {
     res.render('condos/new');
 });
 
@@ -88,7 +109,7 @@ app.get('/towers', function(req, res) {
     })
 });
 
-app.get('/condos/:id/towers/new', function(req, res) {
+app.get('/condos/:id/towers/new', isLoggedIn, function(req, res) {
     Condo.findById(req.params.id, function(err, condo) {
         if (err) {
             console.log(err);
@@ -98,7 +119,7 @@ app.get('/condos/:id/towers/new', function(req, res) {
     });
 });
 
-app.post('/condos/:id/towers', function(req, res) {
+app.post('/condos/:id/towers', isLoggedIn, function(req, res) {
     Condo.findById(req.params.id, function(err, condo) {
         if (err) {
             console.log(err);
@@ -156,7 +177,7 @@ app.get('/apartments', function(req, res) {
     });
 });
 
-app.post('/apartments', function(req, res) {
+app.post('/apartments', isLoggedIn, function(req, res) {
     var number = req.body.number;
     var floor = req.body.floor;
     var dwellers = req.body.dwellers;
@@ -175,7 +196,7 @@ app.post('/apartments', function(req, res) {
     })
 });
 
-app.get('/towers/:id/apartments/new', function(req, res) {
+app.get('/towers/:id/apartments/new', isLoggedIn, function(req, res) {
     Tower.findById(req.params.id, function(err, tower) {
         if (err) {
             console.log(err);
@@ -216,7 +237,7 @@ app.put('/apartments/:id', function(req, res) {
 });
 
 
-app.get('/dwellers', function(req, res) {
+app.get('/dwellers', isLoggedIn, function(req, res) {
     Dweller.find({}, function(err, allDwellers) {
         if (err) {
             console.log(err);
@@ -226,7 +247,7 @@ app.get('/dwellers', function(req, res) {
     });
 });
 
-app.post('/dwellers', function(req, res) {
+app.post('/dwellers', isLoggedIn, function(req, res) {
     Dweller.create(req.body.dweller, function(err, newDweller) {
         if (err) {
             console.log(err);
@@ -280,11 +301,11 @@ app.get('/vehicles', function(req, res) {
     });
 });
 
-app.get('/vehicles/new', function(req, res) {
+app.get('/vehicles/new', isLoggedIn, function(req, res) {
     res.render('vehicles/new');
 });
 
-app.post('/vehicles', function(req, res) {
+app.post('/vehicles', isLoggedIn, function(req, res) {
     Vehicle.create(req.body.vehicle, function(err, newVehicle) {
         if (err) {
             console.log(err);
@@ -326,7 +347,48 @@ app.put('/vehicles/:id', function(req, res) {
 
 app.get('/dashboard', function(req, res) {
     res.render('dashboard');
-})
+});
+
+
+// AUTH ROUTES
+app.get('/register', function(req, res) {
+    res.render('register');
+});
+
+app.post('/register', function(req, res) {
+    var newUser = new User({ username: req.body.username });
+    User.register(newUser, req.body.password, function(err, user) {
+        if (err) {
+            console.log(err);
+            return res.render('register');
+        } else {
+            passport.authenticate('local')(req, res, function() {
+                res.redirect('/condos');
+            });
+        }
+    });
+});
+
+app.get('/login', function(req, res) {
+    res.render('login');
+});
+
+app.post('/login', passport.authenticate('local', {
+    successRedirect: '/condos',
+    failureRedirect: '/login'
+}), function(req, res) {});
+
+app.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/login');
+}
 
 app.get('*', function(req, res) {
     res.send('This page does not exist!');
