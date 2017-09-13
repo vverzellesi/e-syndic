@@ -1,11 +1,11 @@
-<% include partials/header %>
+<% include ../partials/header %>
 
 <h1>List of Dwellers</h1>
 
 <a href="/dwellers/new">Add a New Dweller</a>
 
-<% dwellers.forEach(function(dweller) { %>
+<% condo.towers.apartment.dwellers.forEach(function(dweller) { %>
 <li> <a href="/dwellers/<%= dweller._id %>">+ </a> <%= dweller.name %> (Tower: <%= dweller.tower%> - apartment: <%= dweller.apartmentNumber%>)</strong> </li>
 <% }) %>
 
-<% include partials/footer %>
+<% include ../partials/footer %>

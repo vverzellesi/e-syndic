@@ -1,0 +1,23 @@
+<% include ../partials/header %>
+<div class="container">
+
+  <h1><%= condo.name %></h1>
+  <a href="/condos/<%= condo._id %>/edit">Edit Condo</a> <br>
+
+  <h3><%= condo.address %></h3>
+
+  <h4>Towers</h4>
+  <% condo.towers.forEach(function(tower) { %>
+    <p>
+      <%= tower.name %> - <%= tower.floors %> - <%= tower.apartmentsPerFloor %>
+    </p>
+  <% }) %>
+
+
+  <a href="/condos/<%= condo._id %>/towers/new" class="btn btn-success">Add New Tower</a> <br>
+  <a href="/condos/<%= condo._id %>/towers">List of Towers</a> <br>
+  <a href="/condos">Go Back</a>
+
+</div>
+
+<% include ../partials/footer %>
