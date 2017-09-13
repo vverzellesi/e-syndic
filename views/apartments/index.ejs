@@ -1,16 +1,9 @@
 <% include ../partials/header %>
-
+<h1><%=  %></h1>
 <h1>Apartments</h1>
 
 <a href="/apartments/new">Add a New Apartment</a>
 
-<% apartments.forEach(function(apartment) { %>
-
-<li>
-  <a href="/apartments/<%= apartment._id %>">+</a>
-  <strong>Number</strong>: <%= apartment.number %> - <strong>Floor</strong>: <%= apartment.floor %> - <strong>Dwellers</strong>: <%= apartment.dwellers %>
-</li>
-
-<% }) %>
+<h1><%= condo %></h1>
 
 <% include ../partials/footer %>

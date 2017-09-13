@@ -1,43 +1,67 @@
 var express = require('express'),
-    router = express.Router();
+    router = express.Router(),
+    Condo = require('../models/condo'),
+    Apartment = require('../models/apartment'),
+    Tower = require('../models/tower');
 
-router.get('/apartments', function(req, res) {
-    Apartment.find({}, function(err, apartments) {
+// index
+router.get('/condos/:id/towers/:id/apartments', function(req, res) {
+    Condo.findById(req.params.id).populate('apartments').exec(function(err, condo) {
         if (err) {
             console.log(err);
         } else {
-            res.render('apartments/index', { apartments: apartments });
+            res.render('apartments/index', { condo: condo });
         }
     });
 });
 
-router.post('/apartments', isLoggedIn, function(req, res) {
-    var number = req.body.number;
-    var floor = req.body.floor;
-    var dwellers = req.body.dwellers;
-    var newApartment = {
-        number: number,
-        floor: floor,
-        dwellers: dwellers
-    };
-
-    Apartment.create(newApartment, function(err, createdApartment) {
+// create view
+router.get('/condos/:id/towers/:id/apartments/new', isLoggedIn, function(req, res) {
+    Condo.findById(req.params.id, function(err, condo) {
         if (err) {
             console.log(err);
         } else {
-            res.redirect('/apartments');
+            res.render('apartments/new', { condo: condo });
         }
-    })
+    });
 });
 
-router.get('/towers/:id/apartments/new', isLoggedIn, function(req, res) {
+// create logic
+router.post('/condos/:id/towers/:id/apartments', isLoggedIn, function(req, res) {
+    // Condo.findById(req.params.id, function(err, condo) {
+    //     if (err) {
+    //         console.log(err);
+    //     } else {
     Tower.findById(req.params.id, function(err, tower) {
         if (err) {
             console.log(err);
         } else {
-            res.render('apartments/new', { tower: tower });
+            Apartment.create(req.body.tower, function(err, apartment) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    tower.apartment.push(apartment);
+                    tower.save();
+                    res.redirect('/towers/' + tower._id);
+                }
+            });
         }
     });
+    // }
+    // });
+
+
+    // Tower.findById(req.params.id, function(err, tower) {
+    //     if (err) {
+    //         console.log(err);
+    //     } else {
+    //         Apartment.create(req.body.apartment, function(err, apartment) {
+    //             tower.apartments.push(tower);
+    //             tower.save();
+    //             res.redirect('/towers/' + tower._id);
+    //         });
+    //     }
+    // });
 });
 
 router.get('/apartments/:id', function(req, res) {

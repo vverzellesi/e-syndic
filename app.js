@@ -29,7 +29,7 @@ app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
 
-// seedDB(); // seed the database
+//seedDB(); // seed the database
 
 // PASSPORT CONFIG
 app.use(require('express-session')({

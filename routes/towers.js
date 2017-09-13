@@ -3,16 +3,18 @@ var express = require('express'),
     Condo = require('../models/condo'),
     Tower = require('../models/tower');
 
-router.get('/towers', function(req, res) {
-    Tower.find({}, function(err, allTowers) {
+// index route
+router.get('/condos/:id/towers/', function(req, res) {
+    Condo.findById(req.params.id).populate('towers').exec(function(err, foundCondo) {
         if (err) {
             console.log(err);
         } else {
-            res.render('towers/index', { towers: allTowers });
+            res.render('towers/index', { condo: foundCondo });
         }
-    })
+    });
 });
 
+// create view
 router.get('/condos/:id/towers/new', isLoggedIn, function(req, res) {
     Condo.findById(req.params.id, function(err, condo) {
         if (err) {
@@ -23,6 +25,7 @@ router.get('/condos/:id/towers/new', isLoggedIn, function(req, res) {
     });
 });
 
+// create logic
 router.post('/condos/:id/towers', isLoggedIn, function(req, res) {
     Condo.findById(req.params.id, function(err, condo) {
         if (err) {
@@ -41,16 +44,19 @@ router.post('/condos/:id/towers', isLoggedIn, function(req, res) {
     });
 });
 
-router.get('/towers/:id', function(req, res) {
-    Tower.findById(req.params.id, function(err, foundTower) {
+// show
+router.get('/condos/:id/towers/:id', function(req, res) {
+    Tower.findById(req.params.id, function(err, tower) {
         if (err) {
             console.log(err);
         } else {
-            res.render('towers/show', { tower: foundTower });
+            console.log(tower);
+            res.render('towers/show', { tower: tower });
         }
     });
 });
 
+// edit
 router.get('/towers/:id/edit', function(req, res) {
     Tower.findById(req.params.id, function(err, foundTower) {
         if (err) {
@@ -61,6 +67,7 @@ router.get('/towers/:id/edit', function(req, res) {
     });
 });
 
+// update
 router.put('/towers/:id', function(req, res) {
     Tower.findByIdAndUpdate(req.params.id, req.body.tower, function(err, updatedTower) {
         if (err) {

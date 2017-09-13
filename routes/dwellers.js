@@ -1,14 +1,30 @@
 var express = require('express'),
-    router = express.Router();
+    router = express.Router(),
+    Condo = require('../models/condo'),
+    Apartment = require('../models/apartment'),
+    Tower = require('../models/tower'),
+    Dweller = require('../models/dweller');
 
-router.get('/dwellers', isLoggedIn, function(req, res) {
-    Dweller.find({}, function(err, allDwellers) {
+// index
+router.get('/condos/:id/towers/:id/apartments/:id/dwellers', isLoggedIn, function(req, res) {
+    Condo.findById(req.params.id).populate('dwellers').exec(function(err, condo) {
         if (err) {
             console.log(err);
         } else {
-            res.render('dwellers/index', { dwellers: allDwellers });
+            res.render('dwellers/index', { condo: condo });
         }
     });
+
+
+
+
+    // Dweller.find({}, function(err, allDwellers) {
+    //     if (err) {
+    //         console.log(err);
+    //     } else {
+    //         res.render('dwellers/index', { dwellers: allDwellers });
+    //     }
+    // });
 });
 
 router.post('/dwellers', isLoggedIn, function(req, res) {

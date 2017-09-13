@@ -1,12 +1,12 @@
 <% include ../partials/header %>
 
-<h1>Tower <%= tower.name %></h1>
+<div class="container">
 
-<h3><%= tower.floors %> Floors</h3>
+    <a href="/apartments">List of Apartments</a>
+    
+    <h1>Tower <%= tower.name %></h1>
+    <h1><%= tower. apartmentsPerFloor %> apartments per floor</h1>
 
-<a href="/tower/<%= tower._id %>/edit">Edit Tower</a> <br>
-<a href="/apartments">List of Apartments</a> <br>
-<a href="/apartments/new">Add New Apartment</a> <br>
-<a href="/towers">Go Back</a>
+</div>
 
 <% include ../partials/footer %>

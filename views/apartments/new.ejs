@@ -1,18 +1,18 @@
 <% include ../partials/header %>
-
+<h1><%= apartment %></h1>
 <div class="container">
     <div class="row">
-        <h1 style="text-align: center;">Add New Apartment to Tower <%= tower.name %></h1>
+        <h1 style="text-align: center;">Add New Apartment to Tower <%=  %></h1>
         <div style="width: 30%; margin: 20px auto;">
-            <form action="/apartments" method="post">
+            <form action="" method="post">
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Number" name="number">
+                    <input class="form-control" type="text" placeholder="Number" name="apartment[number]">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Floor" name="floor">
+                    <input class="form-control" type="text" placeholder="Floor" name="apartment[floor]">
                 </div>    
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Dwellers" name="dwellers">
+                    <input class="form-control" type="text" placeholder="Dwellers" name="apartment[dwellers]">
                 </div>    
                 <div class="form-group">
                     <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">

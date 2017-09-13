@@ -1,16 +1,19 @@
 <% include ../partials/header %>
+<div class="container">
+  
+  <h1>List of Towers</h1>
 
-<h1>List of Towers</h1>
-
-<a href="/towers/new">Add a New Tower</a> <br>
-<a href="/apartments">List of Apartments</a>
-
-<% towers.forEach(function(tower) { %>
-  <li><a href="/towers/<%= tower._id %>">+</a><strong>Tower: <%= tower.name %></strong>
+  <% condo.towers.forEach(function(tower) { %>
+    <li>
+      <a href="/condos/<%= condo._id %>/towers/<%= tower._id %>"><i class="fa fa-info" aria-hidden="true"></i></a>
+      <a href="/condos/<%= condo._id %>/towers/<%= tower._id %>/edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+      <strong> Tower: <%= tower.name %></strong>
+    </li>
     <li>Floors: <%= tower.floors %></li>
     <li>Apartments Per Floor: <%= tower.apartmentsPerFloor %></li>
     <br>
-  </li>
-<% }) %>
+  <% }) %>
+
+</div>
 
 <% include ../partials/footer %>

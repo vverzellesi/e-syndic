@@ -64,8 +64,7 @@ function seedDB() {
                                                 // add apartments
                                                 Apartment.create({
                                                     number: 22,
-                                                    floor: 2,
-                                                    dwellers: 'Victor'
+                                                    floor: 2
                                                 }, function(err, apartment) {
                                                     if (err) {
                                                         console.log(err);
