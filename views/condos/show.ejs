@@ -2,7 +2,7 @@
 <div class="container">
 
   <h1><%= condo.name %></h1>
-  <a href="/condos/<%= condo._id %>/edit">Edit Condo</a> <br>
+  <a href="/condos/<%= condo._id %>/edit" class="btn btn-warning">Edit Condo</a>
 
   <h3><%= condo.address %></h3>
 
@@ -14,7 +14,6 @@
   <% }) %>
 
 
-  <a href="/condos/<%= condo._id %>/towers/new" class="btn btn-success">Add New Tower</a> <br>
   <a href="/condos/<%= condo._id %>/towers">List of Towers</a> <br>
   <a href="/condos">Go Back</a>
 

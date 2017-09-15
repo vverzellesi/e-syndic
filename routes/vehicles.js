@@ -1,5 +1,6 @@
 var express = require('express'),
-    router = express.Router();
+    router = express.Router(),
+    middleware = require('../middleware');
 
 router.get('/vehicles', function(req, res) {
     Vehicle.find({}, function(err, allvehicles) {
@@ -11,11 +12,11 @@ router.get('/vehicles', function(req, res) {
     });
 });
 
-router.get('/vehicles/new', isLoggedIn, function(req, res) {
+router.get('/vehicles/new', middleware.isLoggedIn, function(req, res) {
     res.render('vehicles/new');
 });
 
-router.post('/vehicles', isLoggedIn, function(req, res) {
+router.post('/vehicles', middleware.isLoggedIn, function(req, res) {
     Vehicle.create(req.body.vehicle, function(err, newVehicle) {
         if (err) {
             console.log(err);
@@ -54,12 +55,5 @@ router.put('/vehicles/:id', function(req, res) {
         }
     });
 });
-
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect('/login');
-}
 
 module.exports = router;

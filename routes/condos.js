@@ -1,6 +1,7 @@
 var express = require('express'),
     router = express.Router(),
-    Condo = require('../models/condo')
+    Condo = require('../models/condo'),
+    middleware = require('../middleware');
 
 router.get('/condos', function(req, res) {
     Condo.find({}, function(err, allCondos) {
@@ -12,7 +13,7 @@ router.get('/condos', function(req, res) {
     })
 });
 
-router.post('/condos', isLoggedIn, function(req, res) {
+router.post('/condos', middleware.isLoggedIn, function(req, res) {
     Condo.create(req.body.condo, function(err, createdCondo) {
         if (err) {
             console.log(err);
@@ -22,7 +23,7 @@ router.post('/condos', isLoggedIn, function(req, res) {
     });
 });
 
-router.get('/condos/new', isLoggedIn, function(req, res) {
+router.get('/condos/new', middleware.isLoggedIn, function(req, res) {
     res.render('condos/new');
 });
 
@@ -55,12 +56,5 @@ router.put('/condos/:id', function(req, res) {
         }
     });
 });
-
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect('/login');
-}
 
 module.exports = router;

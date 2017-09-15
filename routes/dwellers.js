@@ -3,10 +3,11 @@ var express = require('express'),
     Condo = require('../models/condo'),
     Apartment = require('../models/apartment'),
     Tower = require('../models/tower'),
-    Dweller = require('../models/dweller');
+    Dweller = require('../models/dweller'),
+    middleware = require('../middleware');
 
 // index
-router.get('/condos/:id/towers/:id/apartments/:id/dwellers', isLoggedIn, function(req, res) {
+router.get('/condos/:id/towers/:id/apartments/:id/dwellers', middleware.isLoggedIn, function(req, res) {
     Condo.findById(req.params.id).populate('dwellers').exec(function(err, condo) {
         if (err) {
             console.log(err);
@@ -27,7 +28,7 @@ router.get('/condos/:id/towers/:id/apartments/:id/dwellers', isLoggedIn, functio
     // });
 });
 
-router.post('/dwellers', isLoggedIn, function(req, res) {
+router.post('/dwellers', middleware.isLoggedIn, function(req, res) {
     Dweller.create(req.body.dweller, function(err, newDweller) {
         if (err) {
             console.log(err);
@@ -70,12 +71,5 @@ router.put('/dwellers/:id', function(req, res) {
         }
     });
 });
-
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect('/login');
-}
 
 module.exports = router;

@@ -2,7 +2,8 @@ var express = require('express'),
     router = express.Router(),
     Condo = require('../models/condo'),
     Apartment = require('../models/apartment'),
-    Tower = require('../models/tower');
+    Tower = require('../models/tower'),
+    middleware = require('../middleware');
 
 // index
 router.get('/condos/:id/towers/:id/apartments', function(req, res) {
@@ -16,7 +17,7 @@ router.get('/condos/:id/towers/:id/apartments', function(req, res) {
 });
 
 // create view
-router.get('/condos/:id/towers/:id/apartments/new', isLoggedIn, function(req, res) {
+router.get('/condos/:id/towers/:id/apartments/new', middleware.isLoggedIn, function(req, res) {
     Condo.findById(req.params.id, function(err, condo) {
         if (err) {
             console.log(err);
@@ -27,7 +28,7 @@ router.get('/condos/:id/towers/:id/apartments/new', isLoggedIn, function(req, re
 });
 
 // create logic
-router.post('/condos/:id/towers/:id/apartments', isLoggedIn, function(req, res) {
+router.post('/condos/:id/towers/:id/apartments', middleware.isLoggedIn, function(req, res) {
     // Condo.findById(req.params.id, function(err, condo) {
     //     if (err) {
     //         console.log(err);
@@ -93,12 +94,5 @@ router.put('/apartments/:id', function(req, res) {
         }
     });
 });
-
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect('/login');
-}
 
 module.exports = router;
