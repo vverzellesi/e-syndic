@@ -9,6 +9,7 @@
     <li>
       <a href="/condos/<%= condo._id %>/towers/<%= tower._id %>"><i class="fa fa-info" aria-hidden="true"></i></a>
       <a href="/condos/<%= condo._id %>/towers/<%= tower._id %>/edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+      
       <form id="delete-from" action="/condos/<%= condo._id %>/towers/<%= tower._id %>?_method=DELETE" method="post">
         <input type="submit" class="btn btn-danger" value="Delete">    
       </form>

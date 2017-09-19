@@ -57,4 +57,17 @@ router.put('/condos/:id', function(req, res) {
     });
 });
 
+// destroy
+router.delete('/condos/:id', function(req, res) {
+    Condo.findByIdAndRemove(req.params.id, function(err, condo) {
+        console.log(condo);
+        if (err) {
+            console.log(err);
+            res.redirect('back');
+        } else {
+            res.redirect('/condos');
+        }
+    });
+});
+
 module.exports = router;

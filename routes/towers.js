@@ -1,16 +1,16 @@
 var express = require('express'),
-    router = express.Router(),
+    router = express.Router({ mergeParams: true }),
     Condo = require('../models/condo'),
     Tower = require('../models/tower'),
     middleware = require('../middleware');
 
 // index route
 router.get('/condos/:id/towers/', function(req, res) {
-    Condo.findById(req.params.id).populate('towers').exec(function(err, foundCondo) {
+    Condo.findById(req.params.id).populate('towers').exec(function(err, condo) {
         if (err) {
             console.log(err);
         } else {
-            res.render('towers/index', { condo: foundCondo });
+            res.render('towers/index', { condo: condo });
         }
     });
 });
@@ -39,7 +39,7 @@ router.post('/condos/:id/towers', middleware.isLoggedIn, function(req, res) {
                     tower.save();
                     condo.towers.push(tower);
                     condo.save();
-                    res.redirect('/condos/' + condo._id);
+                    res.redirect('/condos/' + condo._id + '/towers');
                 }
             });
         }
@@ -52,7 +52,7 @@ router.get('/condos/:id/towers/:tower_id', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('towers/show', { tower: tower });
+            res.render('towers/show', { condo_id: req.params.id, tower: tower });
         }
     });
 });
@@ -76,7 +76,7 @@ router.put('/condos/:id/towers/:tower_id', function(req, res) {
             console.log(err);
             res.redirect('back');
         } else {
-            res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id);
+            res.redirect('/condos/' + req.params.id + '/towers/');
         }
     });
 });
@@ -88,7 +88,7 @@ router.delete('/condos/:id/towers/:tower_id', function(req, res) {
             console.log(err);
             res.redirect('back');
         } else {
-            res.redirect('/condos/' + req.params.id);
+            res.redirect('/condos/' + req.params.id + '/towers');
         }
     });
 })

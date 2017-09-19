@@ -3,6 +3,9 @@
 
   <h1><%= condo.name %></h1>
   <a href="/condos/<%= condo._id %>/edit" class="btn btn-warning">Edit Condo</a>
+  <form id="delete-form" action="/condos/<%= condo._id %>?_method=DELETE" method="post">
+    <input type="button" class="btn btn-danger" value="Delete">
+  </form>
 
   <h3><%= condo.address %></h3>
 

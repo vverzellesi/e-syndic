@@ -1,5 +1,5 @@
 var express = require('express'),
-    router = express.Router(),
+    router = express.Router({ mergeParams: true }),
     Condo = require('../models/condo'),
     Apartment = require('../models/apartment'),
     Tower = require('../models/tower'),
