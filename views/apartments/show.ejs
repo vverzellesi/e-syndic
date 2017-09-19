@@ -1,10 +1,14 @@
 <% include ../partials/header %>
 
-<h1>Apartment number: <%= apartment.number %></h1>
+<div class="container">
 
-<h3>Apartment floor: <%= apartment.floor %></h3>
+    <h1>Apartment number: <%= apartment.number %></h1>
 
-<a href="/dwellers">List of Dwellers</a>
-<a href="/apartments">Go Back</a>
+    <h3>Apartment floor: <%= apartment.floor %></h3>
+
+    <a href="/dwellers">List of Dwellers</a><br>
+    <a href="/apartments">Go Back</a>
+
+</div>
 
 <% include ../partials/footer %>

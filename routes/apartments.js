@@ -49,36 +49,50 @@ router.post('/condos/:id/towers/:tower_id/apartments', middleware.isLoggedIn, fu
 });
 
 // show
-router.get('/apartments/:id', function(req, res) {
-    Apartment.findById(req.params.id, function(err, foundApartment) {
+router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id', function(req, res) {
+    Apartment.findById(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);
         } else {
-            res.render('apartments/show', { apartment: foundApartment });
+            res.render('apartments/show', { tower_id: req.params.tower_id, apartment: apartment });
         }
     });
 });
 
 // edit
-router.get('/apartments/:id/edit', function(req, res) {
-    Apartment.findById(req.params.id, function(err, foundApartment) {
+router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/edit', function(req, res) {
+    Apartment.findById(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);
+            res.redirect('back');
         } else {
-            res.render('apartments/edit', { apartment: foundApartment });
+            res.render('apartments/edit', { condo_id: req.params.id, tower_id: req.params.tower_id, apartment: apartment });
         }
     });
 });
 
 // update
-router.put('/apartments/:id', function(req, res) {
-    Apartment.findByIdAndUpdate(req.params.id, req.body.apartment, function(err, updatedApartment) {
+router.put('/condos/:id/towers/:tower_id/apartments/:apartment_id', function(req, res) {
+    Apartment.findByIdAndUpdate(req.params.apartment_id, req.body.apartment, function(err, updatedApartment) {
         if (err) {
             console.log(err);
+            res.redirect('back');
         } else {
-            res.redirect('/apartments/' + req.params.id);
+            res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments');
         }
     });
+});
+
+// destroy
+router.delete('/condos/:id/towers/:tower_id/apartments/:apartment_id', function(req, res) {
+    Apartment.findByIdAndRemove(req.params.apartment_id, function(err, apartment) {
+        if (err) {
+            console.log(err);
+            res.redirect('back');
+        } else {
+            res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments');
+        }
+    })
 });
 
 module.exports = router;
