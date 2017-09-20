@@ -8,7 +8,9 @@
     <% tower.apartments.forEach(function(apartment) { %>
         <li>
             <a href="/condos/<%= condo_id %>/towers/<%= tower._id %>/apartments/<%= apartment._id %>"><i class="fa fa-info" aria-hidden="true"></i></a>
+            
             <a href="/condos/<%= condo_id %>/towers/<%= tower._id %>/apartments/<%= apartment._id %>/edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+            
             <form id="delete-from" action="/condos/<%= condo_id %>/towers/<%= tower._id %>/apartments/<%= apartment._id %>?_method=DELETE" method="post">
                 <button type="submit" class="btn btn-danger">
                     <i class="fa fa-trash" aria-hidden="true"></i>

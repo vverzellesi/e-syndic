@@ -59,24 +59,39 @@ router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers/:dwel
     });
 });
 
-router.get('/dwellers/:id/edit', function(req, res) {
-    Dweller.findById(req.params.id, function(err, foundDweller) {
+// edit
+router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers/:dweller_id/edit', function(req, res) {
+    Dweller.findById(req.params.dweller_id, function(err, dweller) {
         if (err) {
             console.log(err);
+            res.redirect('back');
         } else {
-            res.render('dwellers/edit', { dweller: foundDweller });
+            res.render('dwellers/edit', { condo_id: req.params.id, tower_id: req.params.tower_id, apartment_id: req.params.apartment_id, dweller: dweller });
         }
     });
 });
 
-router.put('/dwellers/:id', function(req, res) {
-    Dweller.findByIdAndUpdate(req.params.id, req.body.dweller, function(err, updatedDweller) {
+// update
+router.put('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers/:dweller_id', function(req, res) {
+    Dweller.findByIdAndUpdate(req.params.dweller_id, req.body.dweller, function(err, dweller) {
         if (err) {
             console.log(err);
+            res.redirect('back');
         } else {
-            res.redirect('/dwellers/' + req.params.id);
+            res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments/' + req.params.apartment_id + '/dwellers');
         }
     });
 });
+
+// destroy
+router.delete('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers/:dweller_id', function(req, res) {
+    Dweller.findByIdAndRemove(req.params.dweller_id, function(err, dweller) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments/' + req.params.apartment_id + '/dwellers')
+        }
+    })
+})
 
 module.exports = router;
