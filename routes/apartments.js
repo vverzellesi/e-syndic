@@ -54,7 +54,7 @@ router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id', function(req
         if (err) {
             console.log(err);
         } else {
-            res.render('apartments/show', { tower_id: req.params.tower_id, apartment: apartment });
+            res.render('apartments/show', { condo_id: req.params.id, tower_id: req.params.tower_id, apartment: apartment });
         }
     });
 });

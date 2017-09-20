@@ -2,17 +2,11 @@
 
 <div class="container">
     <div class="row">
-        <h1 style="text-align: center;">Create a New Dweller</h1>
+        <h1 style="text-align: center;">Create a New Dweller to Apartment <%= apartment.number %></h1>
         <div style="width: 30%; margin: 20px auto;">
-            <form action="/dwellers" method="post">
+            <form action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/dwellers" method="post">
                 <div class="form-group">
                     <input class="form-control" type="text" placeholder="Name" name="dweller[name]">
-                </div>
-                <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Tower" name="dweller[tower]">
-                </div>    
-                <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Apartment Number" name="dweller[apartmentNumber]">
                 </div>
                 <div class="form-group">
                     <input class="form-control" type="text" placeholder="CPF" name="dweller[cpf]">

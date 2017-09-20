@@ -1,9 +1,13 @@
 <% include ../partials/header %>
 
-<h1><%= dweller.name %></h1>
+<div class="container">
 
-<h3><%= dweller.tower %> - <%= dweller.apartmentNumber %></h3>
+    <h1><%= dweller.name %></h1>
 
-<a href="/dwellers">Go Back</a>
+    <h3>CPF: <%= dweller.cpf %></h3>
+
+    <a href="#">Go Back</a>
+
+</div>
 
 <% include ../partials/footer %>

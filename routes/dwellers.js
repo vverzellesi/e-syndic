@@ -7,47 +7,54 @@ var express = require('express'),
     middleware = require('../middleware');
 
 // index
-router.get('/condos/:id/towers/:id/apartments/:id/dwellers', middleware.isLoggedIn, function(req, res) {
-    Condo.findById(req.params.id).populate('dwellers').exec(function(err, condo) {
+router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers', middleware.isLoggedIn, function(req, res) {
+    Apartment.findById(req.params.apartment_id).populate('dwellers').exec(function(err, apartment) {
         if (err) {
             console.log(err);
         } else {
-            res.render('dwellers/index', { condo: condo });
-        }
-    });
-
-
-
-
-    // Dweller.find({}, function(err, allDwellers) {
-    //     if (err) {
-    //         console.log(err);
-    //     } else {
-    //         res.render('dwellers/index', { dwellers: allDwellers });
-    //     }
-    // });
-});
-
-router.post('/dwellers', middleware.isLoggedIn, function(req, res) {
-    Dweller.create(req.body.dweller, function(err, newDweller) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.redirect('/dwellers');
+            res.render('dwellers/index', { condo_id: req.params.id, tower_id: req.params.tower_id, apartment: apartment });
         }
     });
 });
 
-router.get('/dwellers/new', function(req, res) {
-    res.render('dwellers/new');
-});
-
-router.get('/dwellers/:id', function(req, res) {
-    Dweller.findById(req.params.id, function(err, foundDweller) {
+// create view
+router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers/new', function(req, res) {
+    Apartment.findById(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);
         } else {
-            res.render('dwellers/show', { dweller: foundDweller });
+            res.render('dwellers/new', { condo_id: req.params.id, tower_id: req.params.tower_id, apartment: apartment });
+        }
+    })
+});
+
+// create logic
+router.post('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers', middleware.isLoggedIn, function(req, res) {
+    Apartment.findById(req.params.apartment_id, function(err, apartment) {
+        if (err) {
+            console.log(err);
+        } else {
+            Dweller.create(req.body.dweller, function(err, dweller) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    dweller.save();
+                    apartment.dwellers.push(dweller);
+                    apartment.save();
+                    res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments/' + req.params.apartment_id + '/dwellers');
+                }
+            });
+        }
+    });
+});
+
+// show
+router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers/:dweller_id', function(req, res) {
+    Dweller.findById(req.params.dweller_id, function(err, dweller) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('dwellers/show', { condo_id: req.params.id, tower_id: req.params.tower_id, apartment_id: req.params.apartment_id, dweller: dweller });
         }
     });
 });
