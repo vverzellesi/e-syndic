@@ -1,9 +1,13 @@
 <% include ../partials/header %>
 
-<h1><%= vehicle.brand %> - <%= vehicle.model %></h1>
+<div class="container">
 
-<h3><%= vehicle.plate %></h3>
+    <h1><%= vehicle.brand %> - <%= vehicle.model %></h1>
 
-<a href="/vehicles">Go Back</a>
+    <h3><%= vehicle.plate %></h3>
+
+    <a href="/vehicles">Go Back</a>
+
+</div>
 
 <% include ../partials/footer %>

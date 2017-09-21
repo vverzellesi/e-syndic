@@ -1,10 +1,10 @@
 var express = require('express'),
     router = express.Router({ mergeParams: true }),
+    middleware = require('../middleware'),
     Condo = require('../models/condo'),
     Apartment = require('../models/apartment'),
     Tower = require('../models/tower'),
-    Dweller = require('../models/dweller'),
-    middleware = require('../middleware');
+    Dweller = require('../models/dweller');
 
 // index
 router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers', middleware.isLoggedIn, function(req, res) {
@@ -91,7 +91,7 @@ router.delete('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers/:d
         } else {
             res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments/' + req.params.apartment_id + '/dwellers')
         }
-    })
-})
+    });
+});
 
 module.exports = router;

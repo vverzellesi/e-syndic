@@ -1,11 +1,27 @@
 <% include ../partials/header %>
 
-<h1>List of Vehicles</h1>
+<div class="container">
 
-<a href="/vehicles/new">Add a New Vehicle</a>
+    <h1>Vehicles on Apartment <%= apartment.number %></h1>
 
-<% vehicles.forEach(function(vehicle) { %>
-<li> <a href="/vehicles/<%= vehicle._id %>">+ </a> Brand: <%= vehicle.brand %> - Model: <%= vehicle.model%></strong> </li>
-<% }) %>
+    <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/vehicles/new" class="btn btn-success">Add a New vehicle</a>
+
+    <% apartment.vehicles.forEach(function(vehicle) { %>
+    <li>
+        <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/vehicles/<%= vehicle._id %>"><i class="fa fa-info" aria-hidden="true"></i></a>
+        
+        <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/vehicles/<%= vehicle._id %>/edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+
+        <form id="delete-from" action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/vehicles/<%= vehicle._id %>?_method=DELETE" method="post">
+            <button type="submit" class="btn btn-danger">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+        </form>
+
+        <%= vehicle.model %>
+    </li>
+    <% }) %>
+
+</div>
 
 <% include ../partials/footer %>

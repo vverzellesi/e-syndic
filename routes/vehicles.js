@@ -1,57 +1,95 @@
 var express = require('express'),
     router = express.Router({ mergeParams: true }),
-    middleware = require('../middleware');
+    middleware = require('../middleware'),
+    Condo = require('../models/condo'),
+    Apartment = require('../models/apartment'),
+    Tower = require('../models/tower'),
+    Vehicle = require('../models/vehicle');
 
-router.get('/vehicles', function(req, res) {
-    Vehicle.find({}, function(err, allvehicles) {
+// index
+router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles', middleware.isLoggedIn, function(req, res) {
+    Apartment.findById(req.params.apartment_id).populate('vehicles').exec(function(err, apartment) {
         if (err) {
             console.log(err);
         } else {
-            res.render('vehicles/vehicles', { vehicles: allvehicles });
+            res.render('vehicles/index', { condo_id: req.params.id, tower_id: req.params.tower_id, apartment: apartment });
         }
     });
 });
 
-router.get('/vehicles/new', middleware.isLoggedIn, function(req, res) {
-    res.render('vehicles/new');
-});
-
-router.post('/vehicles', middleware.isLoggedIn, function(req, res) {
-    Vehicle.create(req.body.vehicle, function(err, newVehicle) {
+// create view
+router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles/new', function(req, res) {
+    Apartment.findById(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);
         } else {
-            res.redirect('/vehicles');
+            res.render('vehicles/new', { condo_id: req.params.id, tower_id: req.params.tower_id, apartment: apartment });
+        }
+    })
+});
+
+// create logic
+router.post('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles', middleware.isLoggedIn, function(req, res) {
+    Apartment.findById(req.params.apartment_id, function(err, apartment) {
+        if (err) {
+            console.log(err);
+        } else {
+            Vehicle.create(req.body.vehicle, function(err, vehicle) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    vehicle.save();
+                    apartment.vehicles.push(vehicle);
+                    apartment.save();
+                    res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments/' + req.params.apartment_id + '/vehicles');
+                }
+            });
         }
     });
 });
 
-router.get('/vehicles/:id', function(req, res) {
-    Vehicle.findById(req.params.id, function(err, foundVehicle) {
+// show
+router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles/:vehicle_id', function(req, res) {
+    Vehicle.findById(req.params.vehicle_id, function(err, vehicle) {
         if (err) {
             console.log(err);
         } else {
-            res.render('vehicles/show', { vehicle: foundVehicle });
+            res.render('vehicles/show', { condo_id: req.params.id, tower_id: req.params.tower_id, apartment_id: req.params.apartment_id, vehicle: vehicle });
         }
     });
 });
 
-router.get('/vehicles/:id/edit', function(req, res) {
-    Vehicle.findById(req.params.id, function(err, foundVehicle) {
+// edit
+router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles/:vehicle_id/edit', function(req, res) {
+    Vehicle.findById(req.params.vehicle_id, function(err, vehicle) {
         if (err) {
             console.log(err);
+            res.redirect('back');
         } else {
-            res.render('vehicles/edit', { vehicle: foundVehicle });
+            res.render('vehicles/edit', { condo_id: req.params.id, tower_id: req.params.tower_id, apartment_id: req.params.apartment_id, vehicle: vehicle });
         }
     });
 });
 
-router.put('/vehicles/:id', function(req, res) {
-    Vehicle.findByIdAndUpdate(req.params.id, req.body.vehicle, function(err, updatedVehicle) {
+// update
+router.put('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles/:vehicle_id', function(req, res) {
+    Vehicle.findByIdAndUpdate(req.params.vehicle_id, req.body.vehicle, function(err, vehicle) {
+        if (err) {
+            console.log(err);
+            res.redirect('back');
+        } else {
+            res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments/' + req.params.apartment_id + '/vehicles');
+        }
+    });
+});
+
+// destroy
+router.delete('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles/:vehicle_id', function(req, res) {
+    Vehicle.findByIdAndRemove(req.params.vehicle_id, function(err, vehicle) {
         if (err) {
             console.log(err);
         } else {
-            res.redirect('/vehicles/' + req.params.id);
+            res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments/' + req.params.apartment_id + '/vehicles')
         }
     });
 });
