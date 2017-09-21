@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center;">Edit <%= space.name %></h1>
+        <div style="width: 30%; margin: 20px auto;">
+            <form action="/condos/<%= condo_id %>/spaces/<%= space._id %>?_method=PUT" method="post">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="space[name]" value="<%= space.name %>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="space[maxCapacity]" value="<%= space.maxCapacity %>">
+                </div>
+                <div class="form-group input-group">
+                    <span class="input-group-addon" id="real-addon">R$</span>
+                    <input class="form-control" type="text" name="space[price]" value="<%= space.price %>" aria-describedby="real-addon">
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">
+                </div>
+            </form>
+            <a href="/spaces">Go Back</a>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

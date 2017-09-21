@@ -1,0 +1,25 @@
+<% include ../partials/header %>
+<div class="container">
+  
+  <h1>List of Spaces</h1>
+  <a href="/condos/<%= condo._id %>/spaces/new" class="btn btn-success">Add New Space</a> <br>
+
+
+  <% condo.spaces.forEach(function(space) { %>
+    <li>
+      <a href="/condos/<%= condo._id %>/spaces/<%= space._id %>"><i class="fa fa-info" aria-hidden="true"></i></a>
+      <a href="/condos/<%= condo._id %>/spaces/<%= space._id %>/edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+      
+      <form id="delete-from" action="/condos/<%= condo._id %>/spaces/<%= space._id %>?_method=DELETE" method="post">
+        <button type="submit" class="btn btn-danger">
+          <i class="fa fa-trash" aria-hidden="true"></i>
+        </button>
+      </form>
+      <strong>Space: <%= space.name %></strong> - Max. Capacity: <%= space.maxCapacity %>
+    </li>
+    <br>
+  <% }) %>
+
+</div>
+
+<% include ../partials/footer %>

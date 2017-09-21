@@ -6,6 +6,10 @@ var condoSchema = new mongoose.Schema({
     towers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tower'
+    }],
+    spaces: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Space'
     }]
 });
 

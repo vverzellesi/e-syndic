@@ -91,6 +91,6 @@ router.delete('/condos/:id/towers/:tower_id', function(req, res) {
             res.redirect('/condos/' + req.params.id + '/towers');
         }
     });
-})
+});
 
 module.exports = router;
