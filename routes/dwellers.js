@@ -7,7 +7,7 @@ var express = require('express'),
     Dweller = require('../models/dweller');
 
 // index
-router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers', middleware.isLoggedIn, function(req, res) {
+router.get('/', middleware.isLoggedIn, function(req, res) {
     Apartment.findById(req.params.apartment_id).populate('dwellers').exec(function(err, apartment) {
         if (err) {
             console.log(err);
@@ -18,7 +18,7 @@ router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers', mid
 });
 
 // create view
-router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers/new', function(req, res) {
+router.get('/new', function(req, res) {
     Apartment.findById(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);
@@ -29,7 +29,7 @@ router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers/new',
 });
 
 // create logic
-router.post('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers', middleware.isLoggedIn, function(req, res) {
+router.post('/', middleware.isLoggedIn, function(req, res) {
     Apartment.findById(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);
@@ -49,7 +49,7 @@ router.post('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers', mi
 });
 
 // show
-router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers/:dweller_id', function(req, res) {
+router.get('/:dweller_id', function(req, res) {
     Dweller.findById(req.params.dweller_id, function(err, dweller) {
         if (err) {
             console.log(err);
@@ -60,7 +60,7 @@ router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers/:dwel
 });
 
 // edit
-router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers/:dweller_id/edit', function(req, res) {
+router.get('/:dweller_id/edit', function(req, res) {
     Dweller.findById(req.params.dweller_id, function(err, dweller) {
         if (err) {
             console.log(err);
@@ -72,7 +72,7 @@ router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers/:dwel
 });
 
 // update
-router.put('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers/:dweller_id', function(req, res) {
+router.put('/:dweller_id', function(req, res) {
     Dweller.findByIdAndUpdate(req.params.dweller_id, req.body.dweller, function(err, dweller) {
         if (err) {
             console.log(err);
@@ -84,7 +84,7 @@ router.put('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers/:dwel
 });
 
 // destroy
-router.delete('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers/:dweller_id', function(req, res) {
+router.delete('/:dweller_id', function(req, res) {
     Dweller.findByIdAndRemove(req.params.dweller_id, function(err, dweller) {
         if (err) {
             console.log(err);

@@ -6,7 +6,7 @@ var express = require('express'),
     middleware = require('../middleware');
 
 // index
-router.get('/condos/:id/towers/:tower_id/apartments', function(req, res) {
+router.get('/', function(req, res) {
     Tower.findById(req.params.tower_id).populate('apartments').exec(function(err, tower) {
         if (err) {
             console.log(err);
@@ -18,7 +18,7 @@ router.get('/condos/:id/towers/:tower_id/apartments', function(req, res) {
 });
 
 // create view
-router.get('/condos/:id/towers/:tower_id/apartments/new', middleware.isLoggedIn, function(req, res) {
+router.get('/new', middleware.isLoggedIn, function(req, res) {
     Tower.findById(req.params.tower_id, function(err, tower) {
         if (err) {
             console.log(err);
@@ -29,7 +29,7 @@ router.get('/condos/:id/towers/:tower_id/apartments/new', middleware.isLoggedIn,
 });
 
 // create logic
-router.post('/condos/:id/towers/:tower_id/apartments', middleware.isLoggedIn, function(req, res) {
+router.post('/', middleware.isLoggedIn, function(req, res) {
     Tower.findById(req.params.tower_id, function(err, tower) {
         if (err) {
             console.log(err);
@@ -49,7 +49,7 @@ router.post('/condos/:id/towers/:tower_id/apartments', middleware.isLoggedIn, fu
 });
 
 // show
-router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id', function(req, res) {
+router.get('/:apartment_id', function(req, res) {
     Apartment.findById(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);
@@ -60,7 +60,7 @@ router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id', function(req
 });
 
 // edit
-router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/edit', function(req, res) {
+router.get('/:apartment_id/edit', function(req, res) {
     Apartment.findById(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);
@@ -72,7 +72,7 @@ router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/edit', functio
 });
 
 // update
-router.put('/condos/:id/towers/:tower_id/apartments/:apartment_id', function(req, res) {
+router.put('/:apartment_id', function(req, res) {
     Apartment.findByIdAndUpdate(req.params.apartment_id, req.body.apartment, function(err, updatedApartment) {
         if (err) {
             console.log(err);
@@ -84,7 +84,7 @@ router.put('/condos/:id/towers/:tower_id/apartments/:apartment_id', function(req
 });
 
 // destroy
-router.delete('/condos/:id/towers/:tower_id/apartments/:apartment_id', function(req, res) {
+router.delete('/:apartment_id', function(req, res) {
     Apartment.findByIdAndRemove(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);

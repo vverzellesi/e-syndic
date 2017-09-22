@@ -7,7 +7,7 @@ var express = require('express'),
     Vehicle = require('../models/vehicle');
 
 // index
-router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles', middleware.isLoggedIn, function(req, res) {
+router.get('/', middleware.isLoggedIn, function(req, res) {
     Apartment.findById(req.params.apartment_id).populate('vehicles').exec(function(err, apartment) {
         if (err) {
             console.log(err);
@@ -18,7 +18,7 @@ router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles', mid
 });
 
 // create view
-router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles/new', function(req, res) {
+router.get('/new', function(req, res) {
     Apartment.findById(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);
@@ -29,7 +29,7 @@ router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles/new',
 });
 
 // create logic
-router.post('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles', middleware.isLoggedIn, function(req, res) {
+router.post('/', middleware.isLoggedIn, function(req, res) {
     Apartment.findById(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);
@@ -49,7 +49,7 @@ router.post('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles', mi
 });
 
 // show
-router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles/:vehicle_id', function(req, res) {
+router.get('/:vehicle_id', function(req, res) {
     Vehicle.findById(req.params.vehicle_id, function(err, vehicle) {
         if (err) {
             console.log(err);
@@ -60,7 +60,7 @@ router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles/:vehi
 });
 
 // edit
-router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles/:vehicle_id/edit', function(req, res) {
+router.get('/:vehicle_id/edit', function(req, res) {
     Vehicle.findById(req.params.vehicle_id, function(err, vehicle) {
         if (err) {
             console.log(err);
@@ -72,7 +72,7 @@ router.get('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles/:vehi
 });
 
 // update
-router.put('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles/:vehicle_id', function(req, res) {
+router.put('/:vehicle_id', function(req, res) {
     Vehicle.findByIdAndUpdate(req.params.vehicle_id, req.body.vehicle, function(err, vehicle) {
         if (err) {
             console.log(err);
@@ -84,7 +84,7 @@ router.put('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles/:vehi
 });
 
 // destroy
-router.delete('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles/:vehicle_id', function(req, res) {
+router.delete('/:vehicle_id', function(req, res) {
     Vehicle.findByIdAndRemove(req.params.vehicle_id, function(err, vehicle) {
         if (err) {
             console.log(err);

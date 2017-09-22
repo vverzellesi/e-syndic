@@ -3,7 +3,8 @@ var express = require('express'),
     Condo = require('../models/condo'),
     middleware = require('../middleware');
 
-router.get('/condos', function(req, res) {
+//index
+router.get('/', function(req, res) {
     Condo.find({}, function(err, allCondos) {
         if (err) {
             console.log(err);
@@ -13,7 +14,13 @@ router.get('/condos', function(req, res) {
     })
 });
 
-router.post('/condos', middleware.isLoggedIn, function(req, res) {
+// create view
+router.get('/new', middleware.isLoggedIn, function(req, res) {
+    res.render('condos/new');
+});
+
+// create logic
+router.post('/', middleware.isLoggedIn, function(req, res) {
     Condo.create(req.body.condo, function(err, createdCondo) {
         if (err) {
             console.log(err);
@@ -23,11 +30,8 @@ router.post('/condos', middleware.isLoggedIn, function(req, res) {
     });
 });
 
-router.get('/condos/new', middleware.isLoggedIn, function(req, res) {
-    res.render('condos/new');
-});
-
-router.get('/condos/:id', function(req, res) {
+// show
+router.get('/:id', function(req, res) {
     Condo.findById(req.params.id).populate('towers').exec(function(err, foundCondo) {
         if (err) {
             console.log(err);
@@ -37,7 +41,8 @@ router.get('/condos/:id', function(req, res) {
     });
 });
 
-router.get('/condos/:id/edit', function(req, res) {
+// edit
+router.get('/:id/edit', function(req, res) {
     Condo.findById(req.params.id, function(err, foundCondo) {
         if (err) {
             console.log(err);
@@ -47,7 +52,8 @@ router.get('/condos/:id/edit', function(req, res) {
     });
 });
 
-router.put('/condos/:id', function(req, res) {
+// update
+router.put('/:id', function(req, res) {
     Condo.findByIdAndUpdate(req.params.id, req.body.condo, function(err, updatedCondo) {
         if (err) {
             console.log(err);
@@ -58,7 +64,7 @@ router.put('/condos/:id', function(req, res) {
 });
 
 // destroy
-router.delete('/condos/:id', function(req, res) {
+router.delete('/:id', function(req, res) {
     Condo.findByIdAndRemove(req.params.id, function(err, condo) {
         console.log(condo);
         if (err) {

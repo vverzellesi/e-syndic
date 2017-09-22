@@ -7,7 +7,7 @@ var express = require('express'),
 module.exports = router;
 
 // index route
-router.get('/condos/:id/spaces/', function(req, res) {
+router.get('/', function(req, res) {
     Condo.findById(req.params.id).populate('spaces').exec(function(err, condo) {
         if (err) {
             console.log(err);
@@ -18,7 +18,7 @@ router.get('/condos/:id/spaces/', function(req, res) {
 });
 
 // create view
-router.get('/condos/:id/spaces/new', middleware.isLoggedIn, function(req, res) {
+router.get('/new', middleware.isLoggedIn, function(req, res) {
     Condo.findById(req.params.id, function(err, condo) {
         if (err) {
             console.log(err);
@@ -29,7 +29,7 @@ router.get('/condos/:id/spaces/new', middleware.isLoggedIn, function(req, res) {
 });
 
 // create logic
-router.post('/condos/:id/spaces', middleware.isLoggedIn, function(req, res) {
+router.post('/', middleware.isLoggedIn, function(req, res) {
     Condo.findById(req.params.id, function(err, condo) {
         if (err) {
             console.log(err);
@@ -49,7 +49,7 @@ router.post('/condos/:id/spaces', middleware.isLoggedIn, function(req, res) {
 });
 
 // show
-router.get('/condos/:id/spaces/:space_id', function(req, res) {
+router.get('/:space_id', function(req, res) {
     Space.findById(req.params.space_id, function(err, space) {
         if (err) {
             console.log(err);
@@ -60,7 +60,7 @@ router.get('/condos/:id/spaces/:space_id', function(req, res) {
 });
 
 // edit
-router.get('/condos/:id/spaces/:space_id/edit', function(req, res) {
+router.get('/:space_id/edit', function(req, res) {
     Space.findById(req.params.space_id, function(err, space) {
         if (err) {
             console.log(err);
@@ -72,7 +72,7 @@ router.get('/condos/:id/spaces/:space_id/edit', function(req, res) {
 });
 
 // update
-router.put('/condos/:id/spaces/:space_id', function(req, res) {
+router.put('/:space_id', function(req, res) {
     Space.findByIdAndUpdate(req.params.space_id, req.body.space, function(err, updatedSpace) {
         if (err) {
             console.log(err);
@@ -84,7 +84,7 @@ router.put('/condos/:id/spaces/:space_id', function(req, res) {
 });
 
 // destroy
-router.delete('/condos/:id/spaces/:space_id', function(req, res) {
+router.delete('/:space_id', function(req, res) {
     Space.findByIdAndRemove(req.params.space_id, function(err, space) {
         if (err) {
             console.log(err);
