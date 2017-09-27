@@ -6,21 +6,26 @@
 
     <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/vehicles/new" class="btn btn-success">Add a New vehicle</a>
 
-    <% apartment.vehicles.forEach(function(vehicle) { %>
-    <li>
-        <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/vehicles/<%= vehicle._id %>"><i class="fa fa-info" aria-hidden="true"></i></a>
-        
-        <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/vehicles/<%= vehicle._id %>/edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-
-        <form id="delete-from" action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/vehicles/<%= vehicle._id %>?_method=DELETE" method="post">
-            <button type="submit" class="btn btn-danger">
-                <i class="fa fa-trash" aria-hidden="true"></i>
-            </button>
-        </form>
-
-        <%= vehicle.model %>
-    </li>
-    <% }) %>
+  <table id="index-table" class="table table-striped table-bordered" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Plate</th>
+        <th>Color</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% apartment.vehicles.forEach(function(vehicle) { %>   
+        <tr>
+          <td><a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/vehicles/<%= vehicle._id %>"><%= vehicle.brand %></a></td>
+          <td><%= vehicle.model %></td>
+          <td><%= vehicle.plate %></td>
+          <td><%= vehicle.color %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
 
 </div>
 

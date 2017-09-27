@@ -1,8 +1,14 @@
 <% include ../partials/header %>
 <div class="container">
 
-    <a href="/condos/<%= condo_id %>/towers/<%= tower._id %>/apartments" class="btn btn-primary">List of Towers</a>
+    <a href="/condos/<%= condo_id %>/towers/<%= tower._id %>/apartments" class="btn btn-primary">List of Apartments</a>
     
+    <form id="delete-from" action="/condos/<%= condo_id %>/towers/<%= tower._id %>?_method=DELETE" method="post">
+        <button type="submit" class="btn btn-danger">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+        </button>
+    </form>
+
     <h1>Tower <%= tower.name %></h1>
     <h1><%= tower. apartmentsPerFloor %> apartments per floor</h1>
 

@@ -13,8 +13,7 @@ router.get('/', function(req, res) {
         } else {
             res.render('apartments/index', { condo_id: req.params.id, tower: tower });
         }
-    })
-
+    });
 });
 
 // create view

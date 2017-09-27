@@ -1,24 +1,27 @@
 <% include ../partials/header %>
 
 <div class="container">
-    <h1>Apartments</h1>
+  <h1>Apartments</h1>
 
-    <a href="/condos/<%= condo_id %>/towers/<%= tower._id %>/apartments/new" class="btn btn-success">Add a New Apartment</a>
+  <a href="/condos/<%= condo_id %>/towers/<%= tower._id %>/apartments/new" class="btn btn-success">Add a New Apartment</a>
 
-    <% tower.apartments.forEach(function(apartment) { %>
-        <li>
-            <a href="/condos/<%= condo_id %>/towers/<%= tower._id %>/apartments/<%= apartment._id %>"><i class="fa fa-info" aria-hidden="true"></i></a>
-            
-            <a href="/condos/<%= condo_id %>/towers/<%= tower._id %>/apartments/<%= apartment._id %>/edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-            
-            <form id="delete-from" action="/condos/<%= condo_id %>/towers/<%= tower._id %>/apartments/<%= apartment._id %>?_method=DELETE" method="post">
-                <button type="submit" class="btn btn-danger">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </button>
-            </form>
-            <%= apartment.number %> - Floor: <%= apartment.floor %>
-        </li>
-    <% }) %>
+  <table id="index-table" class="table table-striped table-bordered" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Floors</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% tower.apartments.forEach(function(apartment) { %>      
+        <tr>
+          <td><a href="/condos/<%= condo_id %>/towers/<%= tower._id %>/apartments/<%= apartment._id %>"><%= apartment.number %></a></td>
+          <td><%= apartment.floor %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+    
 </div>
 
 <% include ../partials/footer %>

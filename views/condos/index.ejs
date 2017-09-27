@@ -7,9 +7,22 @@
 
   <a href="/condos/new" class="btn btn-sm btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Add a New Condo</a>
 
-  <% condos.forEach(function(condo) { %>
-    <li> <a href="/condos/<%= condo._id %>"><i class="fa fa-info" aria-hidden="true"></i></a> <%= condo.name %> (<%= condo.address%>)</li>
-  <% }) %>
+  <table id="index-table" class="table table-striped table-bordered" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+      <tbody>
+        <% condos.forEach(function(condo) { %> 
+          <tr>
+            <td><a href="/condos/<%= condo._id %>"><%= condo.name %></a></td>
+            <td><%= condo.address %></td>
+          </tr>
+        <% }) %>
+    </tbody>
+  </table>
 
 </div>
 

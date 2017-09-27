@@ -2,6 +2,50 @@ li {
     list-style: none;
 }
 
+a {
+    color: inherit;
+}
+
+a:hover {
+    color: inherit;
+}
+
 #delete-form {
     display: inline;
+}
+
+.huge {
+    font-size: 40px;
+}
+
+.panel-green {
+    border-color: #5cb85c;
+}
+
+.panel-green>.panel-heading {
+    border-color: #5cb85c;
+    color: white;
+    background-color: #5cb85c;
+}
+
+.panel-green>a {
+    color: #5cb85c;
+}
+
+.panel-green>a:hover {
+    color: #3d8b3d;
+}
+
+tfoot input {
+    width: 100%;
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+#index-table {
+    width: 100%;
+}
+
+#index-table_wrapper {
+    margin: 20px 0;
 }
