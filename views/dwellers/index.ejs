@@ -1,11 +1,32 @@
 <% include ../partials/header %>
 
-<h1>List of Dwellers</h1>
+<div class="container">
 
-<a href="/dwellers/new">Add a New Dweller</a>
+    <h1>Dwellers on Apartment <%= apartment.number %></h1>
 
-<% condo.towers.apartment.dwellers.forEach(function(dweller) { %>
-<li> <a href="/dwellers/<%= dweller._id %>">+ </a> <%= dweller.name %> (Tower: <%= dweller.tower%> - apartment: <%= dweller.apartmentNumber%>)</strong> </li>
-<% }) %>
+    <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/dwellers/new" class="btn btn-success">Add a New Dweller</a>
+
+  <table id="index-table" class="table table-striped table-bordered" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>CPF</th>
+        <th>RG</th>
+        <th>E-Mail</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% apartment.dwellers.forEach(function(dweller) { %>    
+        <tr>
+          <td><a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/dwellers/<%= dweller._id %>"><%= dweller.name %></a></td>
+          <td><%= dweller.cpf %></td>
+          <td><%= dweller.rg %></td>
+          <td><%= dweller.email %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+</div>
 
 <% include ../partials/footer %>

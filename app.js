@@ -12,6 +12,7 @@ var express = require('express'),
     Apartment = require('./models/apartment'),
     Vehicle = require('./models/vehicle'),
     Dweller = require('./models/dweller'),
+    Space = require('./models/space'),
     seedDB = require('./seeds');
 
 // requiring routes
@@ -20,6 +21,7 @@ var condoRoutes = require('./routes/condos'),
     dwellerRoutes = require('./routes/dwellers'),
     towerRoutes = require('./routes/towers'),
     vehicleRoutes = require('./routes/vehicles'),
+    spaceRoutes = require('./routes/spaces'),
     indexRoutes = require('./routes/index');
 
 
@@ -50,11 +52,12 @@ app.use(function(req, res, next) {
 });
 
 app.use(indexRoutes);
-app.use(apartmentRoutes);
-app.use(condoRoutes);
-app.use(dwellerRoutes);
-app.use(towerRoutes);
-app.use(vehicleRoutes);
+app.use('/condos', condoRoutes);
+app.use('/condos/:id/towers', towerRoutes);
+app.use('/condos/:id/spaces', spaceRoutes);
+app.use('/condos/:id/towers/:tower_id/apartments', apartmentRoutes);
+app.use('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers', dwellerRoutes);
+app.use('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles', vehicleRoutes);
 
 app.get('*', function(req, res) {
     res.send('This page does not exist!');

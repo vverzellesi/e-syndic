@@ -1,11 +1,32 @@
 <% include ../partials/header %>
 
-<h1>List of Vehicles</h1>
+<div class="container">
 
-<a href="/vehicles/new">Add a New Vehicle</a>
+    <h1>Vehicles on Apartment <%= apartment.number %></h1>
 
-<% vehicles.forEach(function(vehicle) { %>
-<li> <a href="/vehicles/<%= vehicle._id %>">+ </a> Brand: <%= vehicle.brand %> - Model: <%= vehicle.model%></strong> </li>
-<% }) %>
+    <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/vehicles/new" class="btn btn-success">Add a New vehicle</a>
+
+  <table id="index-table" class="table table-striped table-bordered" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Plate</th>
+        <th>Color</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% apartment.vehicles.forEach(function(vehicle) { %>   
+        <tr>
+          <td><a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/vehicles/<%= vehicle._id %>"><%= vehicle.brand %></a></td>
+          <td><%= vehicle.model %></td>
+          <td><%= vehicle.plate %></td>
+          <td><%= vehicle.color %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+</div>
 
 <% include ../partials/footer %>

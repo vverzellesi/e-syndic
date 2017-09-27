@@ -1,0 +1,28 @@
+<% include ../partials/header %>
+<div class="container">
+  
+  <h1>List of Spaces</h1>
+  <a href="/condos/<%= condo._id %>/spaces/new" class="btn btn-success">Add New Space</a> <br>
+
+  <table id="index-table" class="table table-striped table-bordered" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Maximum Capacity</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% condo.spaces.forEach(function(space) { %>       
+        <tr>
+          <td><a href="/condos/<%= condo._id %>/spaces/<%= space._id %>"><%= space.name %></a></td>
+          <td><%= space.maxCapacity %></td>
+          <td><%= space.price %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+</div>
+
+<% include ../partials/footer %>

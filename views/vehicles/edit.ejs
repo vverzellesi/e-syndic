@@ -2,9 +2,9 @@
 
 <div class="container">
     <div class="row">
-        <h1 style="text-align: center;">Edit Vehicle <%= vehicle.brand %></h1>
+        <h1 style="text-align: center;">Edit <%= vehicle.brand %> - <%= vehicle.model %></h1>
         <div style="width: 30%; margin: 20px auto;">
-            <form action="/vehicles/<%= vehicle._id %>?_method=PUT" method="post">
+            <form action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment_id %>/vehicles/<%= vehicle._id %>?_method=PUT" method="post">
                 <div class="form-group">
                     <input class="form-control" type="text" name="vehicle[brand]" value="<%= vehicle.brand %>">
                 </div>
@@ -16,9 +16,6 @@
                 </div>
                 <div class="form-group">
                     <input class="form-control" type="text" name="vehicle[color]" value="<%= vehicle.color %>">
-                </div>
-                <div class="form-group">
-                    <input class="form-control" type="text" name="vehicle[apartmentOwner]" value="<%= vehicle.apartmentOwner %>">
                 </div>
                 <div class="form-group">
                     <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">

@@ -2,21 +2,80 @@
 <div class="container">
 
   <h1><%= condo.name %></h1>
-  <a href="/condos/<%= condo._id %>/edit">Edit Condo</a> <br>
+  <a href="/condos/<%= condo._id %>/edit" class="btn btn-warning" data-toggle="tooltip" data-placement="left" title="" data-original-title="Tooltip on left">Edit Condo</a>
+  <form id="delete-form" action="/condos/<%= condo._id %>?_method=DELETE" method="post">
+    <input type="button" class="btn btn-danger" value="Delete">
+  </form>
 
   <h3><%= condo.address %></h3>
 
   <h4>Towers</h4>
   <% condo.towers.forEach(function(tower) { %>
     <p>
+    <h2></h2>
       <%= tower.name %> - <%= tower.floors %> - <%= tower.apartmentsPerFloor %>
     </p>
   <% }) %>
 
-
-  <a href="/condos/<%= condo._id %>/towers/new" class="btn btn-success">Add New Tower</a> <br>
+  
   <a href="/condos/<%= condo._id %>/towers">List of Towers</a> <br>
+  <a href="/condos/<%= condo._id %>/spaces">List of Spaces</a> <br>
   <a href="/condos">Go Back</a>
+
+
+  <hr>
+
+<div class="row">
+  <div class="col-lg-3 col-md-6">
+      <div class="panel panel-primary">
+          <div class="panel-heading">
+              <div class="row">
+                  <div class="col-xs-3">
+                      <i class="fa fa-building-o fa-5x"></i>
+                  </div>
+                  <div class="col-xs-9 text-right">
+                      <div class="huge">26</div>
+                      <div>Towers</div>
+                  </div>
+              </div>
+          </div>
+          <a href="/condos/<%= condo._id %>/towers">
+              <div class="panel-footer">
+                  <span class="pull-left">View Details</span>
+                  <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                  <div class="clearfix"></div>
+              </div>
+          </a>
+      </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6">
+    <div class="panel panel-green">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-3">
+                    <i class="fa fa-tasks fa-5x"></i>
+                </div>
+                <div class="col-xs-9 text-right">
+                    <div class="huge">12</div>
+                    <div>Spaces</div>
+                </div>
+            </div>
+        </div>
+        <a href="/condos/<%= condo._id %>/spaces">
+            <div class="panel-footer">
+                <span class="pull-left">View Details</span>
+                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                <div class="clearfix"></div>
+            </div>
+        </a>
+    </div>
+  </div>
+</div>
+
+
+    </div>
+
 
 </div>
 

@@ -1,104 +1,97 @@
 var express = require('express'),
-    router = express.Router(),
+    router = express.Router({ mergeParams: true }),
     Condo = require('../models/condo'),
     Apartment = require('../models/apartment'),
-    Tower = require('../models/tower');
+    Tower = require('../models/tower'),
+    middleware = require('../middleware');
 
 // index
-router.get('/condos/:id/towers/:id/apartments', function(req, res) {
-    Condo.findById(req.params.id).populate('apartments').exec(function(err, condo) {
+router.get('/', function(req, res) {
+    Tower.findById(req.params.tower_id).populate('apartments').exec(function(err, tower) {
         if (err) {
             console.log(err);
         } else {
-            res.render('apartments/index', { condo: condo });
+            res.render('apartments/index', { condo_id: req.params.id, tower: tower });
         }
     });
 });
 
 // create view
-router.get('/condos/:id/towers/:id/apartments/new', isLoggedIn, function(req, res) {
-    Condo.findById(req.params.id, function(err, condo) {
+router.get('/new', middleware.isLoggedIn, function(req, res) {
+    Tower.findById(req.params.tower_id, function(err, tower) {
         if (err) {
             console.log(err);
         } else {
-            res.render('apartments/new', { condo: condo });
+            res.render('apartments/new', { condo_id: req.params.id, tower: tower });
         }
     });
 });
 
 // create logic
-router.post('/condos/:id/towers/:id/apartments', isLoggedIn, function(req, res) {
-    // Condo.findById(req.params.id, function(err, condo) {
-    //     if (err) {
-    //         console.log(err);
-    //     } else {
-    Tower.findById(req.params.id, function(err, tower) {
+router.post('/', middleware.isLoggedIn, function(req, res) {
+    Tower.findById(req.params.tower_id, function(err, tower) {
         if (err) {
             console.log(err);
         } else {
-            Apartment.create(req.body.tower, function(err, apartment) {
+            Apartment.create(req.body.apartment, function(err, apartment) {
                 if (err) {
                     console.log(err);
                 } else {
-                    tower.apartment.push(apartment);
+                    apartment.save();
+                    tower.apartments.push(apartment);
                     tower.save();
-                    res.redirect('/towers/' + tower._id);
+                    res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments');
                 }
             });
         }
     });
-    // }
-    // });
-
-
-    // Tower.findById(req.params.id, function(err, tower) {
-    //     if (err) {
-    //         console.log(err);
-    //     } else {
-    //         Apartment.create(req.body.apartment, function(err, apartment) {
-    //             tower.apartments.push(tower);
-    //             tower.save();
-    //             res.redirect('/towers/' + tower._id);
-    //         });
-    //     }
-    // });
 });
 
-router.get('/apartments/:id', function(req, res) {
-    Apartment.findById(req.params.id, function(err, foundApartment) {
+// show
+router.get('/:apartment_id', function(req, res) {
+    Apartment.findById(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);
         } else {
-            res.render('apartments/show', { apartment: foundApartment });
+            res.render('apartments/show', { condo_id: req.params.id, tower_id: req.params.tower_id, apartment: apartment });
         }
     });
 });
 
-router.get('/apartments/:id/edit', function(req, res) {
-    Apartment.findById(req.params.id, function(err, foundApartment) {
+// edit
+router.get('/:apartment_id/edit', function(req, res) {
+    Apartment.findById(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);
+            res.redirect('back');
         } else {
-            res.render('apartments/edit', { apartment: foundApartment });
+            res.render('apartments/edit', { condo_id: req.params.id, tower_id: req.params.tower_id, apartment: apartment });
         }
     });
 });
 
-router.put('/apartments/:id', function(req, res) {
-    Apartment.findByIdAndUpdate(req.params.id, req.body.apartment, function(err, updatedApartment) {
+// update
+router.put('/:apartment_id', function(req, res) {
+    Apartment.findByIdAndUpdate(req.params.apartment_id, req.body.apartment, function(err, updatedApartment) {
         if (err) {
             console.log(err);
+            res.redirect('back');
         } else {
-            res.redirect('/apartments/' + req.params.id);
+            res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments');
         }
     });
 });
 
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect('/login');
-}
+// destroy
+router.delete('/:apartment_id', function(req, res) {
+    Apartment.findByIdAndRemove(req.params.apartment_id, function(err, apartment) {
+        if (err) {
+            console.log(err);
+            res.redirect('back');
+        } else {
+            res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments');
+        }
+    })
+});
 
 module.exports = router;

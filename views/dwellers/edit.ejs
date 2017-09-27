@@ -2,17 +2,11 @@
 
 <div class="container">
     <div class="row">
-        <h1 style="text-align: center;">Edit Tower <%= dweller.name %></h1>
+        <h1 style="text-align: center;">Edit <%= dweller.name %></h1>
         <div style="width: 30%; margin: 20px auto;">
-            <form action="/dwellers/<%= dweller._id %>?_method=PUT" method="post">
+            <form action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment_id %>/dwellers/<%= dweller._id %>?_method=PUT" method="post">
                 <div class="form-group">
                     <input class="form-control" type="text" name="dweller[name]" value="<%= dweller.name %>">
-                </div>
-                <div class="form-group">
-                    <input class="form-control" type="text" name="dweller[tower]" value="<%= dweller.tower %>">
-                </div>
-                <div class="form-group">
-                    <input class="form-control" type="text" name="dweller[apartmentNumber]" value="<%= dweller.apartmentNumber %>">
                 </div>
                 <div class="form-group">
                     <input class="form-control" type="text" name="dweller[cpf]" value="<%= dweller.cpf %>">

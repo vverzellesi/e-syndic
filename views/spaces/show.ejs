@@ -1,0 +1,20 @@
+<% include ../partials/header %>
+<div class="container">
+    
+    <h1><%= space.name %></h1>
+    <h2>Maximum Capacity: <%= space.maxCapacity %></h2>
+    <h2>Rent Price: <%= space.price %></h2>
+    
+    <a href="/condos/<%= condo_id %>/spaces/<%= space._id %>/edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+    <form id="delete-from" action="/condos/<%= condo_id %>/spaces/<%= space._id %>?_method=DELETE" method="post">
+        <button type="submit" class="btn btn-danger">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+        </button>
+    </form>
+
+
+    <a href="/condos/<%= condo_id %>/spaces">Go Back</a>
+
+</div>
+
+<% include ../partials/footer %>

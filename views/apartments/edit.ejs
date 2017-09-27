@@ -4,15 +4,12 @@
     <div class="row">
         <h1 style="text-align: center;">Edit Tower <%= apartment.name %></h1>
         <div style="width: 30%; margin: 20px auto;">
-            <form action="/apartments/<%= apartment._id %>?_method=PUT" method="post">
+            <form action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>?_method=PUT" method="post">
                 <div class="form-group">
                     <input class="form-control" type="text" name="apartment[number]" value="<%= apartment.number %>">
                 </div>
                 <div class="form-group">
                     <input class="form-control" type="text" name="apartment[floor]" value="<%= apartment.floor %>">
-                </div>
-                <div class="form-group">
-                    <input class="form-control" type="text" name="apartment[dwellers]" value="<%= apartment.dwellers %>">
                 </div>
                 <div class="form-group">
                     <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">

@@ -1,9 +1,21 @@
 <% include ../partials/header %>
 
-<h1><%= vehicle.brand %> - <%= vehicle.model %></h1>
+<div class="container">
 
-<h3><%= vehicle.plate %></h3>
+  <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment_id %>/vehicles/<%= vehicle._id %>/edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 
-<a href="/vehicles">Go Back</a>
+  <form id="delete-from" action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment_id %>/vehicles/<%= vehicle._id %>?_method=DELETE" method="post">
+      <button type="submit" class="btn btn-danger">
+          <i class="fa fa-trash" aria-hidden="true"></i>
+      </button>
+  </form>
+
+    <h1><%= vehicle.brand %> - <%= vehicle.model %></h1>
+
+    <h3><%= vehicle.plate %></h3>
+
+    <a href="/vehicles">Go Back</a>
+
+</div>
 
 <% include ../partials/footer %>

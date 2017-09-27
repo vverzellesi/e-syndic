@@ -2,9 +2,9 @@
 
 <div class="container">
     <div class="row">
-        <h1 style="text-align: center;">Create a New Condo</h1>
+        <h1 style="text-align: center;">Add New Vehicle to Apartment <%= apartment.number %></h1>
         <div style="width: 30%; margin: 20px auto;">
-            <form action="/vehicles" method="post">
+            <form action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/vehicles" method="post">
                 <div class="form-group">
                     <input class="form-control" type="text" placeholder="Brand" name="vehicle[brand]">
                 </div>
@@ -16,9 +16,6 @@
                 </div>
                 <div class="form-group">
                     <input class="form-control" type="text" placeholder="Color" name="vehicle[color]">
-                </div>
-                <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Apartment Owner" name="vehicle[apartmentOwner]">
                 </div>
                 <div class="form-group">
                     <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">

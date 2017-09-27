@@ -5,7 +5,6 @@ var vehicleSchema = new mongoose.Schema({
     model: String,
     plate: String,
     color: String,
-    apartmentOwner: String
 });
 
 module.exports = mongoose.model('Vehicle', vehicleSchema);

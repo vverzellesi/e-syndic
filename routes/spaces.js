@@ -1,16 +1,18 @@
 var express = require('express'),
     router = express.Router({ mergeParams: true }),
+    middleware = require('../middleware'),
     Condo = require('../models/condo'),
-    Tower = require('../models/tower'),
-    middleware = require('../middleware');
+    Space = require('../models/space');
+
+module.exports = router;
 
 // index route
 router.get('/', function(req, res) {
-    Condo.findById(req.params.id).populate('towers').exec(function(err, condo) {
+    Condo.findById(req.params.id).populate('spaces').exec(function(err, condo) {
         if (err) {
             console.log(err);
         } else {
-            res.render('towers/index', { condo: condo });
+            res.render('spaces/index', { condo: condo });
         }
     });
 });
@@ -21,7 +23,7 @@ router.get('/new', middleware.isLoggedIn, function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('towers/new', { condo: condo });
+            res.render('spaces/new', { condo: condo });
         }
     });
 });
@@ -32,14 +34,14 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            Tower.create(req.body.tower, function(err, tower) {
+            Space.create(req.body.space, function(err, space) {
                 if (err) {
                     console.log(err);
                 } else {
-                    tower.save();
-                    condo.towers.push(tower);
+                    space.save();
+                    condo.spaces.push(space);
                     condo.save();
-                    res.redirect('/condos/' + condo._id + '/towers');
+                    res.redirect('/condos/' + condo._id + '/spaces');
                 }
             });
         }
@@ -47,50 +49,48 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // show
-router.get('/:tower_id', function(req, res) {
-    Tower.findById(req.params.tower_id, function(err, tower) {
+router.get('/:space_id', function(req, res) {
+    Space.findById(req.params.space_id, function(err, space) {
         if (err) {
             console.log(err);
         } else {
-            res.render('towers/show', { condo_id: req.params.id, tower: tower });
+            res.render('spaces/show', { condo_id: req.params.id, space: space });
         }
     });
 });
 
 // edit
-router.get('/:tower_id/edit', function(req, res) {
-    Tower.findById(req.params.tower_id, function(err, tower) {
+router.get('/:space_id/edit', function(req, res) {
+    Space.findById(req.params.space_id, function(err, space) {
         if (err) {
             console.log(err);
             res.redirect('back');
         } else {
-            res.render('towers/edit', { condo_id: req.params.id, tower: tower });
+            res.render('spaces/edit', { condo_id: req.params.id, space: space });
         }
     });
 });
 
 // update
-router.put('/:tower_id', function(req, res) {
-    Tower.findByIdAndUpdate(req.params.tower_id, req.body.tower, function(err, updatedTower) {
+router.put('/:space_id', function(req, res) {
+    Space.findByIdAndUpdate(req.params.space_id, req.body.space, function(err, updatedSpace) {
         if (err) {
             console.log(err);
             res.redirect('back');
         } else {
-            res.redirect('/condos/' + req.params.id + '/towers/');
+            res.redirect('/condos/' + req.params.id + '/spaces/');
         }
     });
 });
 
 // destroy
-router.delete('/:tower_id', function(req, res) {
-    Tower.findByIdAndRemove(req.params.tower_id, function(err, tower) {
+router.delete('/:space_id', function(req, res) {
+    Space.findByIdAndRemove(req.params.space_id, function(err, space) {
         if (err) {
             console.log(err);
             res.redirect('back');
         } else {
-            res.redirect('/condos/' + req.params.id + '/towers');
+            res.redirect('/condos/' + req.params.id + '/spaces');
         }
     });
 });
-
-module.exports = router;
