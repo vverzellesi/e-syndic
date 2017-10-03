@@ -13,6 +13,7 @@ var express = require('express'),
     Vehicle = require('./models/vehicle'),
     Dweller = require('./models/dweller'),
     Space = require('./models/space'),
+    Feedback = require('./models/feedback'),
     seedDB = require('./seeds');
 
 // requiring routes
@@ -22,6 +23,7 @@ var condoRoutes = require('./routes/condos'),
     towerRoutes = require('./routes/towers'),
     vehicleRoutes = require('./routes/vehicles'),
     spaceRoutes = require('./routes/spaces'),
+    feedbackRoutes = require('./routes/feedbacks'),
     indexRoutes = require('./routes/index');
 
 
@@ -30,8 +32,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
-
-//seedDB(); // seed the database
 
 // PASSPORT CONFIG
 app.use(require('express-session')({
@@ -55,6 +55,7 @@ app.use(indexRoutes);
 app.use('/condos', condoRoutes);
 app.use('/condos/:id/towers', towerRoutes);
 app.use('/condos/:id/spaces', spaceRoutes);
+app.use('/condos/:id/feedbacks', feedbackRoutes);
 app.use('/condos/:id/towers/:tower_id/apartments', apartmentRoutes);
 app.use('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers', dwellerRoutes);
 app.use('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles', vehicleRoutes);

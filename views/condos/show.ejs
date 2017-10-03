@@ -9,19 +9,11 @@
 
   <h3><%= condo.address %></h3>
 
-  <h4>Towers</h4>
-  <% condo.towers.forEach(function(tower) { %>
-    <p>
-    <h2></h2>
-      <%= tower.name %> - <%= tower.floors %> - <%= tower.apartmentsPerFloor %>
-    </p>
-  <% }) %>
-
   
   <a href="/condos/<%= condo._id %>/towers">List of Towers</a> <br>
   <a href="/condos/<%= condo._id %>/spaces">List of Spaces</a> <br>
+  <a href="/condos/<%= condo._id %>/feedbacks">List of Feedbacks</a> <br>
   <a href="/condos">Go Back</a>
-
 
   <hr>
 
