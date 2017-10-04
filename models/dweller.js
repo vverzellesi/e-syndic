@@ -2,9 +2,9 @@ var mongoose = require('mongoose');
 
 var dwellerSchema = new mongoose.Schema({
     name: String,
-    cpf: Number,
+    cpf: String,
     rg: String,
-    birthday: String,
+    birthday: Date,
     phone: String,
     email: String
 });
