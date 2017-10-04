@@ -35,7 +35,7 @@ $(document).ready(function() {
         };
 
     $('#cpf').mask('000.000.000-00');
-    $('#rg').mask('AA-AAA-AAA-A');
+    $('#rg').mask('AA.AAA.AAA-A');
     $('#date').mask('00/00/0000');
     $('#phone').mask(maskBehavior, options);
     $('#plate').mask('SSS-0000', {
