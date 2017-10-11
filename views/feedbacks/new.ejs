@@ -1,0 +1,31 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center;">Add New Feedback to <%= condo.name %></h1>
+        <div style="width: 30%; margin: 20px auto;">
+            <form action="/condos/<%= condo.id %>/feedbacks" method="post">
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Text" name="feedback[text]">
+                </div>
+                <div class="form-group">
+                    <select class="form-control" name="feedback[category]">
+                        <%
+                        var options = ['Suggestion', 'Compliment'];
+                        for (var i = 0; i < options.length; i++) {
+                            %><option value="<%= options[i] %>"><%= options[i] %></option><%
+                        }
+                        %>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">
+                </div>
+            </form>
+            <a href="/condos">Go Back</a>
+        </div>
+    </div>
+</div>
+
+
+<% include ../partials/footer %>

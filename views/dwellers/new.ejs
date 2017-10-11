@@ -9,16 +9,21 @@
                     <input class="form-control" type="text" placeholder="Name" name="dweller[name]">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="CPF" name="dweller[cpf]">
+                    <input class="form-control" type="text" id="cpf" placeholder="CPF" name="dweller[cpf]">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="RG" name="dweller[rg]">
+                    <input class="form-control" type="text" id="rg" placeholder="RG" name="dweller[rg]">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Birthday" name="dweller[birthday]">
+                    <div class="input-group date" data-provide="datepicker">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                        <input class="form-control" type="text" id="date" placeholder="Birthday" name="dweller[birthday]">
+                    </div>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Phone" name="dweller[phone]">
+                    <input class="form-control" type="text" id="phone" placeholder="Phone" name="dweller[phone]">
                 </div>
                 <div class="form-group">
                     <input class="form-control" type="text" placeholder="E-mail" name="dweller[email]">

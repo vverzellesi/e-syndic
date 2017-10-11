@@ -10,6 +10,10 @@ var condoSchema = new mongoose.Schema({
     spaces: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Space'
+    }],
+    feedbacks: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Feedback'
     }]
 });
 
