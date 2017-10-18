@@ -83,7 +83,7 @@ router.put('/:space_id', function(req, res) {
     });
 });
 
-// schedule
+// schedule space view
 router.get('/:space_id/schedule', function(req, res) {
     Space.findById(req.params.space_id, function(err, space) {
         if (err) {
@@ -95,17 +95,25 @@ router.get('/:space_id/schedule', function(req, res) {
     });
 });
 
-// schedule space
+// schedule space logic
 router.put('/:space_id/schedule', function(req, res) {
-    Space.findByIdAndUpdate(req.params.space_id, { '$push': { 'scheduledDates': req.body.space } }, { "new": true, "upsert": true },
-        function(err, scheduleDate) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(req.body);
-                res.redirect('/condos/' + req.params.id + '/spaces/');
+
+    console.log('SPACE: ' + req.body.space.scheduledDates);
+    Space.findByIdAndUpdate(req.params.space_id, {
+        '$push': {
+            'scheduledDates': {
+                'scheduledDates': req.body.space.scheduledDates,
+                'author': { _id: req.user._id, username: req.user.username }
             }
-        });
+        }
+    }, { "new": true, "upsert": true }, function(err, space) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(req.body.space);
+            res.redirect('/condos/' + req.params.id + '/spaces/');
+        }
+    });
 });
 
 // destroy

@@ -5,7 +5,14 @@ var spaceSchema = new mongoose.Schema({
     maxCapacity: Number,
     price: Number,
     scheduledDates: [{
-        scheduledDates: String
+        scheduledDates: String,
+        author: {
+            _id: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'User'
+            },
+            username: String
+        }
     }]
 });
 
