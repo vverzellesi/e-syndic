@@ -12,9 +12,9 @@ var express = require('express'),
     Apartment = require('./models/apartment'),
     Vehicle = require('./models/vehicle'),
     Dweller = require('./models/dweller'),
+    Dweller = require('./models/visitor'),
     Space = require('./models/space'),
-    Feedback = require('./models/feedback'),
-    seedDB = require('./seeds');
+    Feedback = require('./models/feedback');
 
 // requiring routes
 var condoRoutes = require('./routes/condos'),
@@ -22,6 +22,7 @@ var condoRoutes = require('./routes/condos'),
     dwellerRoutes = require('./routes/dwellers'),
     towerRoutes = require('./routes/towers'),
     vehicleRoutes = require('./routes/vehicles'),
+    visitorRoutes = require('./routes/visitors'),
     spaceRoutes = require('./routes/spaces'),
     feedbackRoutes = require('./routes/feedbacks'),
     indexRoutes = require('./routes/index');
@@ -58,6 +59,7 @@ app.use('/condos/:id/spaces', spaceRoutes);
 app.use('/condos/:id/feedbacks', feedbackRoutes);
 app.use('/condos/:id/towers/:tower_id/apartments', apartmentRoutes);
 app.use('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers', dwellerRoutes);
+app.use('/condos/:id/towers/:tower_id/apartments/:apartment_id/visitors', visitorRoutes);
 app.use('/condos/:id/towers/:tower_id/apartments/:apartment_id/vehicles', vehicleRoutes);
 
 app.get('*', function(req, res) {

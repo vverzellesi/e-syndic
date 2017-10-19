@@ -10,6 +10,10 @@ var apartmentSchema = new mongoose.Schema({
     vehicles: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Vehicle'
+    }],
+    visitors: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Visitor'
     }]
 });
 

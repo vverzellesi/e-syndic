@@ -1,0 +1,20 @@
+<% include ../partials/header %>
+
+<div class="container">
+
+  <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment_id %>/visitors/<%= visitor._id %>/edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+  <form id="delete-from" action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment_id %>/visitors/<%= visitor._id %>?_method=DELETE" method="post">
+    <button type="submit" class="btn btn-danger">
+      <i class="fa fa-trash" aria-hidden="true"></i>
+    </button>
+  </form>
+
+    <h1><%= visitor.name %></h1>
+
+    <h3>CPF: <%= visitor.cpf %></h3>
+
+    <a href="#">Voltar</a>
+
+</div>
+
+<% include ../partials/footer %>
