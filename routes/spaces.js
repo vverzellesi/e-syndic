@@ -103,7 +103,10 @@ router.put('/:space_id/schedule', function(req, res) {
         '$push': {
             'scheduledDates': {
                 'scheduledDates': req.body.space.scheduledDates,
-                'author': { _id: req.user._id, username: req.user.username }
+                'author': {
+                    _id: req.user._id,
+                    username: req.user.username
+                }
             }
         }
     }, { "new": true, "upsert": true }, function(err, space) {
