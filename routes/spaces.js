@@ -97,8 +97,6 @@ router.get('/:space_id/schedule', function(req, res) {
 
 // schedule space logic
 router.put('/:space_id/schedule', function(req, res) {
-
-    console.log('SPACE: ' + req.body.space.scheduledDates);
     Space.findByIdAndUpdate(req.params.space_id, {
         '$push': {
             'scheduledDates': {
@@ -106,6 +104,10 @@ router.put('/:space_id/schedule', function(req, res) {
                 'author': {
                     _id: req.user._id,
                     username: req.user.username
+                },
+                'guests': {
+                    name: req.body.space.name,
+                    rg: req.body.space.rg
                 }
             }
         }
@@ -113,7 +115,6 @@ router.put('/:space_id/schedule', function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            console.log(req.body.space);
             res.redirect('/condos/' + req.params.id + '/spaces/');
         }
     });

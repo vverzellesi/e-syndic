@@ -12,8 +12,12 @@ var spaceSchema = new mongoose.Schema({
                 ref: 'User'
             },
             username: String
-        }
-    }]
+        },
+        guests: [{
+            name: String,
+            rg: String
+        }]
+    }],
 });
 
 module.exports = mongoose.model('Space', spaceSchema);
