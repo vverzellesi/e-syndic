@@ -48,5 +48,10 @@ $(document).ready(function() {
         }
     });
 
+    // $('#new-guest').click(function() {
+    //     $("#rg").append('<h1>NEW</h1>');
+    //alert('asad');
+    // });
+
 
 });

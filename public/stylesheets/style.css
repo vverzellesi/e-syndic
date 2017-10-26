@@ -49,3 +49,13 @@ tfoot input {
 #index-table_wrapper {
     margin: 20px 0;
 }
+
+#span-guests {
+    display: inline-block;
+    margin: 20px 0 10px 0;
+}
+
+#guest-list-header {
+    display: inline;
+    vertical-align: middle;
+}
