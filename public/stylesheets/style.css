@@ -59,3 +59,8 @@ tfoot input {
     display: inline;
     vertical-align: middle;
 }
+
+#jumbotron-dates {
+    padding: 10px 0;
+    border-radius: 5px;
+}
