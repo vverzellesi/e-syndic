@@ -2,6 +2,7 @@
 <div class="container">
     
     <h1><%= space.name %></h1>
+    <a href="/condos/<%= condo_id %>/spaces/<%= space._id %>/schedule" class="btn btn-success"><i class="fa fa-calendar" aria-hidden="true"></i> Reservar Espaço</a>
     <h2>Maximum Capacity: <%= space.maxCapacity %></h2>
     <h2>Rent Price: <%= space.price %></h2>
     
@@ -13,7 +14,7 @@
     </form>
 
 
-    <a href="/condos/<%= condo_id %>/spaces">Go Back</a>
+    <a href="/condos/<%= condo_id %>/spaces">Voltar</a>
 
 </div>
 

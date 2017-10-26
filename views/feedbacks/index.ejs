@@ -3,20 +3,20 @@
 <div class="container">
     <div class="well">
         <div class="text-right">
-            <a href="/condos/<%= condo._id %>/feedbacks/new" class="btn btn-success">Add Feedback</a>
+            <a href="/condos/<%= condo._id %>/feedbacks/new" class="btn btn-success">Adicionar Comentário</a>
         </div>
         <hr>
         <% condo.feedbacks.forEach(function (feedback) { %>
             <div class="row">
                 <div class="col-md-12">
                     <strong><%= feedback.author.username %></strong> - <em><%= feedback.category %></em>
-                    <span class="pull-right">10 days ago</span>
+                    <span class="pull-right">10 dias atrás</span>
                     <p>
                         <%= feedback.text %>
                     </p>
                     <% if(currentUser && feedback.author.id.equals(currentUser._id)){ %>
                         <a class="btn btn-xs btn-warning" 
-                            href="/condos/<%=condo._id %>/feedbacks/<%=feedback._id %>/edit">Edit</a>
+                            href="/condos/<%=condo._id %>/feedbacks/<%=feedback._id %>/edit">Editar</a>
                         <form id="delete-form" action="/condos/<%=condo._id %>/feedbacks/<%=feedback._id %>?_method=DELETE" method="POST">
                             <input type="submit" class="btn btn-xs btn-danger" value="Delete">
                         </form>

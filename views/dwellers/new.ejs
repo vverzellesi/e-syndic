@@ -2,11 +2,11 @@
 
 <div class="container">
     <div class="row">
-        <h1 style="text-align: center;">Create a New Dweller to Apartment <%= apartment.number %></h1>
+        <h1 style="text-align: center;">Criar Novo Morador no Apartamento <%= apartment.number %></h1>
         <div style="width: 30%; margin: 20px auto;">
             <form action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/dwellers" method="post">
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Name" name="dweller[name]">
+                    <input class="form-control" type="text" placeholder="Nome" name="dweller[name]">
                 </div>
                 <div class="form-group">
                     <input class="form-control" type="text" id="cpf" placeholder="CPF" name="dweller[cpf]">
@@ -19,20 +19,20 @@
                         <div class="input-group-addon">
                             <span class="glyphicon glyphicon-th"></span>
                         </div>
-                        <input class="form-control" type="text" id="date" placeholder="Birthday" name="dweller[birthday]">
+                        <input class="form-control" type="text" id="date" placeholder="Data de Nascimento" name="dweller[birthday]">
                     </div>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" id="phone" placeholder="Phone" name="dweller[phone]">
+                    <input class="form-control" type="text" id="phone" placeholder="Telefone" name="dweller[phone]">
                 </div>
                 <div class="form-group">
                     <input class="form-control" type="text" placeholder="E-mail" name="dweller[email]">
                 </div>
                 <div class="form-group">
-                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Enviar">
                 </div>
             </form>
-            <a href="/dwellers">Go Back</a>
+            <a href="/dwellers">Voltar</a>
         </div>
     </div>
 </div>

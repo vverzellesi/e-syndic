@@ -3,11 +3,12 @@
 
 <head>
     <title>e-Syndic</title>
+    <link rel="shortcut icon" href="/images/favicon.ico"/>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet">    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet">
     <link href="/stylesheets/style.css" rel="stylesheet">
 </head>
 <body>
@@ -27,15 +28,14 @@
             <div class="collapse navbar-collapse" id="bs-nav-demo">
                 <ul class="nav navbar-nav">
                     <li><a href="/">Home</a></li>
-                    <li><a href="#">Contact</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <% if(!currentUser) { %>
-                        <li><a href="/register">Sign Up <i class="fa fa-user-plus"></i></a></li>
-                        <li><a href="/login">Login <i class="fa fa-user"></i></a></li>
+                        <li><a href="/register">Cadastre-se <i class="fa fa-user-plus"></i></a></li>
+                        <li><a href="/login">Entrar <i class="fa fa-user"></i></a></li>
                     <% } else { %>
-                        <li><a href="#">Hello, <%= currentUser.username %></a></li>
-                        <li><a href="/logout">Logout <i class="fa fa-sign-out"></i></a></li>
+                        <li><a href="#">Olá, <%= currentUser.username %></a></li>
+                        <li><a href="/logout">Sair <i class="fa fa-sign-out"></i></a></li>
                     <% } %>
                 </ul>
             </div>

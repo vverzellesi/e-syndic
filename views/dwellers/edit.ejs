@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="row">
-        <h1 style="text-align: center;">Edit <%= dweller.name %></h1>
+        <h1 style="text-align: center;">Editar <%= dweller.name %></h1>
         <div style="width: 30%; margin: 20px auto;">
             <form action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment_id %>/dwellers/<%= dweller._id %>?_method=PUT" method="post">
                 <div class="form-group">
@@ -29,10 +29,10 @@
                     <input class="form-control" type="text" name="dweller[email]" value="<%= dweller.email %>">
                 </div>
                 <div class="form-group">
-                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Enviar">
                 </div>
             </form>
-            <a href="/dwellers">Go Back</a>
+            <a href="/dwellers">Voltar</a>
         </div>
     </div>
 </div>

@@ -1,0 +1,41 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center;">Adicionar Visitante em Apartamento <strong><%= apartment.number %></strong></h1>
+        <div style="width: 30%; margin: 20px auto;">
+            <form action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/visitors" method="post">
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Nome" name="visitor[name]">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" id="cpf" placeholder="CPF" name="visitor[cpf]">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" id="rg" placeholder="RG" name="visitor[rg]">
+                </div>
+                <div class="form-group">
+                    <div class="input-group date" data-provide="datepicker">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                        <input class="form-control" type="text" id="date" placeholder="Data de Nascimento" name="visitor[birthday]">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" id="phone" placeholder="Telefone" name="visitor[phone]">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Grau de Relação (pai, mãe, amigo...)" name="visitor[relationship]">
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Cadastrar">
+                </div>
+            </form>
+            <a href="/visitors">Voltar</a>
+        </div>
+    </div>
+</div>
+
+
+<% include ../partials/footer %>
