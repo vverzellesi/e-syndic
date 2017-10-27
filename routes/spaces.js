@@ -134,19 +134,6 @@ router.put('/:space_id/schedule', function(req, res) {
     })
 });
 
-// reservations
-router.get('/reservations', function(req, res) {
-    Space.find({
-        'scheduledDates.author._id': req.user._id
-    }, function(err, dates) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.render('spaces/reservations', { dates: dates });
-        }
-    });
-});
-
 // destroy
 router.delete('/:space_id', function(req, res) {
     Space.findByIdAndRemove(req.params.space_id, function(err, space) {
