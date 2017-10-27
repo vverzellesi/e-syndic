@@ -23,6 +23,14 @@
     </tbody>
   </table>
 
+  <h2>Minhas Reservas</h2>
+  <% condo.spaces.forEach(function(space) { %>    
+    <% space.scheduledDates.forEach(function(date) { %>    
+      <p><%= date %></p>
+    <% }) %>
+  <% }) %>
+  
+
 </div>
 
 <% include ../partials/footer %>

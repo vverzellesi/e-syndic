@@ -2,9 +2,7 @@
 
 <div class="container">
 
-    <h1>Número do Apartamento: <%= apartment.number %></h1>
-
-    <h3>Andar: <%= apartment.floor %></h3>
+    <h1>Apartamento <strong><%= apartment.number %></strong> - <strong><%= apartment.floor %></strong>º andar</h1>
 
     <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
     <form id="delete-from" action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>?_method=DELETE" method="post">
@@ -18,6 +16,8 @@
     <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/vehicles">Lista de Veículos</a><br>
 
     <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/visitors">Lista de Visitantes</a><br>
+
+    <a href="/condos/spaces/reservations">Minhas Reservas</a><br>
 
     <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>">Voltar</a>
 
