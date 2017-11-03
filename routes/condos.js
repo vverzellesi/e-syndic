@@ -25,6 +25,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
         if (err) {
             console.log(err);
         } else {
+            req.flash('success', 'Condomínio criado com sucesso!');
             res.redirect('/condos');
         }
     });

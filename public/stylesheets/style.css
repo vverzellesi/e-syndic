@@ -36,6 +36,60 @@ a:hover {
     color: #3d8b3d;
 }
 
+.panel-blue {
+    border-color: #5c8ab8;
+}
+
+.panel-blue>.panel-heading {
+    border-color: #5c8ab8;
+    color: white;
+    background-color: #5c8ab8;
+}
+
+.panel-blue>a {
+    color: #5c8ab8;
+}
+
+.panel-blue>a:hover {
+    color: #3d668b;
+}
+
+.panel-red {
+    border-color: #b85c5c;
+}
+
+.panel-red>.panel-heading {
+    border-color: #b85c5c;
+    color: white;
+    background-color: #b85c5c;
+}
+
+.panel-red>a {
+    color: #b85c5c;
+}
+
+.panel-red>a:hover {
+    color: #8b3d3d;
+}
+
+.panel-yellow {
+    border-color: #b8b15c;
+}
+
+.panel-yellow>.panel-heading {
+    border-color: #b8b15c;
+    color: white;
+    background-color: #b8b15c;
+}
+
+.panel-yellow>a {
+    color: #b8b15c;
+}
+
+.panel-yellow>a:hover {
+    color: #8b873d;
+}
+
 tfoot input {
     width: 100%;
     padding: 3px;
@@ -63,4 +117,12 @@ tfoot input {
 #jumbotron-dates {
     padding: 10px 0;
     border-radius: 5px;
+}
+
+.tile-title {
+    font-size: 30px;
+}
+
+.tile-title-smaller {
+    font-size: 25px;
 }
