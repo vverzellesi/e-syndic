@@ -1,0 +1,28 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center;">Editar Funcionário <strong><%= employee.name %></strong></h1>
+        <div style="width: 30%; margin: 20px auto;">
+            <form action="/condos/<%= condo_id %>/employees/<%= employee._id %>?_method=PUT" method="post">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="employee[name]" value="<%= employee.name %>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="employee[rg]" value="<%= employee.rg %>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="employee[cpf]" value="<%= employee.cpf %>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="employee[role]" value="<%= employee.role %>">
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Enviar">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

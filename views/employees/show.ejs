@@ -1,0 +1,20 @@
+<% include ../partials/header %>
+<div class="container">
+
+    <h1>Funcionário <strong><%= employee.name %></strong></h1>
+
+    <a href="/condos/<%= condo_id %>/employees/<%= employee._id %>/edit" class="btn btn-warning" data-toggle="tooltip" data-placement="left" title="Editar" data-original-title="Tooltip on left"><i class="fa fa-pencil"></i> Editar Funcionário</a>    
+    <form id="delete-form" action="/condos/<%= condo_id %>/employees/<%= employee._id %>?_method=DELETE" method="post">
+        <button type="submit" class="btn btn-danger">
+            <i class="fa fa-trash"></i> Deletar
+        </button>
+    </form>
+
+
+    <h4><%= employee.role %></h4>
+    <h4>RG: <%= employee.rg %></h4>
+    <h4>CPF: <%= employee.cpf %></h4>
+    
+</div>
+
+<% include ../partials/footer %>

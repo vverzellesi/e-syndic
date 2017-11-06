@@ -15,7 +15,8 @@ var express = require('express'),
     Dweller = require('./models/dweller'),
     Dweller = require('./models/visitor'),
     Space = require('./models/space'),
-    Feedback = require('./models/feedback');
+    Feedback = require('./models/feedback'),
+    Employee = require('./models/employee');
 
 // requiring routes
 var condoRoutes = require('./routes/condos'),
@@ -26,6 +27,7 @@ var condoRoutes = require('./routes/condos'),
     visitorRoutes = require('./routes/visitors'),
     spaceRoutes = require('./routes/spaces'),
     feedbackRoutes = require('./routes/feedbacks'),
+    employeeRoutes = require('./routes/employees'),
     indexRoutes = require('./routes/index');
 
 
@@ -61,6 +63,7 @@ app.use('/condos', condoRoutes);
 app.use('/condos/:id/towers', towerRoutes);
 app.use('/condos/:id/spaces', spaceRoutes);
 app.use('/condos/:id/feedbacks', feedbackRoutes);
+app.use('/condos/:id/employees', employeeRoutes);
 app.use('/condos/:id/towers/:tower_id/apartments', apartmentRoutes);
 app.use('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers', dwellerRoutes);
 app.use('/condos/:id/towers/:tower_id/apartments/:apartment_id/visitors', visitorRoutes);
