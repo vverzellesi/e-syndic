@@ -2,7 +2,15 @@ var express = require('express'),
     router = express.Router({ mergeParams: true }),
     Condo = require('../models/condo'),
     Feedback = require('../models/feedback'),
-    middleware = require('../middleware');
+    middleware = require('../middleware'),
+    ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
+
+// Watson config
+var tone_analyzer = new ToneAnalyzerV3({
+    username: process.env.TONE_ANALYZER_USER,
+    password: process.env.TONE_ANALYZER_PASSWORD,
+    version_date: '2017-09-21'
+});
 
 // index route
 router.get('/', function(req, res) {
@@ -10,6 +18,27 @@ router.get('/', function(req, res) {
         if (err) {
             console.log(err);
         } else {
+            var tones = [];
+
+            condo.feedbacks.forEach(function(feedback) {
+                tones.push(feedback.text);
+            });
+            console.log("==== TONES ====");
+            console.log(tones);
+
+            var params = {
+                // Get the text from the JSON file.
+                text: tones,
+                tones: 'emotion',
+            };
+
+            tone_analyzer.tone(params, function(err, response) {
+                if (err)
+                    console.log('error:', err);
+                else
+                    console.log(JSON.stringify(response, null, 2));
+            });
+
             res.render('feedbacks/index', { condo: condo });
         }
     });

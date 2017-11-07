@@ -3,7 +3,7 @@
 <div class="container">
     <div class="well">
         <div class="text-right">
-            <a href="/condos/<%= condo._id %>/feedbacks/new" class="btn btn-success">Adicionar Comentário</a>
+            <a href="/condos/<%= condo._id %>/feedbacks/new" class="btn btn-success"><i class="fa fa-plus-circle"></i> Adicionar Comentário</a>
         </div>
         <hr>
         <% condo.feedbacks.forEach(function (feedback) { %>
@@ -25,6 +25,13 @@
             </div>
         <% }) %>
     </div>
+
+    <hr>
+
+    <h2>Análise de Tom</h2>
+    <h3>Entenda como os moradores se sentem com a ajuda do <strong>IBM Watson&trade;</strong></h3>
+
+
 </div>
 
 
