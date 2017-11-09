@@ -18,31 +18,44 @@ router.get('/', function(req, res) {
         if (err) {
             console.log(err);
         } else {
+            res.render('feedbacks/index', { condo: condo });
+        }
+    });
+});
+
+router.get('/watson', function(req, res) {
+    Condo.findById(req.params.id).populate('feedbacks').exec(function(err, condo) {
+        if (err) {
+            console.log(err);
+        } else {
             var tones = [];
 
             condo.feedbacks.forEach(function(feedback) {
                 tones.push(feedback.text);
             });
-            console.log("==== TONES ====");
-            console.log(tones);
+            // console.log("==== TONES ====");
+            // console.log(tones);
 
             var params = {
-                // Get the text from the JSON file.
                 text: tones,
                 tones: 'emotion',
+                sentences: false
             };
 
-            tone_analyzer.tone(params, function(err, response) {
+            tone_analyzer.tone(params, function(err, data) {
                 if (err)
                     console.log('error:', err);
-                else
-                    console.log(JSON.stringify(response, null, 2));
+                else {
+                    //var result = JSON.stringify(data, null, 2);
+                    console.log('===== DATA ======');
+                    console.log(data);
+                    res.render('feedbacks/watson', { data: data });
+                    // return res.send(data);
+                }
             });
-
-            res.render('feedbacks/index', { condo: condo });
         }
     });
-});
+})
 
 // create view
 router.get('/new', middleware.isLoggedIn, function(req, res) {

@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
 var UserSchema = new mongoose.Schema({
     username: String,
     password: String,
-    isSyndic: { type: Boolean, default: false }
+    role: String
 });
 
 UserSchema.plugin(passportLocalMongoose);
