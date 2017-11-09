@@ -45,7 +45,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
                     apartment.save();
 
                     // register new user
-                    var newUser = new User({ username: req.body.username });
+                    var newUser = new User({ username: req.body.username, role: 'dweller' });
                     User.register(newUser, req.body.password, function(err, user) {
                         if (err) {
                             req.flash('error', err.message);
@@ -54,7 +54,6 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
                             res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments/' + req.params.apartment_id + '/dwellers');
                         }
                     });
-
                 }
             });
         }
