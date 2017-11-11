@@ -23,6 +23,7 @@ router.get('/', function(req, res) {
     });
 });
 
+// watson
 router.get('/watson', function(req, res) {
     Condo.findById(req.params.id).populate('feedbacks').exec(function(err, condo) {
         if (err) {
@@ -33,24 +34,18 @@ router.get('/watson', function(req, res) {
             condo.feedbacks.forEach(function(feedback) {
                 tones.push(feedback.text);
             });
-            // console.log("==== TONES ====");
-            // console.log(tones);
 
             var params = {
                 text: tones,
                 tones: 'emotion',
-                sentences: false
             };
 
             tone_analyzer.tone(params, function(err, data) {
                 if (err)
                     console.log('error:', err);
                 else {
-                    //var result = JSON.stringify(data, null, 2);
-                    console.log('===== DATA ======');
-                    console.log(data);
+                    var result = JSON.stringify(data, null, 2);
                     res.render('feedbacks/watson', { data: data });
-                    // return res.send(data);
                 }
             });
         }
