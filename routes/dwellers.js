@@ -91,6 +91,44 @@ router.put('/:dweller_id', function(req, res) {
             res.redirect('back');
         } else {
             res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments/' + req.params.apartment_id + '/dwellers');
+
+
+            // udpate user
+            // User.update(req.params.dweller_id, {
+            //         $set: {
+            //             'password': req.body.password
+            //         }
+            //     },
+            //     function(err, user) {
+            //         if (err) {
+            //             console.log(err);
+            //         } else {
+            //             console.log(user);
+            //             res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments/' + req.params.apartment_id + '/dwellers');
+            //         }
+            //     });
+
+            // User.findOne()
+
+            // User.setPassword(req.body.password, function(err, user) {
+            //     if (err) {
+            //         console.log(err);
+            //     } else {
+            //         user.password = req.body.password;
+            //         user.save();
+            //         console.log(user);
+            //     }
+
+            // })
+
+            // User.changePassword(req.body.oldpassword, req.body.password, function(err, user) {
+            //     if (err) {
+            //         console.log(err);
+            //     } else {
+
+            //     }
+            // });
+
         }
     });
 });

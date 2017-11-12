@@ -5,15 +5,19 @@
         <h1 style="text-align: center;">Criar Novo Morador no Apartamento <%= apartment.number %></h1>
         <div style="width: 30%; margin: 20px auto;">
             <form action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/dwellers" method="post">
+                <label>Nome</label>
                 <div class="form-group">
                     <input class="form-control" type="text" placeholder="Nome" name="dweller[name]">
                 </div>
+                <label>CPF</label>
                 <div class="form-group">
                     <input class="form-control" type="text" id="cpf" placeholder="CPF" name="dweller[cpf]">
                 </div>
+                <label>RG</label>
                 <div class="form-group">
                     <input class="form-control" type="text" id="rg" placeholder="RG" name="dweller[rg]">
                 </div>
+                <label>Data de Nascimento</label>
                 <div class="form-group">
                     <div class="input-group date" data-provide="datepicker">
                         <div class="input-group-addon">
@@ -22,22 +26,24 @@
                         <input class="form-control" type="text" id="date" placeholder="Data de Nascimento" name="dweller[birthday]">
                     </div>
                 </div>
+                <label>Telefone</label>
                 <div class="form-group">
                     <input class="form-control" type="text" id="phone" placeholder="Telefone" name="dweller[phone]">
                 </div>
 
                 <!-- user fields -->
                 <div class="form-group">
+                <label>E-mail</label>
                     <input class="form-control" type="text" placeholder="E-mail" name="username">
                 </div>
+                <label>Senha</label>
                 <div class="form-group">
-                    <input class="form-control" type="password" placeholder="Senha" name="password">
+                    <input class="form-control" type="password" placeholder="Senha para primeiro acesso" name="password">
                 </div>
                 <div class="form-group">
-                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Enviar">
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Criar">
                 </div>
             </form>
-            <a href="/dwellers">Voltar</a>
         </div>
     </div>
 </div>
