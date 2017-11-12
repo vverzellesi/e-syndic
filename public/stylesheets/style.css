@@ -100,6 +100,24 @@ a:hover {
     color: #8b873d;
 }
 
+.panel-purple {
+    border-color: #7c5cb8;
+}
+
+.panel-purple>.panel-heading {
+    border-color: #7c5cb8;
+    color: white;
+    background-color: #7c5cb8;
+}
+
+.panel-purple>a {
+    color: #7c5cb8;
+}
+
+.panel-purple>a:hover {
+    color: #7c3d8b;
+}
+
 tfoot input {
     width: 100%;
     padding: 3px;

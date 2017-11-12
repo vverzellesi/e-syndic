@@ -1,0 +1,18 @@
+<% include ../partials/header %>
+<div class="container">
+
+    <h1>Torre <strong><%= admin.name %></strong></h1>
+
+    <form id="delete-form" action="/condos/<%= condo_id %>/admins/<%= admin._id %>?_method=DELETE" method="post">
+        <button type="submit" class="btn btn-danger">
+            <i class="fa fa-trash"></i> Deletar
+        </button>
+    </form>
+
+
+    <h4>CPF: <%= admin.cpf %></h4>
+    <h4>Função: <%= admin.function %></h4>
+
+</div>
+
+<% include ../partials/footer %>

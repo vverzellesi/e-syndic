@@ -10,6 +10,7 @@ var express = require('express'),
     User = require('./models/user'),
     Condo = require('./models/condo'),
     Tower = require('./models/tower'),
+    Admin = require('./models/admin'),
     Apartment = require('./models/apartment'),
     Vehicle = require('./models/vehicle'),
     Dweller = require('./models/dweller'),
@@ -23,6 +24,7 @@ var condoRoutes = require('./routes/condos'),
     apartmentRoutes = require('./routes/apartments'),
     dwellerRoutes = require('./routes/dwellers'),
     towerRoutes = require('./routes/towers'),
+    adminRoutes = require('./routes/admins'),
     vehicleRoutes = require('./routes/vehicles'),
     visitorRoutes = require('./routes/visitors'),
     spaceRoutes = require('./routes/spaces'),
@@ -64,6 +66,7 @@ app.use('/condos/:id/towers', towerRoutes);
 app.use('/condos/:id/spaces', spaceRoutes);
 app.use('/condos/:id/feedbacks', feedbackRoutes);
 app.use('/condos/:id/employees', employeeRoutes);
+app.use('/condos/:id/admins', adminRoutes);
 app.use('/condos/:id/towers/:tower_id/apartments', apartmentRoutes);
 app.use('/condos/:id/towers/:tower_id/apartments/:apartment_id/dwellers', dwellerRoutes);
 app.use('/condos/:id/towers/:tower_id/apartments/:apartment_id/visitors', visitorRoutes);

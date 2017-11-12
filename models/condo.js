@@ -18,6 +18,10 @@ var condoSchema = new mongoose.Schema({
     employees: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Employee'
+    }],
+    admins: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Admin'
     }]
 });
 

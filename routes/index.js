@@ -16,9 +16,6 @@ router.get('/register', function(req, res) {
 // sign up logic
 router.post('/register', function(req, res) {
     var newUser = new User({ username: req.body.username });
-    if (req.body.syndicCode === process.env.SYNDIC_CODE) {
-        newUser.isSyndic = true;
-    }
     User.register(newUser, req.body.password, function(err, user) {
         if (err) {
             req.flash('error', err.message);
@@ -39,9 +36,13 @@ router.get('/login', function(req, res) {
 
 // login logic
 router.post('/login', passport.authenticate('local', {
-    successRedirect: '/condos',
+    successRedirect: '/condos/',
     failureRedirect: '/login'
-}), function(req, res) {});
+}), function(req, res) {
+    if (err)
+        console.log(err);
+    res.redirect('/condos/' + req.user.condoId);
+});
 
 // logout route
 router.get('/logout', function(req, res) {

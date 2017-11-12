@@ -1,0 +1,50 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center;">Adicionar Novo Administrador a <strong><%= condo.name %></strong></h1>
+        <div style="width: 30%; margin: 20px auto;">
+            <form action="/condos/<%= condo._id %>/admins" method="post">
+                <label>Nome</label>
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Nome" name="admin[name]">
+                </div>
+                <label>CPF</label>
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="CPF" id="cpf" name="admin[cpf]">
+                </div>    
+                <label>Função</label>
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Função" name="admin[function]">
+                </div>
+
+                <!-- user fields -->
+                <div class="form-group">
+                <label>E-mail</label>
+                    <input class="form-control" type="text" placeholder="E-mail" name="username">
+                </div>
+                <label>Função</label>
+                <div class="form-group">
+                    <select class="form-control" name="feedback[category]">
+                        <%
+                        var options = ['Corpo Diretivo', 'Portaria'];
+                        for (var i = 0; i < options.length; i++) {
+                            %><option value="<%= options[i] %>"><%= options[i] %></option><%
+                        }
+                        %>
+                    </select>
+                </div>
+                <label>Senha</label>
+                <div class="form-group">
+                    <input class="form-control" type="password" placeholder="Senha para primeiro acesso" name="password">
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Criar">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<% include ../partials/footer %>

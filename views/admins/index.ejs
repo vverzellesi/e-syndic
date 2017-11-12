@@ -1,0 +1,29 @@
+<% include ../partials/header %>
+<div class="container">
+  
+  <h1>Lista de Administradores</h1>
+  <a href="/condos/<%= condo._id %>/admins/new" class="btn btn-success"><i class="fa fa-plus-circle"></i> Novo Administrador</a> <br>
+
+  <table id="index-table" class="table table-striped table-bordered" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>Função</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% condo.admins.forEach(function(admin) { %>        
+        <tr>
+          <td><a href="/condos/<%= condo._id %>/admins/<%= admin._id %>"><%= admin.name %></a></td>
+          <td><%= admin.cpf %></td>
+          <td><%= admin.function %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+
+</div>
+
+<% include ../partials/footer %>
