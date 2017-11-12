@@ -36,13 +36,9 @@ router.get('/login', function(req, res) {
 
 // login logic
 router.post('/login', passport.authenticate('local', {
-    successRedirect: '/condos/',
+    successRedirect: '/condos',
     failureRedirect: '/login'
-}), function(req, res) {
-    if (err)
-        console.log(err);
-    res.redirect('/condos/' + req.user.condoId);
-});
+}), function(req, res) {});
 
 // logout route
 router.get('/logout', function(req, res) {
