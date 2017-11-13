@@ -2,7 +2,21 @@ var express = require('express'),
     router = express.Router({ mergeParams: true }),
     Condo = require('../models/condo'),
     Feedback = require('../models/feedback'),
-    middleware = require('../middleware');
+    middleware = require('../middleware'),
+    ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3'),
+    LanguageTranslatorV2 = require('watson-developer-cloud/language-translator/v2');
+// Watson config
+var tone_analyzer = new ToneAnalyzerV3({
+    username: process.env.TONE_ANALYZER_USER,
+    password: process.env.TONE_ANALYZER_PASSWORD,
+    version_date: '2017-09-21'
+});
+var language_translator = new LanguageTranslatorV2({
+    username: process.env.LANGUAGE_TRANSLATOR_USER,
+    password: process.env.LANGUAGE_TRANSLATOR_PASSWORD,
+    // version: 'v2'
+    url: 'https://gateway.watsonplatform.net/language-translator/api/'
+});
 
 // index route
 router.get('/', function(req, res) {
@@ -14,6 +28,53 @@ router.get('/', function(req, res) {
         }
     });
 });
+
+// watson
+router.get('/watson', function(req, res) {
+    Condo.findById(req.params.id).populate('feedbacks').exec(function(err, condo) {
+        if (err) {
+            console.log(err);
+        } else {
+            var tones = [];
+
+            condo.feedbacks.forEach(function(feedback) {
+                tones.push(feedback.text);
+            });
+
+            // translate
+            var translated = [];
+
+            language_translator.translate({
+                text: tones,
+                source: 'pt',
+                target: 'en'
+            }, function(err, translation) {
+                if (err)
+                    console.log(err);
+                else {
+                    translation.translations.forEach(function(translation) {
+                        translated.push(translation.translation);
+                    });
+
+                    // tone analyzer
+                    var params = {
+                        text: translated,
+                        tones: 'emotion',
+                    };
+
+                    tone_analyzer.tone(params, function(err, data) {
+                        if (err)
+                            console.log('error: ', err);
+                        else {
+                            res.render('feedbacks/watson', { data: data });
+                        }
+                    });
+                }
+            });
+
+        }
+    });
+})
 
 // create view
 router.get('/new', middleware.isLoggedIn, function(req, res) {

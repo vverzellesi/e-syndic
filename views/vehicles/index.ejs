@@ -4,7 +4,9 @@
 
     <h1>Veículos em Apartamento <%= apartment.number %></h1>
 
-    <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/vehicles/new" class="btn btn-success">Adicionar Novo Veículo</a>
+    <% if (currentUser && currentUser.role === 'dweller') { %>
+      <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/vehicles/new" class="btn btn-success">Adicionar Novo Veículo</a>
+    <% } %>
 
   <table id="index-table" class="table table-striped table-bordered" cellspacing="0">
     <thead>

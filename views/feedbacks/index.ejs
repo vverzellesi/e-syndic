@@ -3,7 +3,8 @@
 <div class="container">
     <div class="well">
         <div class="text-right">
-            <a href="/condos/<%= condo._id %>/feedbacks/new" class="btn btn-success">Adicionar Comentário</a>
+            <a href="/condos/<%= condo._id %>/feedbacks/watson" class="btn btn-primary"><i class="fa fa-pie-chart"></i> Análise de Comentários</a>
+            <a href="/condos/<%= condo._id %>/feedbacks/new" class="btn btn-success"><i class="fa fa-plus-circle"></i> Adicionar Comentário</a>
         </div>
         <hr>
         <% condo.feedbacks.forEach(function (feedback) { %>
@@ -25,6 +26,7 @@
             </div>
         <% }) %>
     </div>
+
 </div>
 
 

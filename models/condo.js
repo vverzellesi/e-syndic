@@ -14,6 +14,14 @@ var condoSchema = new mongoose.Schema({
     feedbacks: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Feedback'
+    }],
+    employees: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Employee'
+    }],
+    admins: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Admin'
     }]
 });
 

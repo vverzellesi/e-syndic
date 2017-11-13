@@ -1,0 +1,29 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center;">Adicionar Novo Funcionário a <%= condo.name %></h1>
+        <div style="width: 30%; margin: 20px auto;">
+            <form action="/condos/<%= condo._id %>/employees" method="post">
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Nome" name="employee[name]">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="RG" id="rg" name="employee[rg]">
+                </div>    
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="CPF" id="cpf" name="employee[cpf]">
+                </div>    
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Função" name="employee[role]">
+                </div>                    
+                <div class="form-group">
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Enviar">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<% include ../partials/footer %>

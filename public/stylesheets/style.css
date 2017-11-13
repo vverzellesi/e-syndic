@@ -1,3 +1,13 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
 li {
     list-style: none;
 }
@@ -36,6 +46,78 @@ a:hover {
     color: #3d8b3d;
 }
 
+.panel-blue {
+    border-color: #5c8ab8;
+}
+
+.panel-blue>.panel-heading {
+    border-color: #5c8ab8;
+    color: white;
+    background-color: #5c8ab8;
+}
+
+.panel-blue>a {
+    color: #5c8ab8;
+}
+
+.panel-blue>a:hover {
+    color: #3d668b;
+}
+
+.panel-red {
+    border-color: #b85c5c;
+}
+
+.panel-red>.panel-heading {
+    border-color: #b85c5c;
+    color: white;
+    background-color: #b85c5c;
+}
+
+.panel-red>a {
+    color: #b85c5c;
+}
+
+.panel-red>a:hover {
+    color: #8b3d3d;
+}
+
+.panel-yellow {
+    border-color: #b8b15c;
+}
+
+.panel-yellow>.panel-heading {
+    border-color: #b8b15c;
+    color: white;
+    background-color: #b8b15c;
+}
+
+.panel-yellow>a {
+    color: #b8b15c;
+}
+
+.panel-yellow>a:hover {
+    color: #8b873d;
+}
+
+.panel-purple {
+    border-color: #7c5cb8;
+}
+
+.panel-purple>.panel-heading {
+    border-color: #7c5cb8;
+    color: white;
+    background-color: #7c5cb8;
+}
+
+.panel-purple>a {
+    color: #7c5cb8;
+}
+
+.panel-purple>a:hover {
+    color: #7c3d8b;
+}
+
 tfoot input {
     width: 100%;
     padding: 3px;
@@ -58,4 +140,38 @@ tfoot input {
 #guest-list-header {
     display: inline;
     vertical-align: middle;
+}
+
+#jumbotron-dates {
+    padding: 10px 0;
+    border-radius: 5px;
+}
+
+.tile-title {
+    font-size: 30px;
+}
+
+.tile-title-smaller {
+    font-size: 25px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+.container .text-muted {
+    margin: 20px 0;
+}
+
+blockquote {
+    border-left: 5px solid #d8d5d5;
+}
+
+blockquote small {
+    color: #666;
 }

@@ -1,4 +1,5 @@
 var express = require('express'),
+    mongoose = require('mongoose'),
     router = express.Router({ mergeParams: true }),
     middleware = require('../middleware'),
     Condo = require('../models/condo'),
@@ -97,27 +98,40 @@ router.get('/:space_id/schedule', function(req, res) {
 
 // schedule space logic
 router.put('/:space_id/schedule', function(req, res) {
-    Space.findByIdAndUpdate(req.params.space_id, {
-        '$push': {
-            'scheduledDates': {
-                'scheduledDates': req.body.space.scheduledDates,
-                'author': {
-                    _id: req.user._id,
-                    username: req.user.username
-                },
-                'guests': {
-                    name: req.body.space.name,
-                    rg: req.body.space.rg
-                }
+    Space.findOne({
+        'scheduledDates.scheduledDates': req.body.space.scheduledDates
+    }, function(err, date) {
+        if (err) {
+            console.log('MongoDB Error: ' + err);
+        } else {
+            if (!date) {
+                Space.findByIdAndUpdate(req.params.space_id, {
+                    '$push': {
+                        'scheduledDates': {
+                            'scheduledDates': req.body.space.scheduledDates,
+                            'author': {
+                                _id: req.user._id,
+                                username: req.user.username
+                            },
+                            'guests': {
+                                name: req.body.space.name,
+                                rg: req.body.space.rg
+                            }
+                        }
+                    }
+                }, { "new": true, "upsert": true }, function(err, space) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log('Data livre');
+                        res.redirect('/condos/' + req.params.id + '/spaces/');
+                    }
+                });
+            } else {
+                console.log('Data existente ' + date);
             }
         }
-    }, { "new": true, "upsert": true }, function(err, space) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.redirect('/condos/' + req.params.id + '/spaces/');
-        }
-    });
+    })
 });
 
 // destroy

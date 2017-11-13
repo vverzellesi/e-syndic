@@ -2,24 +2,113 @@
 
 <div class="container">
 
-    <h1>Número do Apartamento: <%= apartment.number %></h1>
+    <h1>Apartamento <strong><%= apartment.number %></h1>
 
-    <h3>Andar: <%= apartment.floor %></h3>
-
-    <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-    <form id="delete-from" action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>?_method=DELETE" method="post">
+    <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/edit" class="btn btn-warning" data-toggle="tooltip" data-placement="left" title="Editar" data-original-title="Tooltip on left"><i class="fa fa-pencil"></i> Editar Apartmento</a>
+    
+    <form id="delete-form" action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>?_method=DELETE" method="post">
       <button type="submit" class="btn btn-danger">
-          <i class="fa fa-trash" aria-hidden="true"></i>
+          <i class="fa fa-trash" aria-hidden="true"></i> Deletar
       </button>
     </form>
 
-    <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/dwellers">Lista de Moradores</a><br>
-    
-    <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/vehicles">Lista de Veículos</a><br>
+    <h4><%= apartment.floor %></strong>º andar</h4>
 
-    <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/visitors">Lista de Visitantes</a><br>
+    <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments">Voltar</a>
 
-    <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>">Voltar</a>
+    <hr>
+
+    <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-users fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="tile-title-smaller">Moradores</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/dwellers">
+                    <div class="panel-footer">
+                        <span class="pull-left">Ver Detalhes</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-blue">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-car fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="tile-title-smaller">Veículos</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/vehicles">
+                    <div class="panel-footer">
+                        <span class="pull-left">Ver Detalhes</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-red">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-user-circle fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="tile-title-smaller">Visitantes</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/visitors">
+                    <div class="panel-footer">
+                        <span class="pull-left">Ver Detalhes</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-yellow">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-birthday-cake fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="tile-title-smaller">Espaços Sociais</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="/condos/<%= condo_id %>/spaces">
+                    <div class="panel-footer">
+                        <span class="pull-left">Ver Detalhes</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>        
+
+    </div>
+
 
 </div>
 

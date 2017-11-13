@@ -1,0 +1,31 @@
+<% include ../partials/header %>
+    <div class="container">
+        
+        <h1>Análise de Tom</h1>
+        <h3>Entenda como os moradores se sentem com a ajuda do <strong><a href="https://ibm.com/watson" target="_blank">IBM Watson&trade;</a></strong></h3>
+
+        <hr>
+
+        <!-- overall tones -->
+        <h2>Média de sentimentos</h2>
+        <% data.document_tone.tones.forEach(function(tone) { %>
+            <h4 style="display: inline-block"><%= tone.tone_name %></h4> - <span><%= parseFloat(tone.score * 100).toFixed(2) %>%</span> <br>
+
+        <% }) %>
+
+        <!-- tones per sentence -->
+        <h2>Sentimentos por frase</h2>
+        <% data.sentences_tone.forEach(function(tone) { %>
+            <blockquote>
+                <p><%= tone.text %></p>
+                <% tone.tones.forEach(function (tone) { %>
+                    <footer>
+                        <%= parseFloat(tone.score * 100).toFixed(2) %>% of <%= tone.tone_name %>
+                    </footer>
+                <% }) %>
+            </blockquote>
+        <% }) %>
+
+    </div>
+
+<% include ../partials/footer %>

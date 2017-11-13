@@ -1,6 +1,5 @@
 <% include ../partials/header %>
-
-    <div class="row">
+    <div class="container">
         <h1 style="text-align: center;">Agendar Evento em <strong><%= space.name %></strong></h1>
         <div style="width: 30%; margin: 20px auto;">
             <form action="/condos/<%= condo_id %>/spaces/<%= space._id %>/schedule?_method=PUT" method="post">
@@ -9,7 +8,15 @@
                         <div class="input-group-addon">
                             <span class="glyphicon glyphicon-th"></span>
                         </div>
-                        <input class="form-control" type="text" id="date" placeholder="Escolhe a data do evento" name="space[scheduledDates]">
+                        <input class="form-control" type="text" id="date" placeholder="Escolha a data do evento" name="space[scheduledDates]">
+                    </div>
+                </div>
+                <div class="jumbotron" id="jumbotron-dates">
+                    <div class="container">
+                        <h4>Datas já agendadas:</h4>
+                        <% space.scheduledDates.forEach(function(space) { %>       
+                            <span><%= space.scheduledDates %> - </span>
+                        <% }) %>                        
                     </div>
                 </div>
                 <span id="span-guests">

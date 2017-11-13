@@ -2,14 +2,14 @@
 
 <div class="container">
     <div class="row">
-        <h1 style="text-align: center;">Adicionar Nova Torres a <%= condo.name %></h1>
+        <h1 style="text-align: center;">Adicionar Nova Torre a <strong><%= condo.name %></strong></h1>
         <div style="width: 30%; margin: 20px auto;">
             <form action="/condos/<%= condo._id %>/towers" method="post">
                 <div class="form-group">
                     <input class="form-control" type="text" placeholder="Nome" name="tower[name]">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Andar" name="tower[floors]">
+                    <input class="form-control" type="text" placeholder="Número de Andares" name="tower[floors]">
                 </div>    
                 <div class="form-group">
                     <input class="form-control" type="text" placeholder="Apartamentos por Andar" name="tower[apartmentsPerFloor]">
