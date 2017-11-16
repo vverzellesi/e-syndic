@@ -1,7 +1,8 @@
 var express = require('express'),
     router = express.Router(),
+    middleware = require('../middleware'),
     Condo = require('../models/condo'),
-    middleware = require('../middleware');
+    User = require('../models/user');
 
 //index
 router.get('/', function(req, res) {
@@ -15,18 +16,28 @@ router.get('/', function(req, res) {
 });
 
 // create view
-router.get('/new', middleware.isLoggedIn, function(req, res) {
+router.get('/new', function(req, res) {
     res.render('condos/new');
 });
 
 // create logic
-router.post('/', middleware.isLoggedIn, function(req, res) {
+router.post('/', function(req, res) {
     Condo.create(req.body.condo, function(err, createdCondo) {
         if (err) {
             console.log(err);
         } else {
-            req.flash('success', 'Condomínio criado com sucesso!');
-            res.redirect('/condos');
+            // register new user
+            var newUser = new User({ username: req.body.username, role: 'admin', condoId: createdCondo._id });
+            User.register(newUser, req.body.password, function(err, user) {
+                if (err) {
+                    req.flash('error', err.message);
+                    console.log(err);
+                } else {
+                    req.flash('success', 'Condomínio criado com sucesso!');
+                    res.redirect('/condos');
+                }
+            });
+
         }
     });
 });
