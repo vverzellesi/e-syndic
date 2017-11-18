@@ -33,8 +33,14 @@ router.post('/', function(req, res) {
                     req.flash('error', err.message);
                     console.log(err);
                 } else {
-                    req.flash('success', 'Condomínio criado com sucesso!');
-                    res.redirect('/condos');
+                    req.login(user, function(err, loggedUser) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            req.flash('success', 'Condomínio criado com sucesso!');
+                            return res.redirect('/condos/' + createdCondo._id);
+                        }
+                    });
                 }
             });
 
