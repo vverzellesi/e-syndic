@@ -21,16 +21,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         </button>
-                <a href="#" class="navbar-brand"><i class="fa fa-building-o" aria-hidden="true"></i>
+                <a href="/condos" class="navbar-brand"><i class="fa fa-building-o" aria-hidden="true"></i>
  e-Syndic</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-nav-demo">
-                <ul class="nav navbar-nav">
-                    <li><a href="/">Home</a></li>
-                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <% if(!currentUser) { %>
-                        <li><a href="/register">Cadastre-se <i class="fa fa-user-plus"></i></a></li>
                         <li><a href="/login">Entrar <i class="fa fa-user"></i></a></li>
                     <% } else { %>
                         <li><a href="#">Olá, <%= currentUser.username %></a></li>
