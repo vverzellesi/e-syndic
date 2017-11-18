@@ -4,17 +4,6 @@ var express = require('express'),
     Condo = require('../models/condo'),
     User = require('../models/user');
 
-//index
-router.get('/', function(req, res) {
-    Condo.find({}, function(err, allCondos) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.render('condos/index', { condos: allCondos });
-        }
-    })
-});
-
 // create view
 router.get('/new', function(req, res) {
     res.render('condos/new');
@@ -33,8 +22,14 @@ router.post('/', function(req, res) {
                     req.flash('error', err.message);
                     console.log(err);
                 } else {
-                    req.flash('success', 'Condomínio criado com sucesso!');
-                    res.redirect('/condos');
+                    req.login(user, function(err, loggedUser) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            req.flash('success', 'Condomínio criado com sucesso!');
+                            return res.redirect('/condos/' + createdCondo._id);
+                        }
+                    });
                 }
             });
 

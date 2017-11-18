@@ -1,35 +1,38 @@
 <% include ../partials/header %>
 
-<div class="container">
-    <div class="row">
-        <h1 style="text-align: center;">Criar Novo Condomínio</h1>
-        <div style="width: 30%; margin: 20px auto;">
-            <form action="/condos" method="post">
-                <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Nome" name="condo[name]">
-                </div>
-                <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Endereço" name="condo[address]">
-                </div>
-
+    <div class="container">
+        <div class="row">
+            <h1>Novo Condomínio</h1>
+            <div class="col-md-6">
+                <h2>Dados do novo condomínio</h2>
+                <form action="/condos" method="post">
+                    <label>Nome</label>
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Nome" name="condo[name]">
+                    </div>
+                    <label>Endereço</label>
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Endereço" name="condo[address]">
+                    </div>
+            </div>
+            <div class="col-md-6">
+                <h2>Seus dados</h2>
                 <!-- user fields -->
-                <div class="form-group">
                 <label>E-mail</label>
+                <div class="form-group">
                     <input class="form-control" type="text" placeholder="E-mail" name="username">
                 </div>
                 <label>Senha</label>
                 <div class="form-group">
-                    <input class="form-control" type="password" placeholder="Senha para primeiro acesso" name="password">
+                    <input class="form-control" type="password" placeholder="Senha" name="password">
                 </div>
-
-                <div class="form-group">
-                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Cadastrar">
-                </div>
+            </div>
+            <div class="form-group">
+                <input class="btn btn-lg btn-primary btn-block" style="width: 30%; margin: 20px auto;" type="submit" value="Cadastrar">
+            </div>
             </form>
-            <a href="/condos">Voltar</a>
         </div>
     </div>
-</div>
 
 
-<% include ../partials/footer %>
+    <% include ../partials/footer %>
