@@ -3,15 +3,17 @@
 
     <h1>Torre <strong><%= tower.name %></strong></h1>
 
-    <a href="/condos/<%= condo_id %>/towers/<%= tower._id %>/edit" class="btn btn-warning" data-toggle="tooltip" data-placement="left" title="Editar" data-original-title="Tooltip on left"><i class="fa fa-pencil"></i> Editar Torre</a>    
-    <form id="delete-form" action="/condos/<%= condo_id %>/towers/<%= tower._id %>?_method=DELETE" method="post">
-        <button type="submit" class="btn btn-danger">
-            <i class="fa fa-trash"></i> Deletar
-        </button>
-    </form>
+    <% if (currentUser.role === 'admin') { %>
+        <a href="/condos/<%= condo_id %>/towers/<%= tower._id %>/edit" class="btn btn-warning" data-toggle="tooltip" data-placement="left" title="Editar" data-original-title="Tooltip on left"><i class="fa fa-pencil"></i> Editar Torre</a>    
+        <form id="delete-form" action="/condos/<%= condo_id %>/towers/<%= tower._id %>?_method=DELETE" method="post">
+            <button type="submit" class="btn btn-danger">
+                <i class="fa fa-trash"></i> Deletar
+            </button>
+        </form>
+    <% } %>
 
 
-    <h4><%= tower.floors %>ยบ andar</h4>
+    <h4><%= tower.floors %>º andar</h4>
     <h4><%= tower.apartmentsPerFloor %> apartamentos por andar</h4>
 
     <hr>

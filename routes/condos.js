@@ -5,7 +5,7 @@ var express = require('express'),
     User = require('../models/user');
 
 //index
-router.get('/', function(req, res) {
+router.get('/', middleware.isLoggedIn, function(req, res) {
     Condo.find({}, function(err, allCondos) {
         if (err) {
             console.log(err);
@@ -49,7 +49,7 @@ router.post('/', function(req, res) {
 });
 
 // show
-router.get('/:id', function(req, res) {
+router.get('/:id', middleware.isLoggedIn, function(req, res) {
     Condo.findById(req.params.id).populate('towers').exec(function(err, foundCondo) {
         if (err) {
             console.log(err);
@@ -60,7 +60,7 @@ router.get('/:id', function(req, res) {
 });
 
 // edit
-router.get('/:id/edit', function(req, res) {
+router.get('/:id/edit', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Condo.findById(req.params.id, function(err, foundCondo) {
         if (err) {
             console.log(err);
@@ -71,7 +71,7 @@ router.get('/:id/edit', function(req, res) {
 });
 
 // update
-router.put('/:id', function(req, res) {
+router.put('/:id', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Condo.findByIdAndUpdate(req.params.id, req.body.condo, function(err, updatedCondo) {
         if (err) {
             console.log(err);
@@ -82,7 +82,7 @@ router.put('/:id', function(req, res) {
 });
 
 // destroy
-router.delete('/:id', function(req, res) {
+router.delete('/:id', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Condo.findByIdAndRemove(req.params.id, function(err, condo) {
         console.log(condo);
         if (err) {

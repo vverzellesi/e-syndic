@@ -2,7 +2,9 @@
 <div class="container">
   
   <h1>Lista de Torres</h1>
-  <a href="/condos/<%= condo._id %>/towers/new" class="btn btn-success"><i class="fa fa-plus-circle"></i> Adicionar Nova Torre</a> <br>
+  <% if (currentUser.role === 'admin') { %>
+    <a href="/condos/<%= condo._id %>/towers/new" class="btn btn-success"><i class="fa fa-plus-circle"></i> Adicionar Nova Torre</a> <br>
+  <% } %>
 
   <table id="index-table" class="table table-striped table-bordered" cellspacing="0">
     <thead>
