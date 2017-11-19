@@ -4,13 +4,14 @@
 
     <h1>Apartamento <strong><%= apartment.number %></h1>
 
-    <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/edit" class="btn btn-warning" data-toggle="tooltip" data-placement="left" title="Editar" data-original-title="Tooltip on left"><i class="fa fa-pencil"></i> Editar Apartmento</a>
-    
-    <form id="delete-form" action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>?_method=DELETE" method="post">
-      <button type="submit" class="btn btn-danger">
-          <i class="fa fa-trash" aria-hidden="true"></i> Deletar
-      </button>
-    </form>
+    <% if (currentUser.role === 'admin') { %>
+        <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/edit" class="btn btn-warning" data-toggle="tooltip" data-placement="left" title="Editar" data-original-title="Tooltip on left"><i class="fa fa-pencil"></i> Editar Apartmento</a>
+        <form id="delete-form" action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>?_method=DELETE" method="post">
+        <button type="submit" class="btn btn-danger">
+            <i class="fa fa-trash" aria-hidden="true"></i> Deletar
+        </button>
+        </form>
+    <% } %>
 
     <h4><%= apartment.floor %></strong>º andar</h4>
 

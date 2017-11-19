@@ -3,7 +3,9 @@
 <div class="container">
   <h1>Apartmentos</h1>
 
-  <a href="/condos/<%= condo_id %>/towers/<%= tower._id %>/apartments/new" class="btn btn-success"><i class="fa fa-plus-circle"></i> Adicionar Novo Apartamento</a>
+  <% if (currentUser.role === 'admin') { %>
+    <a href="/condos/<%= condo_id %>/towers/<%= tower._id %>/apartments/new" class="btn btn-success"><i class="fa fa-plus-circle"></i> Adicionar Novo Apartamento</a>
+  <% } %>
 
   <table id="index-table" class="table table-striped table-bordered" cellspacing="0">
     <thead>

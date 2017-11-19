@@ -6,7 +6,7 @@ var express = require('express'),
     middleware = require('../middleware');
 
 // index
-router.get('/', function(req, res) {
+router.get('/', middleware.isLoggedIn, function(req, res) {
     Tower.findById(req.params.tower_id).populate('apartments').exec(function(err, tower) {
         if (err) {
             console.log(err);
@@ -17,7 +17,7 @@ router.get('/', function(req, res) {
 });
 
 // create view
-router.get('/new', middleware.isLoggedIn, function(req, res) {
+router.get('/new', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Tower.findById(req.params.tower_id, function(err, tower) {
         if (err) {
             console.log(err);
@@ -28,7 +28,7 @@ router.get('/new', middleware.isLoggedIn, function(req, res) {
 });
 
 // create logic
-router.post('/', middleware.isLoggedIn, function(req, res) {
+router.post('/', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Tower.findById(req.params.tower_id, function(err, tower) {
         if (err) {
             console.log(err);
@@ -48,7 +48,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // show
-router.get('/:apartment_id', function(req, res) {
+router.get('/:apartment_id', middleware.isLoggedIn, function(req, res) {
     Apartment.findById(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);
@@ -59,7 +59,7 @@ router.get('/:apartment_id', function(req, res) {
 });
 
 // edit
-router.get('/:apartment_id/edit', function(req, res) {
+router.get('/:apartment_id/edit', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Apartment.findById(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);
@@ -71,7 +71,7 @@ router.get('/:apartment_id/edit', function(req, res) {
 });
 
 // update
-router.put('/:apartment_id', function(req, res) {
+router.put('/:apartment_id', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Apartment.findByIdAndUpdate(req.params.apartment_id, req.body.apartment, function(err, updatedApartment) {
         if (err) {
             console.log(err);
@@ -83,7 +83,7 @@ router.put('/:apartment_id', function(req, res) {
 });
 
 // destroy
-router.delete('/:apartment_id', function(req, res) {
+router.delete('/:apartment_id', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Apartment.findByIdAndRemove(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);
