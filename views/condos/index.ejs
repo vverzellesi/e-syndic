@@ -15,9 +15,16 @@
 
         <% condos.forEach(function(condo) { %>
           <% if (condo._id == currentUser.condoId) { %>
-            <p>
-              <a class="btn btn-primary btn-lg" href="/condos/<%= condo._id %>"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Ir para condomínio <%= condo.name %></a>
-            </p>
+            <% if (currentUser.role !== 'dweller') { %>          
+              <p>
+                <a class="btn btn-primary btn-lg" href="/condos/<%= condo._id %>"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Ir para condomínio <%= condo.name %></a>
+              </p>
+            <% } else { %>
+              <p>
+                <a class="btn btn-primary btn-lg" href="/condos/<%= condo._id %>/towers/<%= currentUser.towerId %>/apartments/<%= currentUser.apartmentId %>"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Ir para condomínio <%= condo.name %></a>
+              </p>
+            <% } %>
+
           <% } %>
         <% }) %>
     </div>

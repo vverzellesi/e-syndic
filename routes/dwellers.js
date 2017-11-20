@@ -27,7 +27,7 @@ router.get('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // create view
-router.get('/new', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
+router.get('/new', middleware.isLoggedIn, function(req, res) {
     Apartment.findById(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);
@@ -38,7 +38,7 @@ router.get('/new', middleware.isLoggedIn, middleware.isAdmin, function(req, res)
 });
 
 // create logic
-router.post('/', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
+router.post('/', middleware.isLoggedIn, function(req, res) {
     Apartment.findById(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);
@@ -52,7 +52,7 @@ router.post('/', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
                     apartment.save();
 
                     // register new user
-                    var newUser = new User({ username: req.body.dweller.email, role: 'dweller', condoId: req.params.id, dwellerId: dweller._id });
+                    var newUser = new User({ username: req.body.dweller.email, role: 'dweller', condoId: req.params.id, towerId: req.params.tower_id, apartmentId: req.params.apartment_id, dwellerId: dweller._id });
                     User.register(newUser, req.body.password, function(err, user) {
                         if (err) {
                             req.flash('error', err.message);
@@ -79,7 +79,7 @@ router.get('/:dweller_id', middleware.isLoggedIn, function(req, res) {
 });
 
 // edit
-router.get('/:dweller_id/edit', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
+router.get('/:dweller_id/edit', middleware.isLoggedIn, function(req, res) {
     Dweller.findById(req.params.dweller_id, function(err, dweller) {
         if (err) {
             console.log(err);
@@ -91,7 +91,7 @@ router.get('/:dweller_id/edit', middleware.isLoggedIn, middleware.isAdmin, funct
 });
 
 // update
-router.put('/:dweller_id', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
+router.put('/:dweller_id', middleware.isLoggedIn, function(req, res) {
     Dweller.findByIdAndUpdate(req.params.dweller_id, req.body.dweller, function(err, dweller) {
         if (err) {
             console.log(err);
@@ -117,7 +117,7 @@ router.put('/:dweller_id', middleware.isLoggedIn, middleware.isAdmin, function(r
 });
 
 // destroy
-router.delete('/:dweller_id', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
+router.delete('/:dweller_id', middleware.isLoggedIn, function(req, res) {
     Dweller.findByIdAndRemove(req.params.dweller_id, function(err, dweller) {
         if (err) {
             console.log(err);
