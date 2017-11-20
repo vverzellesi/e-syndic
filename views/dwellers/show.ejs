@@ -2,18 +2,22 @@
 
 <div class="container">
 
-  <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment_id %>/dwellers/<%= dweller._id %>/edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-  <form id="delete-from" action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment_id %>/dwellers/<%= dweller._id %>?_method=DELETE" method="post">
-    <button type="submit" class="btn btn-danger">
-      <i class="fa fa-trash" aria-hidden="true"></i>
-    </button>
-  </form>
+  <h1><strong><%= dweller.name %></strong></h1>
 
-    <h1><%= dweller.name %></h1>
+  <% if (currentUser.role === 'admin') { %>
+    <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment_id %>/dwellers/<%= dweller._id %>/edit" class="btn btn-warning" data-toggle="tooltip" data-placement="left" title="Editar" data-original-title="Tooltip on left"><i class="fa fa-pencil" aria-hidden="true"></i> Editar Morador</a>
+    <form id="delete-form" action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment_id %>/dwellers/<%= dweller._id %>?_method=DELETE" method="post">
+      <button type="submit" class="btn btn-danger">
+        <i class="fa fa-trash" aria-hidden="true"></i> Deletar
+      </button>
+    </form>
+    <% } %>
 
-    <h3>CPF: <%= dweller.cpf %></h3>
-
-    <a href="#">Voltar</a>
+    <h4>CPF: <strong><%= dweller.cpf %></strong></h4>
+    <h4>RG: <strong><%= dweller.rg %></strong></h4>
+    <h4>Aniversário: <strong><%= dweller.birthday %></strong></h4>
+    <h4>Telefone: <strong><%= dweller.phone %></strong></h4>
+    <h4>Email: <strong><%= dweller.email %></strong></h4>
 
 </div>
 
