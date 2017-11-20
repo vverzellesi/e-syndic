@@ -124,11 +124,14 @@ router.put('/:space_id/schedule', middleware.isLoggedIn, function(req, res) {
                         console.log(err);
                     } else {
                         console.log('Data livre');
+                        req.flash('success', 'Data reservada com sucesso!');
                         res.redirect('/condos/' + req.params.id + '/spaces/');
                     }
                 });
             } else {
                 console.log('Data existente ' + date);
+                req.flash('error', 'Este dia já foi reservado! Por favor escolha outra data.');
+                res.redirect('back');
             }
         }
     })
