@@ -39,6 +39,7 @@ router.post('/', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
                 if (err) {
                     console.log(err);
                 } else {
+                    space.condoId = req.params.id;
                     space.save();
                     condo.spaces.push(space);
                     condo.save();
@@ -99,6 +100,7 @@ router.get('/:space_id/schedule', middleware.isLoggedIn, function(req, res) {
 // schedule space logic
 router.put('/:space_id/schedule', middleware.isLoggedIn, function(req, res) {
     Space.findOne({
+        'condoId': req.params.id,
         'scheduledDates.scheduledDates': req.body.space.scheduledDates
     }, function(err, date) {
         if (err) {

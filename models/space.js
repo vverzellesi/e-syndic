@@ -18,6 +18,7 @@ var spaceSchema = new mongoose.Schema({
             rg: String
         }]
     }],
+    condoId: String
 });
 
 module.exports = mongoose.model('Space', spaceSchema);
