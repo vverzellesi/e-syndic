@@ -18,7 +18,7 @@ router.get('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // create view
-router.get('/new', function(req, res) {
+router.get('/new', middleware.isLoggedIn, function(req, res) {
     Apartment.findById(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);
@@ -49,7 +49,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // show
-router.get('/:visitor_id', function(req, res) {
+router.get('/:visitor_id', middleware.isLoggedIn, function(req, res) {
     Visitor.findById(req.params.visitor_id, function(err, visitor) {
         if (err) {
             console.log(err);
@@ -60,7 +60,7 @@ router.get('/:visitor_id', function(req, res) {
 });
 
 // edit
-router.get('/:visitor_id/edit', function(req, res) {
+router.get('/:visitor_id/edit', middleware.isLoggedIn, function(req, res) {
     Visitor.findById(req.params.visitor_id, function(err, visitor) {
         if (err) {
             console.log(err);
@@ -72,7 +72,7 @@ router.get('/:visitor_id/edit', function(req, res) {
 });
 
 // update
-router.put('/:visitor_id', function(req, res) {
+router.put('/:visitor_id', middleware.isLoggedIn, function(req, res) {
     Visitor.findByIdAndUpdate(req.params.visitor_id, req.body.visitor, function(err, visitor) {
         if (err) {
             console.log(err);
@@ -84,7 +84,7 @@ router.put('/:visitor_id', function(req, res) {
 });
 
 // destroy
-router.delete('/:visitor_id', function(req, res) {
+router.delete('/:visitor_id', middleware.isLoggedIn, function(req, res) {
     Visitor.findByIdAndRemove(req.params.visitor_id, function(err, visitor) {
         if (err) {
             console.log(err);

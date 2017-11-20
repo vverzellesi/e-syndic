@@ -8,7 +8,7 @@ var express = require('express'),
 module.exports = router;
 
 // index route
-router.get('/', function(req, res) {
+router.get('/', middleware.isLoggedIn, function(req, res) {
     Condo.findById(req.params.id).populate('spaces').exec(function(err, condo) {
         if (err) {
             console.log(err);
@@ -19,7 +19,7 @@ router.get('/', function(req, res) {
 });
 
 // create view
-router.get('/new', middleware.isLoggedIn, function(req, res) {
+router.get('/new', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Condo.findById(req.params.id, function(err, condo) {
         if (err) {
             console.log(err);
@@ -30,7 +30,7 @@ router.get('/new', middleware.isLoggedIn, function(req, res) {
 });
 
 // create logic
-router.post('/', middleware.isLoggedIn, function(req, res) {
+router.post('/', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Condo.findById(req.params.id, function(err, condo) {
         if (err) {
             console.log(err);
@@ -50,7 +50,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // show
-router.get('/:space_id', function(req, res) {
+router.get('/:space_id', middleware.isLoggedIn, function(req, res) {
     Space.findById(req.params.space_id, function(err, space) {
         if (err) {
             console.log(err);
@@ -61,7 +61,7 @@ router.get('/:space_id', function(req, res) {
 });
 
 // edit
-router.get('/:space_id/edit', function(req, res) {
+router.get('/:space_id/edit', middleware.isLoggedIn, function(req, res) {
     Space.findById(req.params.space_id, function(err, space) {
         if (err) {
             console.log(err);
@@ -73,7 +73,7 @@ router.get('/:space_id/edit', function(req, res) {
 });
 
 // update
-router.put('/:space_id', function(req, res) {
+router.put('/:space_id', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Space.findByIdAndUpdate(req.params.space_id, req.body.space, function(err, updatedSpace) {
         if (err) {
             console.log(err);
@@ -85,7 +85,7 @@ router.put('/:space_id', function(req, res) {
 });
 
 // schedule space view
-router.get('/:space_id/schedule', function(req, res) {
+router.get('/:space_id/schedule', middleware.isLoggedIn, function(req, res) {
     Space.findById(req.params.space_id, function(err, space) {
         if (err) {
             console.log(err);
@@ -97,7 +97,7 @@ router.get('/:space_id/schedule', function(req, res) {
 });
 
 // schedule space logic
-router.put('/:space_id/schedule', function(req, res) {
+router.put('/:space_id/schedule', middleware.isLoggedIn, function(req, res) {
     Space.findOne({
         'scheduledDates.scheduledDates': req.body.space.scheduledDates
     }, function(err, date) {
@@ -135,7 +135,7 @@ router.put('/:space_id/schedule', function(req, res) {
 });
 
 // destroy
-router.delete('/:space_id', function(req, res) {
+router.delete('/:space_id', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Space.findByIdAndRemove(req.params.space_id, function(err, space) {
         if (err) {
             console.log(err);

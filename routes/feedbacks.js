@@ -5,6 +5,7 @@ var express = require('express'),
     middleware = require('../middleware'),
     ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3'),
     LanguageTranslatorV2 = require('watson-developer-cloud/language-translator/v2');
+
 // Watson config
 var tone_analyzer = new ToneAnalyzerV3({
     username: process.env.TONE_ANALYZER_USER,
@@ -19,7 +20,7 @@ var language_translator = new LanguageTranslatorV2({
 });
 
 // index route
-router.get('/', function(req, res) {
+router.get('/', middleware.isLoggedIn, function(req, res) {
     Condo.findById(req.params.id).populate('feedbacks').exec(function(err, condo) {
         if (err) {
             console.log(err);
@@ -30,7 +31,7 @@ router.get('/', function(req, res) {
 });
 
 // watson
-router.get('/watson', function(req, res) {
+router.get('/watson', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Condo.findById(req.params.id).populate('feedbacks').exec(function(err, condo) {
         if (err) {
             console.log(err);
@@ -113,7 +114,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // edit
-router.get('/:feedback_id/edit', function(req, res) {
+router.get('/:feedback_id/edit', middleware.isLoggedIn, function(req, res) {
     Feedback.findById(req.params.feedback_id, function(err, feedback) {
         if (err) {
             console.log(err);
@@ -125,7 +126,7 @@ router.get('/:feedback_id/edit', function(req, res) {
 });
 
 // update
-router.put('/:feedback_id', function(req, res) {
+router.put('/:feedback_id', middleware.isLoggedIn, function(req, res) {
     Feedback.findByIdAndUpdate(req.params.feedback_id, req.body.feedback, function(err, updatedfeedback) {
         if (err) {
             console.log(err);
@@ -137,7 +138,7 @@ router.put('/:feedback_id', function(req, res) {
 });
 
 // destroy
-router.delete('/:feedback_id', function(req, res) {
+router.delete('/:feedback_id', middleware.isLoggedIn, function(req, res) {
     Feedback.findByIdAndRemove(req.params.feedback_id, function(err, feedback) {
         if (err) {
             console.log(err);
