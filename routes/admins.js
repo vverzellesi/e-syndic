@@ -6,7 +6,7 @@ var express = require('express'),
     User = require('../models/user');
 
 // index route
-router.get('/', function(req, res) {
+router.get('/', middleware.isLoggedIn, function(req, res) {
     Condo.findById(req.params.id).populate('admins').exec(function(err, condo) {
         if (err) {
             console.log(err);
@@ -17,7 +17,7 @@ router.get('/', function(req, res) {
 });
 
 // create view
-router.get('/new', middleware.isLoggedIn, function(req, res) {
+router.get('/new', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Condo.findById(req.params.id, function(err, condo) {
         if (err) {
             console.log(err);
@@ -28,7 +28,7 @@ router.get('/new', middleware.isLoggedIn, function(req, res) {
 });
 
 // create logic
-router.post('/', middleware.isLoggedIn, function(req, res) {
+router.post('/', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Condo.findById(req.params.id, function(err, condo) {
         if (err) {
             console.log(err);
@@ -66,7 +66,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // show
-router.get('/:admin_id', function(req, res) {
+router.get('/:admin_id', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Admin.findById(req.params.admin_id, function(err, admin) {
         if (err) {
             console.log(err);
@@ -76,8 +76,20 @@ router.get('/:admin_id', function(req, res) {
     });
 });
 
+// edit
+router.get('/:admin_id/edit', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
+    Admin.findById(req.params.admin_id, function(err, admin) {
+        if (err) {
+            console.log(err);
+            res.redirect('back');
+        } else {
+            res.render('admins/edit', { condo_id: req.params.id, admin: admin });
+        }
+    });
+});
+
 // update
-router.put('/:admin_id', function(req, res) {
+router.put('/:admin_id', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Admin.findByIdAndUpdate(req.params.admin_id, req.body.admin, function(err, updatedAdmin) {
         if (err) {
             console.log(err);
@@ -89,7 +101,7 @@ router.put('/:admin_id', function(req, res) {
 });
 
 // destroy
-router.delete('/:admin_id', function(req, res) {
+router.delete('/:admin_id', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Admin.findByIdAndRemove(req.params.admin_id, function(err, admin) {
         if (err) {
             console.log(err);

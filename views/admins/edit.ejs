@@ -5,12 +5,15 @@
         <h1 style="text-align: center;">Editar Administrador <%= admin.name %></h1>
         <div style="width: 30%; margin: 20px auto;">
             <form action="/condos/<%= condo_id %>/admins/<%= admin._id %>?_method=PUT" method="post">
+                <label>Nome</label>
                 <div class="form-group">
                     <input class="form-control" type="text" name="admin[name]" value="<%= admin.name %>">
                 </div>
+                <label>CPF</label>
                 <div class="form-group">
                     <input class="form-control" type="text" name="admin[cpf]" id="cpf" value="<%= admin.cpf %>">
                 </div>
+                <label>Função</label>
                 <div class="form-group">
                     <input class="form-control" type="text" name="admin[function]" value="<%= admin.function %>">
                 </div>

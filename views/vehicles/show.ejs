@@ -1,20 +1,21 @@
 <% include ../partials/header %>
 
 <div class="container">
-
-  <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment_id %>/vehicles/<%= vehicle._id %>/edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-
-  <form id="delete-from" action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment_id %>/vehicles/<%= vehicle._id %>?_method=DELETE" method="post">
-      <button type="submit" class="btn btn-danger">
-          <i class="fa fa-trash" aria-hidden="true"></i>
-      </button>
-  </form>
-
     <h1><%= vehicle.brand %> - <%= vehicle.model %></h1>
 
-    <h3><%= vehicle.plate %></h3>
+    <% if (currentUser.role !== 'lobby') { %>
+        <a class="btn btn-warning" href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment_id %>/vehicles/<%= vehicle._id %>/edit"><i class="fa fa-pencil" aria-hidden="true"></i> Editar Veículo</a>
 
-    <a href="/vehicles">Voltar</a>
+        <form id="delete-form" action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment_id %>/vehicles/<%= vehicle._id %>?_method=DELETE" method="post">
+            <button type="submit" class="btn btn-danger">
+                <i class="fa fa-trash" aria-hidden="true"></i> Deletar
+            </button>
+        </form>
+    <% } %>
+
+
+    <h4>Placa: <strong><%= vehicle.plate %></strong></h4>
+    <h4>Cor: <strong><%= vehicle.color %></strong></h4>
 
 </div>
 

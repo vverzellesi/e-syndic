@@ -4,7 +4,7 @@ var dwellerSchema = new mongoose.Schema({
     name: String,
     cpf: String,
     rg: String,
-    birthday: Date,
+    birthday: String,
     phone: String,
     relationship: String
 });
