@@ -26,6 +26,7 @@
         "express-session": "^1.15.5",
         "jquery-mask-plugin": "^1.14.11",
         "method-override": "^2.3.9",
+        "moment": "^2.19.2",
         "mongoose": "^4.11.5",
         "passport": "^0.4.0",
         "passport-local": "^1.0.0",
