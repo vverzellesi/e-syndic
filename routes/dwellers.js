@@ -8,6 +8,13 @@ var express = require('express'),
     Dweller = require('../models/dweller'),
     User = require('../models/user');
 
+// twilio credentials
+var accountSid = process.env.TWILIO_ACCOUNT_SID;
+var authToken = process.env.TWILIO_AUTH_TOKEN;
+// require twilio
+var client = require('twilio')(accountSid, authToken);
+
+
 // index
 router.get('/', middleware.isLoggedIn, function(req, res) {
     Apartment.findById(req.params.apartment_id).populate('dwellers').exec(function(err, apartment) {
@@ -102,6 +109,30 @@ router.delete('/:dweller_id', middleware.isLoggedIn, middleware.isAdmin, functio
             console.log(err);
         } else {
             res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments/' + req.params.apartment_id + '/dwellers')
+        }
+    });
+});
+
+// twilio sms
+router.post('/:dweller_id/sms', middleware.isLoggedIn, function(req, res) {
+    Dweller.findById(req.params.dweller_id, function(err, dweller) {
+        if (err) {
+            console.log(err);
+        } else {
+            var name = dweller.name;
+            var phone = dweller.phone;
+
+            client.messages.create({
+                to: "+55" + phone,
+                from: process.env.TWILIO_FROM_NUMBER,
+                body: "Olá, " + name + "! Você possui uma nova encomenda! Por favor, retire-a na administração.",
+            }, function(err, message) {
+                if (err) {
+                    console.log(err);
+                }
+                req.flash('success', 'Mensagem enviada com sucesso!');
+                res.redirect('back');
+            });
         }
     });
 });

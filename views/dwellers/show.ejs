@@ -11,7 +11,15 @@
         <i class="fa fa-trash" aria-hidden="true"></i> Deletar
       </button>
     </form>
-    <% } %>
+  <% } %>
+
+  <% if (currentUser.role !== 'dweller') { %>  
+    <form id="delete-form" action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment_id %>/dwellers/<%= dweller._id %>/sms" method="post">
+      <button type="submit" class="btn btn-primary">
+          <i class="fa fa-envelope-o" aria-hidden="true"></i> Notificar Entrega
+      </button>
+    </form>
+  <% } %>
 
     <h4>CPF: <strong><%= dweller.cpf %></strong></h4>
     <h4>RG: <strong><%= dweller.rg %></strong></h4>
