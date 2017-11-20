@@ -45,7 +45,7 @@ router.post('/', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
                     apartment.save();
 
                     // register new user
-                    var newUser = new User({ username: req.body.username, role: 'dweller', condoId: req.params.id });
+                    var newUser = new User({ username: req.body.dweller.email, role: 'dweller', condoId: req.params.id });
                     User.register(newUser, req.body.password, function(err, user) {
                         if (err) {
                             req.flash('error', err.message);
