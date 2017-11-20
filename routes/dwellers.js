@@ -139,7 +139,7 @@ router.post('/:dweller_id/sms', middleware.isLoggedIn, function(req, res) {
             client.messages.create({
                 to: "+55" + phone,
                 from: process.env.TWILIO_FROM_NUMBER,
-                body: "Olá, " + name + "! Você possui uma nova encomenda! Por favor, retire-a na administração.",
+                body: "[Portal e-Syndic] Olá, " + name + "! Você possui uma nova encomenda! Por favor, retire-a na administração.",
             }, function(err, message) {
                 if (err) {
                     console.log(err);
