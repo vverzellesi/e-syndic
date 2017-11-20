@@ -4,7 +4,7 @@
 
   <h1>Moradores no Apartamento <strong><%= apartment.number %></strong></h1>
 
-  <% if (currentUser.role === 'admin') { %> 
+  <% if (currentUser.role !== 'lobby') { %> 
     <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment._id %>/dwellers/new" class="btn btn-success"><i class="fa fa-plus-circle"></i> Novo Morador</a>
   <% } %>
 

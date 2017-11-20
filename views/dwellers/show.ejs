@@ -4,7 +4,7 @@
 
   <h1><strong><%= dweller.name %></strong></h1>
 
-  <% if (currentUser.role === 'admin') { %>
+  <% if (currentUser.role !== 'lobby') { %>
     <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment_id %>/dwellers/<%= dweller._id %>/edit" class="btn btn-warning" data-toggle="tooltip" data-placement="left" title="Editar" data-original-title="Tooltip on left"><i class="fa fa-pencil" aria-hidden="true"></i> Editar Morador</a>
     <form id="delete-form" action="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments/<%= apartment_id %>/dwellers/<%= dweller._id %>?_method=DELETE" method="post">
       <button type="submit" class="btn btn-danger">
