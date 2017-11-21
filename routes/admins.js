@@ -42,7 +42,7 @@ router.post('/', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
                     condo.save();
 
                     // set user role
-                    if (req.user.role === 'Corpo Diretivo') {
+                    if (req.body.admin.role === 'Corpo Diretivo') {
                         req.user.role = 'admin';
                     } else {
                         req.user.role = 'lobby';
