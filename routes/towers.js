@@ -5,7 +5,7 @@ var express = require('express'),
     middleware = require('../middleware');
 
 // index route
-router.get('/', function(req, res) {
+router.get('/', middleware.isLoggedIn, function(req, res) {
     Condo.findById(req.params.id).populate('towers').exec(function(err, condo) {
         if (err) {
             console.log(err);
@@ -16,7 +16,7 @@ router.get('/', function(req, res) {
 });
 
 // create view
-router.get('/new', middleware.isLoggedIn, function(req, res) {
+router.get('/new', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Condo.findById(req.params.id, function(err, condo) {
         if (err) {
             console.log(err);
@@ -27,7 +27,7 @@ router.get('/new', middleware.isLoggedIn, function(req, res) {
 });
 
 // create logic
-router.post('/', middleware.isLoggedIn, function(req, res) {
+router.post('/', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Condo.findById(req.params.id, function(err, condo) {
         if (err) {
             console.log(err);
@@ -47,7 +47,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // show
-router.get('/:tower_id', function(req, res) {
+router.get('/:tower_id', middleware.isLoggedIn, function(req, res) {
     Tower.findById(req.params.tower_id, function(err, tower) {
         if (err) {
             console.log(err);
@@ -58,7 +58,7 @@ router.get('/:tower_id', function(req, res) {
 });
 
 // edit
-router.get('/:tower_id/edit', function(req, res) {
+router.get('/:tower_id/edit', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Tower.findById(req.params.tower_id, function(err, tower) {
         if (err) {
             console.log(err);
@@ -70,7 +70,7 @@ router.get('/:tower_id/edit', function(req, res) {
 });
 
 // update
-router.put('/:tower_id', function(req, res) {
+router.put('/:tower_id', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Tower.findByIdAndUpdate(req.params.tower_id, req.body.tower, function(err, updatedTower) {
         if (err) {
             console.log(err);
@@ -82,7 +82,7 @@ router.put('/:tower_id', function(req, res) {
 });
 
 // destroy
-router.delete('/:tower_id', function(req, res) {
+router.delete('/:tower_id', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Tower.findByIdAndRemove(req.params.tower_id, function(err, tower) {
         if (err) {
             console.log(err);

@@ -14,4 +14,12 @@ middlewareObj.isLoggedIn = function(req, res, next) {
     res.redirect('/login');
 }
 
+middlewareObj.isAdmin = function(req, res, next) {
+    if (req.user.role === 'admin') {
+        return next();
+    }
+    req.flash('error', 'Você não tem autorização para realizar esta ação!');
+    res.redirect('back');
+}
+
 module.exports = middlewareObj;

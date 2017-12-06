@@ -5,7 +5,7 @@ var express = require('express'),
     middleware = require('../middleware');
 
 // index route
-router.get('/', function(req, res) {
+router.get('/', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Condo.findById(req.params.id).populate('employees').exec(function(err, condo) {
         if (err) {
             console.log(err);
@@ -16,7 +16,7 @@ router.get('/', function(req, res) {
 });
 
 // create view
-router.get('/new', middleware.isLoggedIn, function(req, res) {
+router.get('/new', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Condo.findById(req.params.id, function(err, condo) {
         if (err) {
             console.log(err);
@@ -27,7 +27,7 @@ router.get('/new', middleware.isLoggedIn, function(req, res) {
 });
 
 // create logic
-router.post('/', middleware.isLoggedIn, function(req, res) {
+router.post('/', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Condo.findById(req.params.id, function(err, condo) {
         if (err) {
             console.log(err);
@@ -47,7 +47,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // show
-router.get('/:employee_id', function(req, res) {
+router.get('/:employee_id', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Employee.findById(req.params.employee_id, function(err, employee) {
         if (err) {
             console.log(err);
@@ -58,7 +58,7 @@ router.get('/:employee_id', function(req, res) {
 });
 
 // edit
-router.get('/:employee_id/edit', function(req, res) {
+router.get('/:employee_id/edit', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Employee.findById(req.params.employee_id, function(err, employee) {
         if (err) {
             console.log(err);
@@ -70,7 +70,7 @@ router.get('/:employee_id/edit', function(req, res) {
 });
 
 // update
-router.put('/:employee_id', function(req, res) {
+router.put('/:employee_id', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Employee.findByIdAndUpdate(req.params.employee_id, req.body.employee, function(err, updatedEmployee) {
         if (err) {
             console.log(err);
@@ -82,7 +82,7 @@ router.put('/:employee_id', function(req, res) {
 });
 
 // destroy
-router.delete('/:employee_id', function(req, res) {
+router.delete('/:employee_id', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Employee.findByIdAndRemove(req.params.employee_id, function(err, employee) {
         if (err) {
             console.log(err);

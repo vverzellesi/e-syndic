@@ -1,10 +1,11 @@
 var express = require('express'),
     router = express.Router(),
+    middleware = require('../middleware'),
     Condo = require('../models/condo'),
-    middleware = require('../middleware');
+    User = require('../models/user');
 
 //index
-router.get('/', function(req, res) {
+router.get('/', middleware.isLoggedIn, function(req, res) {
     Condo.find({}, function(err, allCondos) {
         if (err) {
             console.log(err);
@@ -15,24 +16,40 @@ router.get('/', function(req, res) {
 });
 
 // create view
-router.get('/new', middleware.isLoggedIn, function(req, res) {
+router.get('/new', function(req, res) {
     res.render('condos/new');
 });
 
 // create logic
-router.post('/', middleware.isLoggedIn, function(req, res) {
+router.post('/', function(req, res) {
     Condo.create(req.body.condo, function(err, createdCondo) {
         if (err) {
             console.log(err);
         } else {
-            req.flash('success', 'Condomínio criado com sucesso!');
-            res.redirect('/condos');
+            // register new user
+            var newUser = new User({ username: req.body.username, role: 'admin', condoId: createdCondo._id });
+            User.register(newUser, req.body.password, function(err, user) {
+                if (err) {
+                    req.flash('error', err.message);
+                    console.log(err);
+                } else {
+                    req.login(user, function(err, loggedUser) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            req.flash('success', 'Condomínio criado com sucesso!');
+                            return res.redirect('/condos/' + createdCondo._id);
+                        }
+                    });
+                }
+            });
+
         }
     });
 });
 
 // show
-router.get('/:id', function(req, res) {
+router.get('/:id', middleware.isLoggedIn, function(req, res) {
     Condo.findById(req.params.id).populate('towers').exec(function(err, foundCondo) {
         if (err) {
             console.log(err);
@@ -43,7 +60,7 @@ router.get('/:id', function(req, res) {
 });
 
 // edit
-router.get('/:id/edit', function(req, res) {
+router.get('/:id/edit', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Condo.findById(req.params.id, function(err, foundCondo) {
         if (err) {
             console.log(err);
@@ -54,7 +71,7 @@ router.get('/:id/edit', function(req, res) {
 });
 
 // update
-router.put('/:id', function(req, res) {
+router.put('/:id', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Condo.findByIdAndUpdate(req.params.id, req.body.condo, function(err, updatedCondo) {
         if (err) {
             console.log(err);
@@ -65,7 +82,7 @@ router.put('/:id', function(req, res) {
 });
 
 // destroy
-router.delete('/:id', function(req, res) {
+router.delete('/:id', middleware.isLoggedIn, middleware.isAdmin, function(req, res) {
     Condo.findByIdAndRemove(req.params.id, function(err, condo) {
         console.log(condo);
         if (err) {

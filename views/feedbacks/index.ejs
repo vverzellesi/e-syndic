@@ -3,15 +3,20 @@
 <div class="container">
     <div class="well">
         <div class="text-right">
-            <a href="/condos/<%= condo._id %>/feedbacks/watson" class="btn btn-primary"><i class="fa fa-pie-chart"></i> Análise de Comentários</a>
-            <a href="/condos/<%= condo._id %>/feedbacks/new" class="btn btn-success"><i class="fa fa-plus-circle"></i> Adicionar Comentário</a>
+            <% if (condo.feedbacks.length > 5 && currentUser.role === 'admin') { %>
+                <a href="/condos/<%= condo._id %>/feedbacks/watson" class="btn btn-primary"><i class="fa fa-pie-chart"></i> Análise de Comentários</a>
+            <% } %>
+            <% if (currentUser.role !== 'lobby') { %>        
+                <a href="/condos/<%= condo._id %>/feedbacks/new" class="btn btn-success"><i class="fa fa-plus-circle"></i> Adicionar Comentário</a>
+            <% } %>
         </div>
         <hr>
+
         <% condo.feedbacks.forEach(function (feedback) { %>
             <div class="row">
                 <div class="col-md-12">
                     <strong><%= feedback.author.username %></strong> - <em><%= feedback.category %></em>
-                    <span class="pull-right">10 dias atrás</span>
+                    <span class="pull-right"><%= moment(feedback.createdAt).fromNow() %></span>
                     <p>
                         <%= feedback.text %>
                     </p>

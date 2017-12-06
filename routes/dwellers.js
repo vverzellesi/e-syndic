@@ -8,6 +8,13 @@ var express = require('express'),
     Dweller = require('../models/dweller'),
     User = require('../models/user');
 
+// twilio credentials
+var accountSid = process.env.TWILIO_ACCOUNT_SID;
+var authToken = process.env.TWILIO_AUTH_TOKEN;
+// require twilio
+var client = require('twilio')(accountSid, authToken);
+
+
 // index
 router.get('/', middleware.isLoggedIn, function(req, res) {
     Apartment.findById(req.params.apartment_id).populate('dwellers').exec(function(err, apartment) {
@@ -20,7 +27,7 @@ router.get('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // create view
-router.get('/new', function(req, res) {
+router.get('/new', middleware.isLoggedIn, function(req, res) {
     Apartment.findById(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);
@@ -45,7 +52,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
                     apartment.save();
 
                     // register new user
-                    var newUser = new User({ username: req.body.username, role: 'dweller', condoId: req.params.id });
+                    var newUser = new User({ username: req.body.dweller.email, role: 'dweller', condoId: req.params.id, towerId: req.params.tower_id, apartmentId: req.params.apartment_id, dwellerId: dweller._id });
                     User.register(newUser, req.body.password, function(err, user) {
                         if (err) {
                             req.flash('error', err.message);
@@ -61,7 +68,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // show
-router.get('/:dweller_id', function(req, res) {
+router.get('/:dweller_id', middleware.isLoggedIn, function(req, res) {
     Dweller.findById(req.params.dweller_id, function(err, dweller) {
         if (err) {
             console.log(err);
@@ -72,7 +79,7 @@ router.get('/:dweller_id', function(req, res) {
 });
 
 // edit
-router.get('/:dweller_id/edit', function(req, res) {
+router.get('/:dweller_id/edit', middleware.isLoggedIn, function(req, res) {
     Dweller.findById(req.params.dweller_id, function(err, dweller) {
         if (err) {
             console.log(err);
@@ -84,62 +91,62 @@ router.get('/:dweller_id/edit', function(req, res) {
 });
 
 // update
-router.put('/:dweller_id', function(req, res) {
+router.put('/:dweller_id', middleware.isLoggedIn, function(req, res) {
     Dweller.findByIdAndUpdate(req.params.dweller_id, req.body.dweller, function(err, dweller) {
         if (err) {
             console.log(err);
             res.redirect('back');
         } else {
-            res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments/' + req.params.apartment_id + '/dwellers');
-
-
-            // udpate user
-            // User.update(req.params.dweller_id, {
-            //         $set: {
-            //             'password': req.body.password
-            //         }
-            //     },
-            //     function(err, user) {
-            //         if (err) {
-            //             console.log(err);
-            //         } else {
-            //             console.log(user);
-            //             res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments/' + req.params.apartment_id + '/dwellers');
-            //         }
-            //     });
-
-            // User.findOne()
-
-            // User.setPassword(req.body.password, function(err, user) {
-            //     if (err) {
-            //         console.log(err);
-            //     } else {
-            //         user.password = req.body.password;
-            //         user.save();
-            //         console.log(user);
-            //     }
-
-            // })
-
-            // User.changePassword(req.body.oldpassword, req.body.password, function(err, user) {
-            //     if (err) {
-            //         console.log(err);
-            //     } else {
-
-            //     }
-            // });
-
+            User.findOne({ 'dwellerId': dweller._id }, function(err, user) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    User.update({ _id: user._id }, {
+                        username: req.body.dweller.email
+                    }, function(err) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments/' + req.params.apartment_id + '/dwellers');
+                        }
+                    });
+                };
+            })
         }
     });
 });
 
 // destroy
-router.delete('/:dweller_id', function(req, res) {
+router.delete('/:dweller_id', middleware.isLoggedIn, function(req, res) {
     Dweller.findByIdAndRemove(req.params.dweller_id, function(err, dweller) {
         if (err) {
             console.log(err);
         } else {
             res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments/' + req.params.apartment_id + '/dwellers')
+        }
+    });
+});
+
+// twilio sms
+router.post('/:dweller_id/sms', middleware.isLoggedIn, function(req, res) {
+    Dweller.findById(req.params.dweller_id, function(err, dweller) {
+        if (err) {
+            console.log(err);
+        } else {
+            var name = dweller.name;
+            var phone = dweller.phone;
+
+            client.messages.create({
+                to: "+55" + phone,
+                from: process.env.TWILIO_FROM_NUMBER,
+                body: "[Portal e-Syndic] Olá, " + name + "! Você possui uma nova encomenda! Por favor, retire-a na administração.",
+            }, function(err, message) {
+                if (err) {
+                    console.log(err);
+                }
+                req.flash('success', 'Mensagem enviada com sucesso!');
+                res.redirect('back');
+            });
         }
     });
 });

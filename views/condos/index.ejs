@@ -2,27 +2,33 @@
 
 <div class="container">
 
+  <header class="jumbotron">
+    <div class="container">
+        <h1><i class="fa fa-building-o" aria-hidden="true"></i> Bem-vindo, <%= currentUser.username %>!</h1>
+        <% if (currentUser.role === 'admin') { %>
+          <p>Aqui você terá acesso a administração de seu condomínio</p>
+        <% } else if (currentUser.role === 'lobby') { %>
+          <p>Aqui você controlará a portaria de seu condomínio</p>
+        <% } else { %>
+          <p>Aqui você gerenciará seu apartamento</p>
+        <% } %>
 
-  <h1>Lista de Condomínios</h1>
+        <% condos.forEach(function(condo) { %>
+          <% if (condo._id == currentUser.condoId) { %>
+            <% if (currentUser.role !== 'dweller') { %>          
+              <p>
+                <a class="btn btn-primary btn-lg" href="/condos/<%= condo._id %>"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Ir para condomínio <%= condo.name %></a>
+              </p>
+            <% } else { %>
+              <p>
+                <a class="btn btn-primary btn-lg" href="/condos/<%= condo._id %>/towers/<%= currentUser.towerId %>/apartments/<%= currentUser.apartmentId %>"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Ir para condomínio <%= condo.name %></a>
+              </p>
+            <% } %>
 
-  <a href="/condos/new" class="btn btn-sm btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Adicionar Novo Condomínio</a>
-
-  <table id="index-table" class="table table-striped table-bordered" cellspacing="0">
-    <thead>
-      <tr>
-        <th>Nome</th>
-        <th>Endereço</th>
-      </tr>
-    </thead>
-      <tbody>
-        <% condos.forEach(function(condo) { %> 
-          <tr>
-            <td><a href="/condos/<%= condo._id %>"><%= condo.name %></a></td>
-            <td><%= condo.address %></td>
-          </tr>
+          <% } %>
         <% }) %>
-    </tbody>
-  </table>
+    </div>
+  </header>
 
 </div>
 

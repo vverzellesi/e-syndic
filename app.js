@@ -40,6 +40,9 @@ app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
 app.use(flash());
 
+// moment.js config
+app.locals.moment = require('moment');
+
 // PASSPORT CONFIG
 app.use(require('express-session')({
     secret: process.env.PASSPORT_SECRET,

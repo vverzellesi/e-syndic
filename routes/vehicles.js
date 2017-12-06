@@ -18,7 +18,7 @@ router.get('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // create view
-router.get('/new', function(req, res) {
+router.get('/new', middleware.isLoggedIn, function(req, res) {
     Apartment.findById(req.params.apartment_id, function(err, apartment) {
         if (err) {
             console.log(err);
@@ -49,7 +49,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 });
 
 // show
-router.get('/:vehicle_id', function(req, res) {
+router.get('/:vehicle_id', middleware.isLoggedIn, function(req, res) {
     Vehicle.findById(req.params.vehicle_id, function(err, vehicle) {
         if (err) {
             console.log(err);
@@ -60,7 +60,7 @@ router.get('/:vehicle_id', function(req, res) {
 });
 
 // edit
-router.get('/:vehicle_id/edit', function(req, res) {
+router.get('/:vehicle_id/edit', middleware.isLoggedIn, function(req, res) {
     Vehicle.findById(req.params.vehicle_id, function(err, vehicle) {
         if (err) {
             console.log(err);
@@ -72,7 +72,7 @@ router.get('/:vehicle_id/edit', function(req, res) {
 });
 
 // update
-router.put('/:vehicle_id', function(req, res) {
+router.put('/:vehicle_id', middleware.isLoggedIn, function(req, res) {
     Vehicle.findByIdAndUpdate(req.params.vehicle_id, req.body.vehicle, function(err, vehicle) {
         if (err) {
             console.log(err);
@@ -84,7 +84,7 @@ router.put('/:vehicle_id', function(req, res) {
 });
 
 // destroy
-router.delete('/:vehicle_id', function(req, res) {
+router.delete('/:vehicle_id', middleware.isLoggedIn, function(req, res) {
     Vehicle.findByIdAndRemove(req.params.vehicle_id, function(err, vehicle) {
         if (err) {
             console.log(err);
