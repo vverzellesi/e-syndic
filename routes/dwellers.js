@@ -97,21 +97,21 @@ router.put('/:dweller_id', middleware.isLoggedIn, function(req, res) {
             console.log(err);
             res.redirect('back');
         } else {
-            User.findOne({ 'dwellerId': dweller._id }, function(err, user) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    User.update({ _id: user._id }, {
-                        username: req.body.dweller.email
-                    }, function(err) {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments/' + req.params.apartment_id + '/dwellers');
-                        }
-                    });
-                };
-            })
+            // User.findOne({ 'dwellerId': dweller._id }, function(err, user) {
+            //     if (err) {
+            //         console.log(err);
+            //     } else {
+            //         User.update({ _id: user.id }, {
+            //             username: req.body.dweller.email
+            //         }, function(err) {
+            //             if (err) {
+            //                 console.log(err);
+            //             } else {
+            //             }
+            //         });
+            //     };
+            // })
+            res.redirect('/condos/' + req.params.id + '/towers/' + req.params.tower_id + '/apartments/' + req.params.apartment_id + '/dwellers');
         }
     });
 });
