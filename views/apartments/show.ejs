@@ -15,7 +15,9 @@
 
     <h4><%= apartment.floor %></strong>º andar</h4>
 
-    <a href="/condos/<%= condo_id %>/towers/<%= tower_id %>/apartments">Voltar</a>
+    <% if (currentUser.role === 'admin') { %>
+        <a href="/condos/<%= condo_id %>">Menu Principal</a>
+    <% } %>
 
     <hr>
 

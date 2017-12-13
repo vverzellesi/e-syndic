@@ -32,8 +32,10 @@ var condoRoutes = require('./routes/condos'),
     employeeRoutes = require('./routes/employees'),
     indexRoutes = require('./routes/index');
 
+// db
+mongoose.connect(process.env.DB_URL, { useMongoClient: true }); // mlab
+// mongoose.connect('mongodb://localhost/e-syndic', { useMongoClient: true }); // local
 
-mongoose.connect(process.env.DB_URL, { useMongoClient: true });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');

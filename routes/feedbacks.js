@@ -67,6 +67,9 @@ router.get('/watson', middleware.isLoggedIn, middleware.isAdmin, function(req, r
                         if (err)
                             console.log('error: ', err);
                         else {
+                            console.log(JSON.stringify(data, null, 2));
+
+
                             res.render('feedbacks/watson', { data: data });
                         }
                     });

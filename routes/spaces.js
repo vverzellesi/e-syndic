@@ -100,6 +100,7 @@ router.get('/:space_id/schedule', middleware.isLoggedIn, function(req, res) {
 // schedule space logic
 router.put('/:space_id/schedule', middleware.isLoggedIn, function(req, res) {
     Space.findOne({
+        '_id': req.params.space_id,
         'condoId': req.params.id,
         'scheduledDates.scheduledDates': req.body.space.scheduledDates
     }, function(err, date) {
@@ -116,8 +117,7 @@ router.put('/:space_id/schedule', middleware.isLoggedIn, function(req, res) {
                                 username: req.user.username
                             },
                             'guests': {
-                                name: req.body.space.name,
-                                rg: req.body.space.rg
+                                name: req.body.space.name
                             }
                         }
                     }

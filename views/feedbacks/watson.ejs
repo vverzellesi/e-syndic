@@ -17,12 +17,11 @@
         <h2>Sentimentos por frase</h2>
         <% data.sentences_tone.forEach(function(tone) { %>
             <blockquote>
-                <p><%= tone.text %></p>
+                <p>
                 <% tone.tones.forEach(function (tone) { %>
-                    <footer>
-                        <%= parseFloat(tone.score * 100).toFixed(2) %>% of <%= tone.tone_name %>
-                    </footer>
+                        <%= parseFloat(tone.score * 100).toFixed(2) %>% of <%= tone.tone_name %> <br>
                 <% }) %>
+                </p>
             </blockquote>
         <% }) %>
 
